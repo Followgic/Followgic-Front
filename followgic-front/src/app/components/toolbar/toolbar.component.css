@@ -1,0 +1,19 @@
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  img{
+      margin-top: 12px;
+  }
+
+  mat-toolbar{
+      height: 70px;
+      background: #FF4E50 !important;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #F9D423, #FF4E50) !important;  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #F9D423, #FF4E50) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      box-shadow: 2px 2px 5px #999 !important;
+      
+  }
+
+ 

@@ -10,6 +10,20 @@ mat-card{
     padding-bottom: 40px;
     max-width: 300px; 
 }
+.logoChico1{
+  margin-bottom:25px ;
+  border-top-left-radius: 6px; 
+  border-top-right-radius: 6px; 
+  border-bottom-left-radius: 6px; 
+  border-bottom-right-radius: 6px
+}
+.logoChico2{
+  margin-top:25px ;
+  border-top-left-radius: 6px; 
+  border-top-right-radius: 6px; 
+  border-bottom-left-radius: 6px; 
+  border-bottom-right-radius: 6px
+}
 
 h2{
     font-size: 16px;
@@ -33,7 +47,7 @@ h2{
     background-color: transparent;
     width: 300px;
     height: 390px;
-    perspective: 5000px; /* Remove this if you don't want the 3D effect */
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
     
   }
   
@@ -77,7 +91,7 @@ h2{
   
   /* Style the back side */
   .flip-card-back {
-    background-color: #d21f26;
+    background-color: #f7941e;
     color: white;
     transform: rotateY(180deg);
     border: 15px solid white;

@@ -9,13 +9,17 @@ import { MaterialModule } from './material.module';
 import { CartaComponent } from './components/carta/carta.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PerfilComponent } from './views/perfil/perfil.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CartaComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    FooterComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

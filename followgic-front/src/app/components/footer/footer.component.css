@@ -1,0 +1,23 @@
+mat-card{
+    background-color: #474e4b ;
+}
+h2{
+    color:white;
+}
+p{
+    color:white;
+}
+
+.LogoFacebook{
+    width: 30px;
+}
+.LogoTwitter{
+    width: 30px;
+    margin-left: 10px;
+}
+.LogoYoutube{
+    width: 55px;
+}
+.LogoInstagram{
+    width: 30px;
+}

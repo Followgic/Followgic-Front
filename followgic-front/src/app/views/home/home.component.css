@@ -1,0 +1,49 @@
+.header{
+    background-color:white;  
+    height: 250px;
+}
+
+.titulo{
+    color:white;
+    font-size: 30px;
+}
+.tituloPequeño{
+    color:white;
+    font-size: 17px;
+   
+    
+
+}
+
+
+
+
+.segunda{
+    background-color: #f7941e;
+    
+}
+
+
+h1{
+    font-size: 40px;
+}
+h2{
+    font-size: 30px;
+}
+.bajar{
+    margin-top: 50px !important;
+}
+
+.boton{
+    margin-top: 30px;
+}
+
+.icono{
+    margin-bottom: 10px;
+    width: 50px;
+    padding-right:10px ;
+}
+
+.izquierda{
+    margin-right:50px !important;
+}
