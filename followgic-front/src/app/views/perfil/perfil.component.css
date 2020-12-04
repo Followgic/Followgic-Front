@@ -1,0 +1,26 @@
+.content{
+    text-align: center;
+}
+
+mat-form-field{
+    padding-left: 10px;
+}
+form{
+    text-align: center;
+    padding: 20px;
+}
+
+.tarjeta{
+    width: 300px !important;
+}
+
+
+.content{
+        text-align: center;
+    }
+    
+    .image-upload > input
+    {
+        display: none;
+    }
+    

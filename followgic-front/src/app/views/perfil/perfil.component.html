@@ -1,1 +1,80 @@
-<p>perfil works!</p>
+<br>
+<form [formGroup]="perfilForm">
+  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly">
+    <app-carta fxLayout="column" fxLayoutAlign="space-between center" ></app-carta>
+    <br>
+    <mat-card fxFlex=60 class="content"fxLayout="column" fxLayoutAlign="space-between">
+      
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+        <mat-form-field fxFlex=30>
+          <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+        </mat-form-field>
+
+
+        <mat-form-field fxFlex=30>
+          <input type="text" matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field fxFlex=30 >
+          <input type="password" matInput placeholder="Contraseña" formControlName="password">
+        </mat-form-field>
+
+   
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+
+        <mat-form-field fxFlex=30>
+          <input type="text" matInput placeholder="Nombre Art&iacute;stico" formControlName="nombreArtistico">
+        </mat-form-field>
+
+        <mat-form-field fxFlex=30>
+          <input type="tel" matInput placeholder="Tel&eacute;fono" formControlName="telefono">
+        </mat-form-field>
+
+        <mat-form-field fxFlex=30>
+          <mat-label>Modalidades</mat-label>
+          <mat-select formControlName="modalidades" multiple>
+            <mat-select-trigger>
+              {{perfilForm.controls['modalidades'].value ? perfilForm.controls['modalidades'].value[0] : ''}}
+              <span *ngIf="perfilForm.controls['modalidades'].value?.length > 1" class="example-additional-selection">
+                (+{{perfilForm.controls['modalidades'].value.length - 1}}
+                {{perfilForm.controls['modalidades'].value?.length === 2 ? 'otra' : 'otras'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let modalidad of modalidadesList" [value]="modalidad">{{modalidad}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center ">
+        <mat-form-field fxFlex=30>
+          <input type="email" matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+      
+
+  
+        <mat-form-field fxFlex=30 >
+          <input type="url" matInput placeholder="P&aacute;gina web" formControlName="paginaWeb">
+        </mat-form-field>
+
+        <div class="image-upload" fxFlex=30>
+          <label for="file-input">
+              <a mat-stroked-button color="primary">Añadir Imagen </a>
+          </label>
+          
+              <input type="file" id="file-input">
+          </div>
+      </div>
+
+        
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
+        <mat-form-field fxFlex=60>
+          <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion" rows=5> </textarea>
+        </mat-form-field>
+      </div>
+
+    </mat-card>
+  </div>
+</form>
+<br>

@@ -11,6 +11,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EfectoBienvenidaComponent } from './components/efecto-bienvenida/efecto-bienvenida.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +21,18 @@ import { PerfilComponent } from './views/perfil/perfil.component';
     CartaComponent,
     ToolbarComponent,
     FooterComponent,
-    PerfilComponent
+    PerfilComponent,
+    EfectoBienvenidaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

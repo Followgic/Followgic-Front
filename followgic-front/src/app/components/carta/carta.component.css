@@ -62,8 +62,9 @@ h2{
   }
   
   /* Do an horizontal flip when you move the mouse over the flip box container */
-  .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
+  .flip-card .flip-card-inner {
+   animation-name:volteo;
+   animation-duration:3s;
   }
   
   /* Position the front and back side */
@@ -102,3 +103,8 @@ h2{
     border-bottom-right-radius: 18px;
     opacity: 0.9;
   }
+
+  @keyframes volteo {
+    0%,  17.5%  { transform: rotateY(180deg); }
+     
+   }
