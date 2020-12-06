@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
 /*     this.loginForm.controls.password = CryptoJS.AES.encrypt(this.user.password.trim(), this.llaveEncripcion.trim()).toString();
     console.log(this.user.password) */
 
-    this.loginService.login(this.loginForm.controls.value).subscribe(
-      res => {
-        console.log(res);
-        localStorage.setItem('token', JSON.stringify(this.loginForm.controls.value));
+   
+    this.loginService.login(this.loginForm.value).subscribe( () => {
+      
+        localStorage.setItem('mago', JSON.stringify(this.loginForm.controls.value));
         this.router.navigate(['/home']);
 
       },

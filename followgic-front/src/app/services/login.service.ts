@@ -17,7 +17,10 @@ export class LoginService {
 
 
   login(mago){
-    console.log(mago);
-    return this.http.post<any>(this.URL + '/login', mago, {headers: this.httpHeaders});
+   
+    return this.http.post<any>(this.URL + '/user/login', mago, {headers: this.httpHeaders});
   }
+
+
+  
 }
