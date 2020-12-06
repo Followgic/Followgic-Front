@@ -13,8 +13,8 @@ export class MagoService {
   });
   constructor(private http: HttpClient, private route: Router) { }
 
-getUsuario(id:String){
-  return this.http.get<any>(`${this.URL}/miPerfil/${id}`)
+getUsuario(){
+  return this.http.get<any>(`${this.URL}/miPerfil/`)
 }
 
 
