@@ -13,6 +13,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EfectoBienvenidaComponent } from './components/efecto-bienvenida/efecto-bienvenida.component';
+import { LoginComponent } from './views/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { EfectoBienvenidaComponent } from './components/efecto-bienvenida/efecto
     ToolbarComponent,
     FooterComponent,
     PerfilComponent,
-    EfectoBienvenidaComponent
+    EfectoBienvenidaComponent,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,
@@ -31,8 +36,9 @@ import { EfectoBienvenidaComponent } from './components/efecto-bienvenida/efecto
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
-   
+    ReactiveFormsModule,
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

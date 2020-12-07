@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    let mago
+    mago=localStorage.getItem('mago');
+    this.loginService.logout(mago)
+    
   }
 
 }
