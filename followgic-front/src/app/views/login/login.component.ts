@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
    
     this.loginService.login(this.loginForm.value).subscribe( () => {
       
-        localStorage.setItem('mago', JSON.stringify(this.loginForm.controls.value));
+        localStorage.setItem('mago', JSON.stringify(this.loginForm.value));
         this.router.navigate(['/home']);
 
       },

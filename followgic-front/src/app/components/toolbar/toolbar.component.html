@@ -11,11 +11,14 @@
       <mat-menu  #menu="matMenu">
         <button mat-menu-item routerLink="/perfil">Perfil</button>
         <button mat-menu-item routerLink="/login">Iniciar Sesión</button>
+        <button mat-menu-item (click)="logout()">Cerrar sesión</button>
         <button mat-menu-item routerLink="">Registrate</button>
       </mat-menu>
       <button fxHide.xs mat-button routerLink="/perfil">Perfil</button>
       <button fxHide.xs mat-button routerLink="/login">Iniciar Sesión</button>
       <button fxHide.xs mat-button routerLink="">Registrarte</button>
+      <button fxHide.xs mat-button (click)="logout()">Cerrar sesión</button>
+      
     </div>
 
 
