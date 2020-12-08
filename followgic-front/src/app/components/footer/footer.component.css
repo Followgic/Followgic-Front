@@ -21,3 +21,10 @@ p{
 .LogoInstagram{
     width: 30px;
 }
+
+mat-card{
+    border-top-left-radius: 0px; 
+    border-top-right-radius: 0px; 
+    border-bottom-left-radius: 0px; 
+    border-bottom-right-radius: 0px;
+}

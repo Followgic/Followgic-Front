@@ -10,16 +10,24 @@ import { LoginService } from 'src/app/services/login.service';
 export class ToolbarComponent implements OnInit {
 
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(public loginService: LoginService, private router: Router) { 
 
-  ngOnInit(): void {
   }
+
+  ngOnInit() {
+    
+  }
+
 
   logout(){
     let mago
     mago=localStorage.getItem('mago');
+    localStorage.clear()
     this.loginService.logout(mago)
+    this.router.navigate(['/login'])
     
   }
+
+
 
 }

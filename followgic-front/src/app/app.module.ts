@@ -14,7 +14,8 @@ import { PerfilComponent } from './views/perfil/perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EfectoBienvenidaComponent } from './components/efecto-bienvenida/efecto-bienvenida.component';
 import { LoginComponent } from './views/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MagoService } from './services/mago.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
 
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: MagoService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 export class LoginService {
 
   private URL = "http://localhost:8000"
+ 
+  token:any;
 
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -26,7 +28,10 @@ export class LoginService {
      return this.http.post<any>(this.URL + '/user/logout', mago, {headers: this.httpHeaders});
    }
  
-
+  logueado(){
+   return localStorage.getItem('auth_token')
+  }
+  
 
   
 }

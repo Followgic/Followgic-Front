@@ -28,9 +28,10 @@ export class LoginComponent implements OnInit {
     console.log(this.user.password) */
 
    
-    this.loginService.login(this.loginForm.value).subscribe( () => {
-      
+    this.loginService.login(this.loginForm.value).subscribe( res => {
+      console.log(res)
         localStorage.setItem('mago', JSON.stringify(this.loginForm.value));
+        localStorage.setItem('auth_token', res.auth_token)
         this.router.navigate(['/home']);
 
       },
