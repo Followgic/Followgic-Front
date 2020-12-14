@@ -1,0 +1,81 @@
+<mat-dialog-content>
+<form [formGroup]="perfilForm" (ngSubmit)="save()" name="perfilForm">
+  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-around">
+    
+    <mat-card fxFlex=25 fxLayout="column" fxLayoutAlign="space-between center">
+
+      <img #imagen class="imagenPerfil" src={{preImagen}} width="165px">
+      <br>
+      <div class="image-upload" fxFlex=40>
+        <label for="file-input">
+          <a mat-stroked-button color="primary">Añadir Imagen </a>
+        </label>
+
+        <input type="file" id="file-input" name="foto" (change)="onChangeImagen($event.target.files)">
+      </div>
+
+     
+    </mat-card>
+
+    <mat-card fxFlex=75 class="content" fxLayout="column" fxLayoutAlign="space-between">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+        <mat-form-field fxFlex=40>
+          <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+        </mat-form-field>
+        <mat-form-field fxFlex=40>
+          <input type="text" matInput placeholder="Nombre Art&iacute;stico" formControlName="nombre_artistico">
+        </mat-form-field>
+     
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+
+        
+
+        <mat-form-field fxFlex=40>
+          <input type="tel" matInput placeholder="Tel&eacute;fono" formControlName="telefono">
+        </mat-form-field>
+
+        <mat-form-field fxFlex=40>
+          <mat-label>Modalidades</mat-label>
+          <mat-select  formControlName="modalidades" multiple>
+            <mat-option *ngFor="let modalidad of modalidades" [value]="modalidad.pk" >{{modalidad.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+     
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center ">
+        <mat-form-field fxFlex=40>
+          <input type="email" matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+
+
+        <mat-form-field fxFlex=40>
+          <input type="url" matInput placeholder="P&aacute;gina web" formControlName="pagina_web">
+        </mat-form-field>
+
+
+      </div>
+
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
+        <mat-form-field fxFlex=60>
+          <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion"
+            rows=5> </textarea>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row"  fxLayoutAlign="space-evenly center">
+        <button mat-raised-button  target="_blank" [mat-dialog-close]  type="button">Cancelar</button>
+        <button mat-raised-button class="mat-primary"  type="button" (click)="save()">Guardar cambios</button>
+      </div>
+
+    </mat-card>
+    <br>
+    
+  </div>
+</form>
+</mat-dialog-content>

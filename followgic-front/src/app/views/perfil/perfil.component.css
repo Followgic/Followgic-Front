@@ -2,6 +2,10 @@
     text-align: center;
 }
 
+.parametros{
+    margin-left: 2px;
+}
+
 mat-form-field{
     padding-left: 10px;
 }
@@ -24,3 +28,13 @@ form{
         display: none;
     }
     
+.boton{
+    padding-top:20px
+}
+
+.iconoWeb{
+    size: 100px !important;
+}
+.descripcion{
+    text-align:justify
+}

@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,16 @@ export class LoginService {
  
   token:any;
 
+  private httpHeadersToken = new HttpHeaders({
+    'Authorization': 'Token '+ localStorage.getItem('auth_token'),
+    'Content-Type': 'application/json'
+  });
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });
+
+
+
 
   constructor(private http: HttpClient, private route: Router) { }
 
@@ -25,7 +33,8 @@ export class LoginService {
 
   
   logout(mago){
-     return this.http.post<any>(this.URL + '/user/logout', mago, {headers: this.httpHeaders});
+    console.log(this.httpHeadersToken)
+     return this.http.post<any>(this.URL + '/user/token/logout/', mago, {headers: this.httpHeadersToken});
    }
  
   logueado(){

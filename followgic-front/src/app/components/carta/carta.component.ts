@@ -10,7 +10,9 @@ export class CartaComponent implements OnInit {
 	usuario: any;
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+    
   }
 
 }

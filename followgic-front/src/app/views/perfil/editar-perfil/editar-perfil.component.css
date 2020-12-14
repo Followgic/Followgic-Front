@@ -1,0 +1,34 @@
+.content {
+    text-align: center;
+}
+
+.parametros {
+    margin-left: 2px;
+}
+
+mat-form-field {
+    padding-left: 10px;
+}
+
+form {
+    text-align: center;
+    padding: 20px;
+}
+
+.tarjeta {
+    width: 300px !important;
+}
+
+.content {
+    text-align: center;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.imagenPerfil {
+    border-radius: 160px;
+    border: 8px solid #666;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5))
+}

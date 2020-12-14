@@ -16,6 +16,9 @@ import { EfectoBienvenidaComponent } from './components/efecto-bienvenida/efecto
 import { LoginComponent } from './views/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MagoService } from './services/mago.service';
+import { RegistroComponent } from './views/registro/registro.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { EditarPerfilComponent } from './views/perfil/editar-perfil/editar-perfil.component';
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import { MagoService } from './services/mago.service';
     FooterComponent,
     PerfilComponent,
     EfectoBienvenidaComponent,
-    LoginComponent
+    LoginComponent,
+    RegistroComponent,
+    EditarPerfilComponent
 
   ],
   imports: [
@@ -38,7 +43,8 @@ import { MagoService } from './services/mago.service';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FileUploadModule
 
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: MagoService, multi: true }],

@@ -22,9 +22,12 @@ export class ToolbarComponent implements OnInit {
   logout(){
     let mago
     mago=localStorage.getItem('mago');
-    localStorage.clear()
-    this.loginService.logout(mago)
-    this.router.navigate(['/login'])
+    this.loginService.logout(mago).subscribe(res =>{
+      console.log(res)
+      localStorage.clear()
+      this.router.navigate(['/login'])
+    })
+
     
   }
 

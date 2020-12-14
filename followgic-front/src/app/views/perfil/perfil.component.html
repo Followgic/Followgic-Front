@@ -1,81 +1,53 @@
 <br>
-<form [formGroup]="perfilForm">
-  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly">
-    <app-carta fxLayout="column" fxLayoutAlign="space-between center" [usuario]="datosUsuario" ></app-carta>
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly center">
+
+  <app-carta fxFlex=20 fxLayout="column" fxLayoutAlign="space-between center" [usuario]="perfilForm.value"></app-carta>
+  <br><br>
+  <mat-card fxFlex=50>
+    <h1 class="content">{{datosUsuario.nombre}}</h1>
+    <p><Strong>Modalidades preferidas:</Strong> {{nombreModalidades}} </p>
+    <p class="descripcion">{{datosUsuario.descripcion}}</p>
+
     <br>
-    <mat-card fxFlex=60 class="content"fxLayout="column" fxLayoutAlign="space-between">
-      
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" >
-        <mat-form-field fxFlex=30>
-          <input type="text" matInput placeholder="Nombre" formControlName="nombre" value={{datosUsuario.nombre}}>
-        </mat-form-field>
 
+      <div fxLayout="row" fxLayoutAlign="space-evenly ">
 
-        <mat-form-field fxFlex=30>
-          <input type="text" matInput placeholder="Username" formControlName="username" value={{datosUsuario.usurname}}>
-        </mat-form-field>
-
-        <mat-form-field fxFlex=30 >
-          <input type="password" matInput placeholder="Contraseña" formControlName="password" >
-        </mat-form-field>
-
-   
-
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
-
-        <mat-form-field fxFlex=30>
-          <input type="text" matInput placeholder="Nombre Art&iacute;stico" formControlName="nombreArtistico" value={{datosUsuario.nombre_artistico}}>
-        </mat-form-field>
-
-        <mat-form-field fxFlex=30>
-          <input type="tel" matInput placeholder="Tel&eacute;fono" formControlName="telefono" value={{datosUsuario.telefono}}>
-        </mat-form-field>
-
-        <mat-form-field fxFlex=30>
-          <mat-label>Modalidades</mat-label>
-          <mat-select formControlName="modalidades" multiple>
-            <mat-select-trigger>
-              {{perfilForm.controls['modalidades'].value ? perfilForm.controls['modalidades'].value[0] : ''}}
-              <span *ngIf="perfilForm.controls['modalidades'].value?.length > 1" class="example-additional-selection">
-                (+{{perfilForm.controls['modalidades'].value.length - 1}}
-                {{perfilForm.controls['modalidades'].value?.length === 2 ? 'otra' : 'otras'}})
-              </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let modalidad of modalidadesList" [value]="modalidad">{{modalidad}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center ">
-        <mat-form-field fxFlex=30>
-          <input type="email" matInput placeholder="Email" formControlName="email" value={{datosUsuario.email}}>
-        </mat-form-field>
-      
-
-  
-        <mat-form-field fxFlex=30 >
-          <input type="url" matInput placeholder="P&aacute;gina web" formControlName="paginaWeb">
-        </mat-form-field>
-
-        <div class="image-upload" fxFlex=30>
-          <label for="file-input">
-              <a mat-stroked-button color="primary">Añadir Imagen </a>
-          </label>
-          
-              <input type="file" id="file-input">
+        <div  fxLayout="column" fxLayoutAlign="space-evenly">
+          <div fxLayout="row">
+            <mat-icon svgIcon="mago"></mat-icon>
+            <p class="parametros">{{datosUsuario.nombre_artistico}}</p>
           </div>
-      </div>
+          <div fxLayout="row">
+            <mat-icon>email</mat-icon>
+            <p class="parametros">{{datosUsuario.email}}</p>
+          </div>
 
-        
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
-        <mat-form-field fxFlex=60>
-          <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion"  value={{datosUsuario.descripcion}} 
-          rows=5> </textarea>
-        </mat-form-field>
-      </div>
+          <div fxLayout="row">
+            <mat-icon>computer</mat-icon>
+            <a class="parametros" href="http://example.com/">{{datosUsuario.pagina_web}}</a>
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-evenly">
 
-    </mat-card>
-  </div>
-</form>
+          <div fxLayout="row">
+            <mat-icon> phone</mat-icon>
+            <p class="parametros">{{datosUsuario.telefono}}</p>
+          </div>
+
+          <div fxLayout="row">
+            <mat-icon>account_circle</mat-icon>
+            <p class="parametros">{{datosUsuario.username}}</p>
+          </div>
+
+        </div>
+
+
+      </div>
+      <br>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+        <button mat-raised-button class="mat-primary" (click)="openDialog()">Editar Perfil</button>
+      </div>
+    
+  </mat-card>
+</div>
 <br>

@@ -70,7 +70,8 @@ h2{
   /* Position the front and back side */
   .flip-card-front, .flip-card-back {
     position: absolute;
-    border: 2px solid black;
+ /*    border: 2px solid black; */
+    box-shadow: 2px 2px 5px #999 !important;
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden; /* Safari */

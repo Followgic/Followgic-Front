@@ -8,7 +8,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select'
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import {MatSelectModule} from '@angular/material/select'
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatListModule
   ],
   exports: [
     MatButtonModule,
@@ -31,7 +35,9 @@ import {MatSelectModule} from '@angular/material/select'
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatListModule
   ],
   providers: []
 })
