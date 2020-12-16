@@ -21,6 +21,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { EditarPerfilComponent } from './views/perfil/editar-perfil/editar-perfil.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

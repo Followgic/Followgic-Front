@@ -1,24 +1,23 @@
-<div class="container">
+
 <div fxLayout="row" fxLayoutAlign="center ">
 <mat-card class="caja sombra-movil" >
     <h1 class= "titulo"><strong>Iniciar Sesión</strong></h1>
     <form [formGroup]="loginForm" (ngSubmit)="login()" class= "titulo">
         <mat-form-field>
-            <input type="text" matInput placeholder="Username" formControlName="username">
+            <input type="text" matInput placeholder="Username" formControlName="username" required>
           </mat-form-field>
          
           <mat-form-field> 
-            <input type="password" matInput placeholder="Contraseña" formControlName="password">
+            <input type="password" matInput placeholder="Contraseña" formControlName="password" required>
           </mat-form-field>
+          <p class="errores" *ngFor="let error of errores"> {{error}}</p>
           
          
 
     </form>
 
-    <button mat-raised-button  class="mat-primary" type="button" (click)="login()" >Aceptar</button>
-    
-       
+    <button mat-raised-button  class="mat-primary" type="submit" (click)="login()" >Aceptar</button>
+ 
     
 </mat-card>
-</div>
 </div>

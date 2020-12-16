@@ -10,33 +10,33 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm:FormGroup;
-  constructor(private loginService: LoginService, private router: Router) { 
+  loginForm: FormGroup;
+  errores: any = [];
+  constructor(private loginService: LoginService, private router: Router) {
 
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
-   });
+    });
 
   }
 
   ngOnInit(): void {
   }
 
-  login(){
-/*     this.loginForm.controls.password = CryptoJS.AES.encrypt(this.user.password.trim(), this.llaveEncripcion.trim()).toString();
-    console.log(this.user.password) */
-
-   
-    this.loginService.login(this.loginForm.value).subscribe( res => {
-      console.log(res)
+  login() {
+    if(this.loginForm.controls.username.value != "" || this.loginForm.controls.password.value != ""){
+      this.loginService.login(this.loginForm.value).subscribe(res => {
         localStorage.setItem('mago', JSON.stringify(this.loginForm.value));
         localStorage.setItem('auth_token', res.auth_token)
         this.router.navigate(['/home']);
 
       },
-      err => console.log(err)
-    )
+        err => this.errores = err.error.non_field_errors
+      )
+    }else{
+      this.errores[0]= "No puedes dejar ningún campo vacío"
+  }
   }
 
 }

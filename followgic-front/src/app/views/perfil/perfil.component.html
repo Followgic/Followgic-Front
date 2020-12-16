@@ -1,3 +1,4 @@
+
 <br>
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly center">
 
@@ -5,11 +6,15 @@
   <br><br>
   <mat-card fxFlex=50>
     <h1 class="content">{{datosUsuario.nombre}}</h1>
-    <p><Strong>Modalidades preferidas:</Strong> {{nombreModalidades}} </p>
+    <p *ngIf="datosUsuario.modalidades.length != 0"><Strong>Modalidades preferidas:</Strong> {{nombreModalidades}} </p>
+
     <p class="descripcion">{{datosUsuario.descripcion}}</p>
 
+    <div fxLayout="row" *ngIf="datosUsuario.pagina_web">
+      <mat-icon>computer</mat-icon>
+      <a class="parametros" href="http://example.com/">{{datosUsuario.pagina_web}}</a>
+    </div>
     <br>
-
       <div fxLayout="row" fxLayoutAlign="space-evenly ">
 
         <div  fxLayout="column" fxLayoutAlign="space-evenly">
@@ -22,14 +27,11 @@
             <p class="parametros">{{datosUsuario.email}}</p>
           </div>
 
-          <div fxLayout="row">
-            <mat-icon>computer</mat-icon>
-            <a class="parametros" href="http://example.com/">{{datosUsuario.pagina_web}}</a>
-          </div>
+          
         </div>
         <div fxLayout="column" fxLayoutAlign="space-evenly">
 
-          <div fxLayout="row">
+          <div fxLayout="row" *ngIf="datosUsuario.telefono">
             <mat-icon> phone</mat-icon>
             <p class="parametros">{{datosUsuario.telefono}}</p>
           </div>
@@ -51,3 +53,4 @@
   </mat-card>
 </div>
 <br>
+

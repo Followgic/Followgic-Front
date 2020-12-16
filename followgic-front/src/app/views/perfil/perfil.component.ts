@@ -70,8 +70,10 @@ export class PerfilComponent implements OnInit {
 
 
   getMago() {
+    this.datosUsuario.modalidades = []
     this.magoService.getUsuario().subscribe(res => {
       this.datosUsuario = res;
+
     
       this.nombreModalidades =""
       this.pintarModalidades(this.datosUsuario.modalidades)
@@ -104,11 +106,16 @@ export class PerfilComponent implements OnInit {
   }
 
   pintarModalidades(idModalidades){
-   
-    idModalidades.forEach(idModalidad => {
+    let numeroModalidades = idModalidades.length
+    idModalidades.forEach((idModalidad, i) => {
       this.modalidades.forEach(modalidad => {
+
         if(modalidad.pk==idModalidad)
+          if( i != (numeroModalidades - 2)){
         this.nombreModalidades = this.nombreModalidades + modalidad.nombre + ", "
+          }else{
+            this.nombreModalidades = this.nombreModalidades + modalidad.nombre + " y "
+          }
       });
     });
     this.nombreModalidades= this.nombreModalidades.slice(0,-2)

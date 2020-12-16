@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { validarQueSeanIguales } from '../../../utils/password.validator';
+
 export interface Modalidad {
   pk: number;
   nombre: String;
@@ -20,24 +22,85 @@ export class EditarPerfilComponent implements OnInit {
   datosUsuario: any = {}
   preImagen: any;
   imagen: any;
-  constructor(private magoService: MagoService, private modalidadesService: ModalidadesService, public dialog: MatDialog) {
+  errores: any=[];
+  constructor( private formBuilder:FormBuilder,private magoService: MagoService, private modalidadesService: ModalidadesService, public dialog: MatDialog) {
+
     this.getMago()
     this.getModalidades()
-    this.perfilForm = new FormGroup({
-      nombre: new FormControl(),
-      nombre_artistico: new FormControl(),
-      modalidades: new FormControl(),
-      telefono: new FormControl(),
-      email: new FormControl(),
-      foto: new FormControl(),
-      pagina_web: new FormControl(),
-      descripcion: new FormControl(),
-      username: new FormControl()
-    });
+
+
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.perfilForm = this.formBuilder.group(
+      {
+        nombre: ['',[Validators.required,Validators.maxLength(50)]],
+        nombre_artistico: ['',[Validators.required,Validators.maxLength(50)]],
+        telefono: ['',  [Validators.maxLength(15),Validators.pattern('[+0-9]*')]],
+        email: ['',  [Validators.required, Validators.email]],
+        pagina_web: ['',Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')],
+        descripcion: ['',Validators.maxLength(1500)],
+        username:['',[Validators.required, Validators.pattern('[@,.,+,-,_,a-z,A-Z-0-9]*')]],
+        foto:[""],
+        modalidades:[""]
+     
+      }
+    )
+  }
+  checarSiSonIguales():  boolean  {
+    return  this.perfilForm.hasError('noSonIguales')  &&
+      this.perfilForm.get('password').dirty &&
+      this.perfilForm.get('re_password').dirty;
+     
+  }
+
+  getErrorPassword() {
+    if (this.perfilForm.controls.password.hasError('required')) {
+      return 'Tienes que introducir una contraseña'
+    }
+    return this.perfilForm.controls.password.hasError('minlength') ? 'Tiene que tener más de 8 caracteres' : '';
+  }
+  getErrorMensaje() {
+    if (this.perfilForm.controls.email.hasError('required')) {
+      return 'Tienes que introducir un email';
+    }
+
+    return this.perfilForm.controls.email.hasError('email') ? 'Este email no es valido' : '';
+  }
+
+  getErrorTelefono() {
+    if(this.perfilForm.controls.telefono.hasError('maxlength')){
+      return'Debe tener menos de 15 caracteres'
+    }
+
+    return this.perfilForm.controls.telefono.errors ? 'Este telefono no es valido' : '';
+  }
+
+
+  getErrorUrl() {
+
+    return this.perfilForm.controls.pagina_web.errors ? 'Esta url no es correcta' : '';
+  }
+  getErrorDescripcion() {
+
+    return this.perfilForm.controls.descripcion.hasError('maxlength') ? 'Tiene que tener menos de 1500 caracteres' : '';
+  }
+
+  getErrorNombre() {
+    if (this.perfilForm.controls.nombre.hasError('required')) {
+      return 'Tienes que introducir un nombre'
+    }
+    return this.perfilForm.controls.nombre.hasError('maxlength') ? 'Tiene que tener menos de 50 caracteres' : '';
+  }
+
+  getErrorNombreArtistico() {
+    if (this.perfilForm.controls.nombre_artistico.hasError('required')) {
+      return 'Tienes que introducir un nombre artistico'
+    }
+
+    return this.perfilForm.controls.nombre.hasError('maxlength') ? 'Tiene que tener menos de 50 caracteres' : '';
+  
   }
 
   getMago() {
@@ -80,13 +143,23 @@ export class EditarPerfilComponent implements OnInit {
       if (this.imagen) {
         this.saveImangen()
       }
-  this.dialog.closeAll()
+      this.dialog.closeAll()
       console.log(res)
       this.getMago()
 
-    })
+    },
+
+    err=> this.errores=err.error
+
+
+
+
+    )
 
   }
+
+
+
   saveImangen() {
     const formData = new FormData();
     formData.append('foto', this.imagen);
@@ -106,8 +179,8 @@ export class EditarPerfilComponent implements OnInit {
       this.preImagen = data.toString()
     }
     fileReader.readAsDataURL(fichero)
-      this.imagen = fichero;
- 
+    this.imagen = fichero;
+
 
 
 

@@ -11,16 +11,6 @@ mat-card{
     margin-bottom: 50px;
 }
 
-.abs-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-
-  .container{
-      min-height:calc(100vh - 260px)
-  }
 
 
     /*SOMBRA MOVIL*/
@@ -60,4 +50,8 @@ mat-card{
       opacity: 1;
       transform: translateY(10px) scale(0.9)
     }
+  }
+
+  .errores{
+    color:red;
   }

@@ -1,3 +1,8 @@
+
+.error{
+    color:red
+    
+}
 .content {
     text-align: center;
 }
@@ -31,4 +36,8 @@ form {
     border-radius: 160px;
     border: 8px solid #666;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5))
+}
+
+.errores{
+    color:red
 }
