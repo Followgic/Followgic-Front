@@ -19,6 +19,8 @@ import { MagoService } from './services/mago.service';
 import { RegistroComponent } from './views/registro/registro.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { EditarPerfilComponent } from './views/perfil/editar-perfil/editar-perfil.component';
+import { ListarMagosComponent } from './views/listar-magos/listar-magos.component';
+import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.component';
 
 
 
@@ -33,7 +35,9 @@ import { EditarPerfilComponent } from './views/perfil/editar-perfil/editar-perfi
     EfectoBienvenidaComponent,
     LoginComponent,
     RegistroComponent,
-    EditarPerfilComponent
+    EditarPerfilComponent,
+    ListarMagosComponent,
+    NoAmigoComponent
 
   ],
   imports: [

@@ -13,11 +13,15 @@
         <button *ngIf="!loginService.logueado()"mat-menu-item routerLink="/login">Iniciar Sesión</button>
         <button *ngIf="loginService.logueado()"mat-menu-item (click)="logout()">Cerrar sesión</button>
         <button *ngIf="!loginService.logueado()"mat-menu-item routerLink="/registro">Registrate</button>
+        <button  mat-menu-item *ngIf="loginService.logueado()" routerLink="/listar-magos"><mat-icon>search</mat-icon>Buscar magos</button>
       </mat-menu>
+      <button  mat-icon-button *ngIf="loginService.logueado()"fxHide.xs mat-button routerLink="/listar-magos"><mat-icon>search</mat-icon></button>
       <button  *ngIf="loginService.logueado()"fxHide.xs mat-button routerLink="/perfil">Perfil</button>
       <button *ngIf="!loginService.logueado()"fxHide.xs mat-button routerLink="/login">Iniciar Sesión</button>
       <button *ngIf="!loginService.logueado()"fxHide.xs mat-button routerLink="/registro">Registrarte</button>
       <button *ngIf="loginService.logueado()"fxHide.xs mat-button (click)="logout()">Cerrar sesión</button>
+     
+      
       
     </div>
 

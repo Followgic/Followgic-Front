@@ -47,6 +47,39 @@ $md-principal: (
     )
 );
 
+$md-principal-2: (
+  50 : #000000,
+  100 : #000000,
+  200 : #000000,
+  300 : #000000,
+  400 : #000000,
+  500 : #ffffff,
+  600 : #ffffff,
+  700 : #ffffff,
+  800 : #ffffff,
+  900 : #ffffff,
+  A100 : #000000,
+  A200 : #000000,
+  A400 : #000000,
+  A700 : #000000,
+    contrast: (
+      50 : #ffffff,
+      100 : #fdebd4,
+      200 : #fcd19e,
+      300 : #f9b059,
+      400 : #f8a23c,
+      500 : #f7941e,
+      600 : #ee8508,
+      700 : #d07507,
+      800 : #b36406,
+      900 : #955405,
+      A100 : #ffffff,
+      A200 : #ffdaaf,
+      A400 : #ffac49,
+      A700 : #fda031,
+    )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/

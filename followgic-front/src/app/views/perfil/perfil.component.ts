@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
@@ -18,40 +18,41 @@ export class PerfilComponent implements OnInit {
   modalidadesList: string[] = ['Cartomagia', 'Numismagia', 'Magia de Salón', 'Mentalismo', 'Escapismo'];
   datosUsuario: any = {}
   modalidades: any = [];
-  nombreModalidades:string =""; 
+  copiaModalidades:any =[]
+  nombreModalidades: string = "";
+  idAmigo: any;
+  errorAmigo: boolean =true;
 
-  constructor(private magoService: MagoService,private modalidadesService: ModalidadesService, private router: Router, public dialog: MatDialog,
+
+
+  constructor(private route: ActivatedRoute, private magoService: MagoService, private modalidadesService: ModalidadesService, private router: Router, public dialog: MatDialog,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'mago',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/mago.svg'));
-    iconRegistry.addSvgIcon(
-      'user',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/username2.svg'));
-    iconRegistry.addSvgIcon(
-      'web',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/web2.svg'));
+
 
     this.getModalidades()
-    this.getMago()
+    this.obtenerIdUrl()
+
 
     this.perfilForm = new FormGroup({
-      nombre: new FormControl(),
-      nombre_artistico: new FormControl(),
-      modalidades: new FormControl(),
-      telefono: new FormControl(),
-      email: new FormControl(),
-      foto: new FormControl(),
-      pagina_web: new FormControl(),
-      descripcion: new FormControl(),
-      username: new FormControl()
+      nombre: new FormControl(""),
+      nombre_artistico: new FormControl(""),
+      modalidades: new FormControl(""),
+      telefono: new FormControl(""),
+      email: new FormControl(""),
+      foto: new FormControl(""),
+      pagina_web: new FormControl(""),
+      descripcion: new FormControl(""),
+      username: new FormControl("")
     });
 
   }
 
 
   openDialog() {
-    const dialogRef = this.dialog.open(EditarPerfilComponent,{
+    const dialogRef = this.dialog.open(EditarPerfilComponent, {
       height: '450px',
       width: '1000px',
     });
@@ -65,35 +66,87 @@ export class PerfilComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 
-  getMago() {
-    this.datosUsuario.modalidades = []
-    this.magoService.getUsuario().subscribe(res => {
-      this.datosUsuario = res;
+  obtenerIdUrl() {
+    if (this.route.snapshot.params.id) {
 
-    
-      this.nombreModalidades =""
-      this.pintarModalidades(this.datosUsuario.modalidades)
-  
-      this.perfilForm.setValue({
-        nombre: this.datosUsuario.nombre,
-        nombre_artistico: this.datosUsuario.nombre_artistico,
-        telefono: this.datosUsuario.telefono,
-        email: this.datosUsuario.email,
-        foto: 'http://localhost:8000'+this.datosUsuario.foto,
-        pagina_web: this.datosUsuario.pagina_web,
-        descripcion: this.datosUsuario.descripcion,
-        username: this.datosUsuario.username,
-        modalidades:this.datosUsuario.modalidades
+      this.idAmigo = this.route.snapshot.params.id
 
+      this.magoService.getAllAmigos().subscribe( res =>{
+        if(res.indexOf(this.idAmigo) >=0){
+          this.getMago(this.idAmigo)
+          this.errorAmigo=false
+        }else{
+          this.router.navigate(["/error-amigo"])
+        }
       })
-      console.log(res)
-    },
-      err => console.log(err)
-    )
+    }else {
+      this.errorAmigo=false
+      this.getMago()
+     
+    }
+
+  }
+
+
+
+  getMago(id?) {
+
+    this.datosUsuario.modalidades = []
+    if (!id) {
+      this.magoService.getUsuario().subscribe(res => {
+        this.datosUsuario = res;
+
+      if(this.copiaModalidades.length == 0 ||JSON.stringify(this.copiaModalidades) !== JSON.stringify(this.datosUsuario.modalidades)){
+        this.nombreModalidades = ""
+        this.pintarModalidades(this.datosUsuario.modalidades)
+        }
+        this.perfilForm.setValue({
+          nombre: this.datosUsuario.nombre,
+          nombre_artistico: this.datosUsuario.nombre_artistico,
+          telefono: this.datosUsuario.telefono,
+          email: this.datosUsuario.email,
+          foto: 'http://localhost:8000' + this.datosUsuario.foto,
+          pagina_web: this.datosUsuario.pagina_web,
+          descripcion: this.datosUsuario.descripcion,
+          username: this.datosUsuario.username,
+          modalidades: this.datosUsuario.modalidades
+
+        })
+        console.log(res)
+      },
+        err => console.log(err)
+      )
+    } else {
+      this.magoService.getPerfilAmigo(id).subscribe(res => {
+        this.datosUsuario = res;
+
+        if(this.copiaModalidades.length == 0 ||JSON.stringify(this.copiaModalidades) !== JSON.stringify(this.datosUsuario.modalidades)){
+        this.nombreModalidades = ""
+        this.pintarModalidades(this.datosUsuario.modalidades)
+        }
+
+        this.perfilForm.setValue({
+          nombre: this.datosUsuario.nombre,
+          nombre_artistico: this.datosUsuario.nombre_artistico,
+          telefono: this.datosUsuario.telefono,
+          email: this.datosUsuario.email,
+          foto: 'http://localhost:8000' + this.datosUsuario.foto,
+          pagina_web: this.datosUsuario.pagina_web,
+          descripcion: this.datosUsuario.descripcion,
+          modalidades: this.datosUsuario.modalidades,
+          username: ""
+
+        })
+        console.log(res)
+      },
+        err => console.log(err)
+      )
+    }
+
   }
 
 
@@ -105,21 +158,22 @@ export class PerfilComponent implements OnInit {
 
   }
 
-  pintarModalidades(idModalidades){
+  pintarModalidades(idModalidades) {
+    this.copiaModalidades= idModalidades
     let numeroModalidades = idModalidades.length
     idModalidades.forEach((idModalidad, i) => {
       this.modalidades.forEach(modalidad => {
 
-        if(modalidad.pk==idModalidad)
-          if( i != (numeroModalidades - 2)){
-        this.nombreModalidades = this.nombreModalidades + modalidad.nombre + ", "
-          }else{
+        if (modalidad.pk == idModalidad)
+          if (i != (numeroModalidades - 2)) {
+            this.nombreModalidades = this.nombreModalidades + modalidad.nombre + ", "
+          } else {
             this.nombreModalidades = this.nombreModalidades + modalidad.nombre + " y "
           }
       });
     });
-    this.nombreModalidades= this.nombreModalidades.slice(0,-2)
-    this.nombreModalidades= this.nombreModalidades+ "."
+    this.nombreModalidades = this.nombreModalidades.slice(0, -2)
+    this.nombreModalidades = this.nombreModalidades + "."
   }
 }
 

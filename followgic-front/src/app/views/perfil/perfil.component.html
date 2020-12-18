@@ -1,4 +1,4 @@
-
+<div *ngIf="!errorAmigo">
 <br>
 <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly center">
 
@@ -6,7 +6,7 @@
   <br><br>
   <mat-card fxFlex=50>
     <h1 class="content">{{datosUsuario.nombre}}</h1>
-    <p *ngIf="datosUsuario.modalidades.length != 0"><Strong>Modalidades preferidas:</Strong> {{nombreModalidades}} </p>
+    <p *ngIf="copiaModalidades.length != 0"><Strong>Modalidades preferidas:</Strong> {{nombreModalidades}} </p>
 
     <p class="descripcion">{{datosUsuario.descripcion}}</p>
 
@@ -36,7 +36,7 @@
             <p class="parametros">{{datosUsuario.telefono}}</p>
           </div>
 
-          <div fxLayout="row">
+          <div *ngIf="datosUsuario.username" fxLayout="row">
             <mat-icon>account_circle</mat-icon>
             <p class="parametros">{{datosUsuario.username}}</p>
           </div>
@@ -47,10 +47,10 @@
       </div>
       <br>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
-        <button mat-raised-button class="mat-primary" (click)="openDialog()">Editar Perfil</button>
+        <button *ngIf="!idAmigo" mat-raised-button class="mat-primary" (click)="openDialog()">Editar Perfil</button>
       </div>
     
   </mat-card>
 </div>
 <br>
-
+</div>

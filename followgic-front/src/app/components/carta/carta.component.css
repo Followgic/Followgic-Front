@@ -102,7 +102,7 @@ h2{
     border-top-right-radius: 18px; 
     border-bottom-left-radius: 18px; 
     border-bottom-right-radius: 18px;
-    opacity: 0.9;
+  
   }
 
   @keyframes volteo {
@@ -110,11 +110,7 @@ h2{
      
    }
 
-  .tituloCarta{
- 
-   
-   
-  }
+  
   .subtituloCarta{
     color: gray;
     margin: 0px;

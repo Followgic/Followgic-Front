@@ -13,6 +13,13 @@
                     </div>
                     <img  class ="imagenPerfil"src={{usuario.foto}} width="165px">
                     <h2 class="subtituloCarta">{{usuario.nombre_artistico}}</h2>
+                    <div *ngIf="amigos && peticionesPendientes.indexOf(usuario.pk)==-1">
+                    <button *ngIf="amigos.indexOf(usuario.pk) ==-1" mat-raised-button type="submit"  (click)="crearPeticionAmistad(usuario.pk)" color="primary">Enviar Petición</button>
+                    <button *ngIf="amigos.indexOf(usuario.pk) >=0" mat-raised-button type="submit"   (click)="irPerfil(usuario.pk)" color="primary">Ver perfil</button>
+                    </div>
+                    <div *ngIf="peticionesPendientes">
+                        <button *ngIf="peticionesPendientes.indexOf(usuario.pk) >=0" mat-raised-button type="submit" [disabled]=true  color="primary">Petición pendiente</button>
+                    </div>
                 </div>
                 
             </div>
