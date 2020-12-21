@@ -21,6 +21,13 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { EditarPerfilComponent } from './views/perfil/editar-perfil/editar-perfil.component';
 import { ListarMagosComponent } from './views/listar-magos/listar-magos.component';
 import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.component';
+import { AvisoPeticionComponent } from './views/listar-magos/aviso-peticion/aviso-peticion.component';
+import { NotificacionComponent } from './views/notificacion/notificacion.component';
+import { TarjetaPeticionComponent } from './components/tarjeta-peticion/tarjeta-peticion.component';
+import { AmigosComponent } from './views/amigos/amigos.component';
+import { ConfirmarEliminacionComponent } from './views/amigos/confirmar-eliminacion/confirmar-eliminacion.component';
+import { AvisoCancelarPeticionComponent } from './views/listar-magos/aviso-cancelar-peticion/aviso-cancelar-peticion.component';
+
 
 
 
@@ -37,7 +44,13 @@ import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.comp
     RegistroComponent,
     EditarPerfilComponent,
     ListarMagosComponent,
-    NoAmigoComponent
+    NoAmigoComponent,
+    AvisoPeticionComponent,
+    NotificacionComponent,
+    TarjetaPeticionComponent,
+    AmigosComponent,
+    ConfirmarEliminacionComponent,
+    AvisoCancelarPeticionComponent
 
   ],
   imports: [

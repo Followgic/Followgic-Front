@@ -55,6 +55,7 @@ export class PerfilComponent implements OnInit {
     const dialogRef = this.dialog.open(EditarPerfilComponent, {
       height: '450px',
       width: '1000px',
+      autoFocus: false 
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -76,7 +77,8 @@ export class PerfilComponent implements OnInit {
       this.idAmigo = this.route.snapshot.params.id
 
       this.magoService.getAllAmigos().subscribe( res =>{
-        if(res.indexOf(this.idAmigo) >=0){
+        res=res.map(amigo=>amigo.pk)
+        if(res.indexOf(Number(this.idAmigo)) >=0){
           this.getMago(this.idAmigo)
           this.errorAmigo=false
         }else{

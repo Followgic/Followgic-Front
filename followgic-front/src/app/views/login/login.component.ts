@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 //import * as CryptoJS from 'crypto-js';
 import { LoginService } from 'src/app/services/login.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,7 +29,9 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.controls.username.value != "" || this.loginForm.controls.password.value != ""){
       this.loginService.login(this.loginForm.value).subscribe(res => {
         localStorage.setItem('mago', JSON.stringify(this.loginForm.value));
-        localStorage.setItem('auth_token', res.auth_token)
+        localStorage.setItem('auth_token', res.auth_token);
+       
+      
         this.router.navigate(['/home']);
 
       },

@@ -1,0 +1,27 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Peticiones">
+<div fxLayout = column   fxLayoutAlign="space-between center">
+
+    <div *ngIf="noNotificacion">
+        <h3>{{noNotificacion}}</h3>
+    </div>
+
+    
+    <div *ngFor="let peticion of peticionesRecibidas">
+       
+    <br>
+         <app-tarjeta-peticion (recargar)="recargarpagina($event)" [peticion]="peticion"></app-tarjeta-peticion>
+     <br>
+        </div>
+    </div>
+
+    
+        </mat-tab>
+
+    <mat-tab label="Mensajes">
+        <div fxLayout = row   fxLayoutAlign="center center">
+       <h3> No tienes ningún mensaje</h3>
+    </div> 
+</mat-tab>
+        
+  </mat-tab-group>

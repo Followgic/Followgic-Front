@@ -1,7 +1,8 @@
 <br>
 <div fxLayout="row wrap"  fxLayout.xs="column"  >
 <div class="carta" fxFlex=22 fxFlex.md=28 fxFlex.sm=43 fxFlex.xs=100  *ngFor="let mago of magos">
-<app-carta  [usuario]="mago" [amigos]="amigos" [peticionesPendientes]="pendientes"></app-carta>
+<app-carta  [usuario]="mago" [amigos]="amigos" [peticionesPendientes]="pendientes"
+(abrirPopUp)="openDialog($event)" (refrecarPagina)="refrescarPagina($event)"></app-carta>
 </div>
 </div>
 <br>

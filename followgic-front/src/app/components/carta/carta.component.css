@@ -40,7 +40,10 @@ h2{
 .imagenPerfil{
   border-radius:160px;
   border:8px solid #666;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5))
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  width:165px !important;
+  height: 165px !important;
+  
 }
 
 .flip-card {
@@ -86,6 +89,7 @@ h2{
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
     color: black;
+    background-color: white;
     
     
     
@@ -115,5 +119,14 @@ h2{
     color: gray;
     margin: 0px;
  
+  }
+
+  .cancelar{
+    color:red;
+   
+  }
+
+  .pendiente{
+    margin-left:30px
   }
   

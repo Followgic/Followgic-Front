@@ -61,6 +61,14 @@ export class MagoService implements HttpInterceptor {
     return this.http.get<any>(`${this.URL}/user/verPerfil/${id}`, { headers: this.httpHeaders });
   }
 
+  eliminarAmigo(id){
+  console.log(id)
+    return this.http.get<any>(`${this.URL}/peticiones/eliminarAmigo/${id}`, { headers: this.httpHeaders });
+    
+  }
+
+
+
  
   
 

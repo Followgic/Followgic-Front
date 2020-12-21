@@ -9,11 +9,44 @@
 
   mat-toolbar{
       height: 70px;
-      background: #FF4E50 !important;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #F9D423, #FF4E50) !important;  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #F9D423, #FF4E50) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background-color: #ff7514 !important;  
+
       box-shadow: 2px 2px 5px #999 !important;
       
   }
+
+  button{
+    color:black;
+     
+}
+
+mat-icon{
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+
+}
+.lupa{
+    margin-top:10px
+}
+
+.perfil{
+    margin-top:8px
+}
+
+.buscarPerfil{
+    margin-right: 10px;
+}
+.notificaciones{
+    margin-top:10px
+}
+
+mat-sidenav {
+    width: 350px;
+  }
+
+  
+
 
  

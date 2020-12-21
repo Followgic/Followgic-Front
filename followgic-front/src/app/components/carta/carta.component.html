@@ -6,20 +6,29 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <img class ="picasTop" src="/assets/img/picas.png" width="10%">
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
                 <div class="rectangulo">
                     <div>
                         <h2 class="tituloCarta">{{usuario.nombre}}</h2>
                     </div>
-                    <img  class ="imagenPerfil"src={{usuario.foto}} width="165px">
+                    <img  class ="imagenPerfil"src={{usuario.foto}} >
                     <h2 class="subtituloCarta">{{usuario.nombre_artistico}}</h2>
-                    <div *ngIf="amigos && peticionesPendientes.indexOf(usuario.pk)==-1">
-                    <button *ngIf="amigos.indexOf(usuario.pk) ==-1" mat-raised-button type="submit"  (click)="crearPeticionAmistad(usuario.pk)" color="primary">Enviar Petición</button>
+                    
+                    <div *ngIf="amigos && peticionesPendientes.indexOf(usuario.pk)==-1 && !paginaAmigo">
+                    <button *ngIf="amigos.indexOf(usuario.pk) ==-1" mat-raised-button type="submit"  (click)="crearPeticionAmistad(usuario.pk, usuario.nombre)" color="primary">Enviar Petición</button>
                     <button *ngIf="amigos.indexOf(usuario.pk) >=0" mat-raised-button type="submit"   (click)="irPerfil(usuario.pk)" color="primary">Ver perfil</button>
                     </div>
-                    <div *ngIf="peticionesPendientes">
-                        <button *ngIf="peticionesPendientes.indexOf(usuario.pk) >=0" mat-raised-button type="submit" [disabled]=true  color="primary">Petición pendiente</button>
+                    <div style="margin-left:11px ;text-align: right" *ngIf="peticionesPendientes">
+                        
+                        <button  *ngIf="peticionesPendientes.indexOf(usuario.pk) >=0" mat-raised-button type="submit" [disabled]=true  color="primary">Petición pendiente</button>
+                        <button  class="cancelar" *ngIf="peticionesPendientes.indexOf(usuario.pk) >=0"mat-icon-button  (click)="cancelarPeticion(usuario.pk , usuario.nombre)"  color="primary"><mat-icon> cancel_presentation</mat-icon></button>
+                    
                     </div>
+                    <div style="margin-left:42px ;"  *ngIf="paginaAmigo">
+                        <button mat-raised-button type="submit"   (click)="irPerfil(usuario.pk)" color="primary">Ver perfil</button>
+                        <button  class="cancelar" mat-icon-button  (click)="eliminarAmigo(usuario.pk,usuario.nombre)"  color="primary"><mat-icon> cancel_presentation</mat-icon></button>
+                    </div>
+
                 </div>
                 
             </div>
