@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { MagoService } from 'src/app/services/mago.service';
 import { PeticionService } from 'src/app/services/peticion.service';
 import { AvisoCancelarPeticionComponent } from './aviso-cancelar-peticion/aviso-cancelar-peticion.component';
 import { AvisoPeticionComponent } from './aviso-peticion/aviso-peticion.component';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -17,11 +20,26 @@ export class ListarMagosComponent implements OnInit {
   amigos:any = []
   peticionesPendientes:any=[]
   pendientes:any=[]
+  magoForm:FormGroup;
+  buscarMagos:any;
+  filtro_valor:any[]=['']
+  filtro_modalidad = '8'
+  @ViewChild('modalidadesFiltradas',{ static: false }) modalidadesFiltradas;
   constructor(public dialog: MatDialog,private magoService: MagoService, private peticionService: PeticionService) {
     this.getAllMagos()
     this.getAllAmigos()
     this.getPeticionesPendientes()
+
+    this.magoForm = new FormGroup({
+			nombre: new FormControl(''),
+    })
+    
+    
+    
+    
    }
+
+   
 
    openDialog(nombreMago) {
      if(nombreMago){
@@ -33,16 +51,18 @@ export class ListarMagosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-    this.getAllMagos()
-    this.getAllAmigos()
+      this.getAllAmigos()  
     this.getPeticionesPendientes()
       console.log(`Dialog result: ${result}`);
     });
   }
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+   
   }
+
+
 
   refrescarPagina(usuario){
     if(usuario){
@@ -54,7 +74,6 @@ export class ListarMagosComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-      this.getAllMagos()
       this.getAllAmigos()
       this.getPeticionesPendientes()
         console.log(`Dialog result: ${result}`);
@@ -68,11 +87,12 @@ export class ListarMagosComponent implements OnInit {
   getAllMagos() {
     this.magoService.getAllMagos().subscribe(res => {
       this.magos = res
-      this.magos.forEach((mago, i) => {
+      this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: "http://localhost:8000"
+        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades }})
+    /*   this.magos.forEach((mago, i) => {
         this.magos[i].foto = "http://localhost:8000" + mago.foto  
       });
-      
-      
+ */
     })
   }
 
@@ -93,5 +113,32 @@ export class ListarMagosComponent implements OnInit {
 
     })
   }
+
+  buscarMagosNombre(){
+    this.buscarMagos= {nombre:this.magoForm.controls.nombre.value, modalidades:[]}
+    this.magoService.getMagosPorNombreYModalidad(this.buscarMagos).subscribe( res=>{
+      this.magos = res
+      
+      this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: "http://localhost:8000"
+        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico }})
+
+      }
+      
+    )
+  }
+
+  filtrarMagos(nombre?:String, modalidadesControl?:any[]){
+    let modalidades 
+    
+     modalidades = this.modalidadesFiltradas.buscarModalidades
+    
+
+    this.filtro_valor=[nombre,modalidades]
+   
+  }
+
+
+
+
 
 }

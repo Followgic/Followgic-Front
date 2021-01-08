@@ -1,0 +1,20 @@
+ 
+
+    .caja{
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        min-height: 300px;
+ 
+    }   
+    .boton{
+
+        text-align: center;
+ 
+    }   
+    .example-chip-list {
+        width: 90%;
+
+    }
+
+   

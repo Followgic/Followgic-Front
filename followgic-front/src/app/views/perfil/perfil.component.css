@@ -1,43 +1,146 @@
-.content{
+/*      :host::ng-deep.imagenPerfil {
+        width: 500px !important;
+        height: 500px !important;
+    }
+    
+     :host::ng-deep.picasTop {
+        padding-left: 10px !important;
+        padding-top: 20px !important;
+    }
+    
+     :host::ng-deep.picasBotton {
+        padding-right: 10px !important;
+        margin-bottom: 20px !important;
+    }
+    
+     :host::ng-deep.flip-card {
+        width: 250px !important;
+        height: 340px !important;
+    } */
+
+
+/* .seguidores {
+    max-width: 300px;
+}
+ */
+
+.content {
     text-align: center;
 }
 
-.parametros{
+.carta {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+
+.descripcion {
+    min-height: 200px;
+}
+
+.parametros {
     margin-left: 2px;
 }
 
-mat-form-field{
+mat-form-field {
     padding-left: 10px;
 }
-form{
+
+form {
     text-align: center;
     padding: 20px;
 }
 
-.tarjeta{
+.tarjeta {
     width: 300px !important;
 }
 
-
-.content{
-        text-align: center;
-    }
-    
-    .image-upload > input
-    {
-        display: none;
-    }
-    
-.boton{
-    padding-top:20px
+.content {
+    text-align: center;
 }
 
-.iconoWeb{
+.image-upload>input {
+    display: none;
+}
+
+.boton {
+    padding-top: 20px
+}
+
+.iconoWeb {
     size: 100px !important;
 }
-.descripcion{
-    text-align:justify
+
+.descripcion {
+    text-align: justify
+}
+
+.perfilCard{
+    width: 100%;
+}
+
+.modalidades {
+  max-height: 200px;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+  width: 95%;
 }
 
 
-  
+.contenidoModalidad{
+  height: 150px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.eventos {
+    margin-top:53px;
+    max-height: 200px;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+    width: 95%;
+}
+
+@media only screen and (min-width : 1024px) and (max-width : 1280px)  {
+    .modalidades {
+     
+        min-width: 600px;
+        max-width: 600px;
+      }
+    
+    .eventos {
+
+        min-width: 600px;
+        max-width: 600px;
+    }
+    .perfil{
+        min-width: 650px;
+        max-width: 650px;
+    }
+
+    
+    }
+
+@media only screen and (min-width : 600px) and (max-width : 1024px)  {
+    .modalidades {
+     
+        min-width: 500px;
+        max-width: 500px;
+      }
+    
+    .eventos {
+
+        min-width: 500px;
+        max-width: 500px;
+    }
+    .perfil{
+        min-width: 550px;
+        max-width: 550px;
+    }
+
+    
+    }

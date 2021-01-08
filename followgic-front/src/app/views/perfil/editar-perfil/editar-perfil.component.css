@@ -35,7 +35,9 @@ form {
 .imagenPerfil {
     border-radius: 160px;
     border: 8px solid #666;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5))
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    width:165px !important;
+    height: 165px !important;
 }
 
 .errores{

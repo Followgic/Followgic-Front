@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { CartaComponent } from 'src/app/components/carta/carta.component';
 import { MagoService } from 'src/app/services/mago.service';
 import { ConfirmarEliminacionComponent } from './confirmar-eliminacion/confirmar-eliminacion.component';
 
@@ -11,6 +12,8 @@ import { ConfirmarEliminacionComponent } from './confirmar-eliminacion/confirmar
 export class AmigosComponent implements OnInit {
   amigosId:any;
   amigos:any =[]
+
+  @ViewChild(CartaComponent) carta:CartaComponent;	
   constructor(public dialog: MatDialog,private magoService: MagoService) {
   this.getAllAmigos()
   
@@ -22,12 +25,18 @@ export class AmigosComponent implements OnInit {
      height: '210px',
      width: '300px',
      data: usuario,
-     autoFocus: false 
+     autoFocus: false, 
+     disableClose: true 
    });
 
    dialogRef.afterClosed().subscribe(result => {
-     this.getAllAmigos()
- 
+     if(!result){
+      this.magoService.getAllAmigos().subscribe(res =>{
+        this.amigosId=res.map(amigo => amigo.pk)
+        
+      })
+     }
+
      console.log(`Dialog result: ${result}`);
    });
  }
@@ -39,9 +48,11 @@ export class AmigosComponent implements OnInit {
     this.magoService.getAllAmigos().subscribe(res =>{
       this.amigos=res
       this.amigosId=this.amigos.map(amigo => amigo.pk)
-      this.amigos.forEach((amigo, i) => {
+      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
+      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+    /*   this.amigos.forEach((amigo, i) => {
         this.amigos[i].foto = "http://localhost:8000" + amigo.foto  
-      });
+      }); */
    
     })
   }

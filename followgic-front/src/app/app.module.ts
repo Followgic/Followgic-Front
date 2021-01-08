@@ -27,6 +27,13 @@ import { TarjetaPeticionComponent } from './components/tarjeta-peticion/tarjeta-
 import { AmigosComponent } from './views/amigos/amigos.component';
 import { ConfirmarEliminacionComponent } from './views/amigos/confirmar-eliminacion/confirmar-eliminacion.component';
 import { AvisoCancelarPeticionComponent } from './views/listar-magos/aviso-cancelar-peticion/aviso-cancelar-peticion.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
+import { FiltrarStringPipe } from './pipes/filtrar-string.pipe';
+import { LoaderComponent } from './components/loader/loader.component';
+import { EditarModalidadesComponent } from './views/perfil/editar-modalidades/editar-modalidades.component';
+import { BuscadorEtiquetasComponent } from './components/buscador-etiquetas/buscador-etiquetas.component';
+
+
 
 
 
@@ -50,7 +57,12 @@ import { AvisoCancelarPeticionComponent } from './views/listar-magos/aviso-cance
     TarjetaPeticionComponent,
     AmigosComponent,
     ConfirmarEliminacionComponent,
-    AvisoCancelarPeticionComponent
+    AvisoCancelarPeticionComponent,
+    BuscadorComponent,
+    FiltrarStringPipe,
+    LoaderComponent,
+    EditarModalidadesComponent,
+    BuscadorEtiquetasComponent
 
   ],
   imports: [
@@ -63,6 +75,7 @@ import { AvisoCancelarPeticionComponent } from './views/listar-magos/aviso-cance
     ReactiveFormsModule,
     HttpClientModule,
     FileUploadModule
+
 
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: MagoService, multi: true }],

@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'perfil/:id', component: PerfilComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'error-amigo', component: NoAmigoComponent}
+
  
 
 ];

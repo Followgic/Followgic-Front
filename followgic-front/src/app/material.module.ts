@@ -14,6 +14,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatListModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatChipsModule
+    
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +55,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatListModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatChipsModule
+   
   ],
   providers: []
 })

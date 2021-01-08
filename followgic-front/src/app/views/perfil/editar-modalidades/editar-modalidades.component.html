@@ -1,0 +1,38 @@
+
+  <mat-card class="caja">
+    <mat-dialog-content>
+  <mat-form-field class="example-chip-list">
+    <mat-label>Mis modalidades</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip
+        *ngFor="let modalidad of nombreMisModalidades"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(modalidad)">
+        {{modalidad}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Nuevas modalidades"
+        #modalidadInput
+        [formControl]="modalidadControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let modalidad of filteredModalidad | async" [value]="modalidad">
+        {{modalidad}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-hint>Puedes crear nuevas modalidades dandole al Enter.</mat-hint>
+  </mat-form-field>
+</mat-dialog-content>
+</mat-card>
+<br>
+<br>
+
+<div class="boton">
+<button mat-raised-button  class="mat-primary" [mat-dialog-close] type="button">Aceptar</button>
+</div>

@@ -1,8 +1,11 @@
 <br>
-<div fxLayout="row wrap"  fxLayout.xs="column"  >
-<div class="carta" fxFlex=22 fxFlex.md=28 fxFlex.sm=43 fxFlex.xs=100  *ngFor="let mago of magos">
-<app-carta  [usuario]="mago" [amigos]="amigos" [peticionesPendientes]="pendientes"
-(abrirPopUp)="openDialog($event)" (refrecarPagina)="refrescarPagina($event)"></app-carta>
+<div fxLayout="row " fxLayoutAlign="center">
+    <app-buscador (search)="filtrarMagos($event)"></app-buscador>
+    <app-buscador-etiquetas (fruitCtrl)="filtrarMagos(null,$event)" #modalidadesFiltradas></app-buscador-etiquetas>
 </div>
+<div fxLayout="row wrap" fxLayout.xs="column">
+    <div class="carta" fxFlex=22 fxFlex.md=28 fxFlex.sm=43 fxFlex.xs=100 *ngFor="let mago of magos |filtrarString: filtro_valor">
+        <app-carta [usuario]="mago" [amigos]="amigos" [peticionesPendientes]="pendientes" (abrirPopUp)="openDialog($event)" (refrecarPagina)="refrescarPagina($event)"></app-carta>
+    </div>
 </div>
 <br>

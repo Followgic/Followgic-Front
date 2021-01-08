@@ -4,7 +4,7 @@
 
       <mat-card fxFlex=25 fxLayout="column" fxLayoutAlign="space-between center">
 
-        <img #imagen class="imagenPerfil" src={{preImagen}} width="165px">
+        <img #imagen class="imagenPerfil" src={{preImagen}} >
         <br>
         <div class="image-upload" fxFlex=40>
           <label for="file-input">
@@ -40,25 +40,16 @@
             <mat-error *ngIf="perfilForm.controls.telefono.invalid">{{getErrorTelefono()}}</mat-error>
           </mat-form-field>
 
+        
 
-          <mat-form-field fxFlex=40>
-            <mat-label>Modalidades</mat-label>
-            <mat-select formControlName="modalidades" multiple>
-              <mat-option *ngFor="let modalidad of modalidades" [value]="modalidad.pk">{{modalidad.nombre}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center ">
+       
           <mat-form-field fxFlex=40>
             <input type="email" matInput placeholder="Email" formControlName="email">
             <mat-error *ngIf="perfilForm.controls.email.invalid">{{getErrorMensaje()}}</mat-error>
           </mat-form-field>
 
-
-
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center ">
           <mat-form-field fxFlex=40>
             <input type="url" matInput placeholder="P&aacute;gina web" formControlName="pagina_web">
             <mat-error *ngIf="perfilForm.controls.pagina_web.invalid">{{getErrorUrl()}}</mat-error>

@@ -2,6 +2,7 @@ import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpR
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 
 @Injectable({
@@ -48,7 +49,7 @@ export class MagoService implements HttpInterceptor {
 
   getAllMagos() {
 
-    return this.http.get<any>(`${this.URL}/user/listadoMagos/`, { headers: this.httpHeaders });
+    return this.http.get<any>(`${this.URL}/user/listadoMagos/`, { headers: this.httpHeaders })
   }
 
   getAllAmigos() {
@@ -59,6 +60,12 @@ export class MagoService implements HttpInterceptor {
   getPerfilAmigo(id) {
 
     return this.http.get<any>(`${this.URL}/user/verPerfil/${id}`, { headers: this.httpHeaders });
+  }
+
+  getMagosPorNombreYModalidad(peticion){
+
+    return this.http.post<any>(`${this.URL}/user/buscarMagos/`, peticion,{ headers: this.httpHeaders });
+    
   }
 
   eliminarAmigo(id){

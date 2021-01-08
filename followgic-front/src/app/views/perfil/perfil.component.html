@@ -1,56 +1,105 @@
 <div *ngIf="!errorAmigo">
-<br>
-<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly center">
+    <div *ngIf="datosUsuario">
+        <br>
 
-  <app-carta fxFlex=20 fxLayout="column" fxLayoutAlign="space-between center" [usuario]="perfilForm.value"></app-carta>
-  <br><br>
-  <mat-card fxFlex=50>
-    <h1 class="content">{{datosUsuario.nombre}}</h1>
-    <p *ngIf="copiaModalidades.length != 0"><Strong>Modalidades preferidas:</Strong> {{nombreModalidades}} </p>
 
-    <p class="descripcion">{{datosUsuario.descripcion}}</p>
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutAlign.xs=" space-evenly center"
+            fxLayoutAlign.sm="space-evenly center"    fxLayoutAlign.md="space-evenly center"fxLayoutAlign="space-evenly start">
+            <div fxFlex=20  fxFlex.lg=25  fxLayout="column" fxLayoutAlign="space-evenly" fxLayoutAlign.xs=" space-evenly center">
+                <h2 *ngIf="numeroAmigos!=1" class="content">{{numeroAmigos}} Seguidores</h2>
+                <h2 *ngIf="numeroAmigos==1"class="content">{{numeroAmigos}} Seguidor</h2>
 
-    <div fxLayout="row" *ngIf="datosUsuario.pagina_web">
-      <mat-icon>computer</mat-icon>
-      <a class="parametros" href="http://example.com/">{{datosUsuario.pagina_web}}</a>
+                <app-carta fxLayoutAlign="space-evenly center" class="carta" [usuario]="perfilForm.value"></app-carta>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary" (click)="openDialog()">Editar
+                        Perfil</button>
+                </div>
+                <br>
+
+
+            </div>
+            <br><br>
+            <div fxFlex=40  fxFlex.lg=40 class="perfil" fxLayout="row" fxLayoutAlign="center">
+            <mat-card class="perfilCard">
+                <div>
+                    <h1 *ngIf="!idAmigo" class="content">Hola, {{datosUsuario.nombre}}</h1>
+                    <h1 *ngIf="idAmigo" class="content">Estás en el perfíl de {{datosUsuario.nombre}}</h1>
+
+                    <mat-divider></mat-divider>
+                </div>
+                <br>
+                <div fxLayout="column" fxLayoutAlign="space-evenly">
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <div fxLayout="row">
+                            <mat-icon svgIcon="mago"></mat-icon>
+                            <h3> Nombre Artístico: {{datosUsuario.nombre_artistico}}</h3>
+                        </div>
+                    </div>
+                    <div fxLayout="row"  fxLayout.xs="column"fxLayoutAlign="space-evenly" fxLayoutAlign.xs="center center">
+                        <div fxLayout="row">
+                            <mat-icon>email</mat-icon>
+                            <h3> Email: {{datosUsuario.email}}</h3>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign.xs="center">
+                            <mat-icon> phone</mat-icon>
+                            <h3 *ngIf="datosUsuario.telefono"> Teléfono: {{datosUsuario.telefono}}</h3>
+                            <h3 *ngIf="!datosUsuario.telefono"> Teléfono: </h3>
+                        </div>
+                  
+                    </div>
+                        
+                 
+                    <div fxLayout="row" fxLayoutAlign="center">
+                     
+                        <div fxLayout="row">
+                            <mat-icon>computer</mat-icon>
+                            <h3 *ngIf="datosUsuario.pagina_web"> Página web: <a class="parametros"
+                                    href=datosUsuario.pagina_web>{{datosUsuario.pagina_web}}</a></h3>
+                            <h3 *ngIf="!datosUsuario.pagina_web"> Página web:</h3>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <mat-divider></mat-divider>
+                <br>
+                <h2 class="content">Descripción</h2>
+                <mat-card class="descripcion">
+                    <p *ngIf="datosUsuario.descripcion">{{datosUsuario.descripcion}}</p>
+                    <p *ngIf="!datosUsuario.descripcion">Añade una descripción para que tus amigos puedan saber más de
+                        ti.</p>
+                </mat-card>
+                
+                <br>
+
+            </mat-card>
+        </div>
+                <br>
+            <div fxFlex=20 fxLayout="column" fxLayoutAlign="space-evenly center">
+                <mat-card  class="modalidades">
+                    <h2 class="content">Modalidades</h2>
+                    <mat-card-content class="contenidoModalidad">
+                        <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+                            (cdkDropListDropped)="drop($event)">
+                            <mat-chip color="primary" selected class="example-box" cdkDrag
+                                *ngFor="let modalidad of misModalidades">
+                                {{modalidad.nombre}}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </mat-card-content>
+
+                </mat-card>
+                <br>
+                <div fxLayout="row " fxLayout.xs="column" fxLayoutAlign="center  center">
+
+                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary"
+                        (click)="openDialogModalidad(modalidades)">Editar Modalidades</button>
+                </div>
+                <mat-card class="eventos">
+                    <h2 class="content"> Eventos</h2>
+                </mat-card>
+            </div>
+        </div>
+        <br>
     </div>
-    <br>
-      <div fxLayout="row" fxLayoutAlign="space-evenly ">
-
-        <div  fxLayout="column" fxLayoutAlign="space-evenly">
-          <div fxLayout="row">
-            <mat-icon svgIcon="mago"></mat-icon>
-            <p class="parametros">{{datosUsuario.nombre_artistico}}</p>
-          </div>
-          <div fxLayout="row">
-            <mat-icon>email</mat-icon>
-            <p class="parametros">{{datosUsuario.email}}</p>
-          </div>
-
-          
-        </div>
-        <div fxLayout="column" fxLayoutAlign="space-evenly">
-
-          <div fxLayout="row" *ngIf="datosUsuario.telefono">
-            <mat-icon> phone</mat-icon>
-            <p class="parametros">{{datosUsuario.telefono}}</p>
-          </div>
-
-          <div *ngIf="datosUsuario.username" fxLayout="row">
-            <mat-icon>account_circle</mat-icon>
-            <p class="parametros">{{datosUsuario.username}}</p>
-          </div>
-
-        </div>
-
-
-      </div>
-      <br>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
-        <button *ngIf="!idAmigo" mat-raised-button class="mat-primary" (click)="openDialog()">Editar Perfil</button>
-      </div>
-    
-  </mat-card>
-</div>
-<br>
 </div>

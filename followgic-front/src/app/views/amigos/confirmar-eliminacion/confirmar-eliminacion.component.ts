@@ -16,14 +16,13 @@ export class ConfirmarEliminacionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cerrarDialog(): void {
-    this.dialogRef.close();
-  }
+    
+  
 
   eliminarAmigo(){
     this.magoService.eliminarAmigo(this.data.id).subscribe(res=>{
       console.log(res)
-      this.cerrarDialog()
+      this.dialogRef.close();
       })
   }
 

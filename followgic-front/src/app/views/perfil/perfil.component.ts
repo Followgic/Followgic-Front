@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,8 +7,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { EditarModalidadesComponent } from './editar-modalidades/editar-modalidades.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 
+export interface Modalidad {
+  pk: number;
+  nombre: String;
+}
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -22,6 +28,8 @@ export class PerfilComponent implements OnInit {
   nombreModalidades: string = "";
   idAmigo: any;
   errorAmigo: boolean =true;
+  misModalidades:any = []
+  numeroAmigos:any;
 
 
 
@@ -30,10 +38,12 @@ export class PerfilComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'mago',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/mago.svg'));
+    
 
 
     this.getModalidades()
     this.obtenerIdUrl()
+    this.getAllAmigos()
 
 
     this.perfilForm = new FormGroup({
@@ -63,6 +73,23 @@ export class PerfilComponent implements OnInit {
       this.getMago()
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  openDialogModalidad(modalidades) {
+    if(modalidades){
+    const dialogRef = this.dialog.open(EditarModalidadesComponent, {
+      height: '460px',
+      width: '550px',
+      data:{ modalidades:modalidades, misModalidades:this.misModalidades, mago:this.perfilForm.value},
+      autoFocus: false 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getModalidades()
+      this.getMago()
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   }
 
 
@@ -161,21 +188,30 @@ export class PerfilComponent implements OnInit {
   }
 
   pintarModalidades(idModalidades) {
+    this.misModalidades=[]
     this.copiaModalidades= idModalidades
-    let numeroModalidades = idModalidades.length
-    idModalidades.forEach((idModalidad, i) => {
-      this.modalidades.forEach(modalidad => {
+    this.misModalidades = this.modalidades.filter(modalidad => idModalidades.includes(modalidad.pk))
+      // idModalidades.forEach((idModalidad, i) => {
+    //   this.modalidades.forEach(modalidad => {
 
-        if (modalidad.pk == idModalidad)
-          if (i != (numeroModalidades - 2)) {
-            this.nombreModalidades = this.nombreModalidades + modalidad.nombre + ", "
-          } else {
-            this.nombreModalidades = this.nombreModalidades + modalidad.nombre + " y "
-          }
-      });
-    });
-    this.nombreModalidades = this.nombreModalidades.slice(0, -2)
-    this.nombreModalidades = this.nombreModalidades + "."
+    //     if (modalidad.pk == idModalidad)
+    //     this.misModalidades.push(modalidad)
+         
+    //   });
+    // });
+  }
+
+  getAllAmigos(){
+    this.magoService.getAllAmigos().subscribe(res =>{
+      this.numeroAmigos =res.length
+ 
+   
+    })
+  }
+
+
+  drop(event: CdkDragDrop<Modalidad[]>) {
+    moveItemInArray(this.misModalidades.nombre, event.previousIndex, event.currentIndex);
   }
 }
 

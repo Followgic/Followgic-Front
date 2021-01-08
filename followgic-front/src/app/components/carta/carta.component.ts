@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MagoService } from 'src/app/services/mago.service';
@@ -27,12 +27,17 @@ export class CartaComponent implements OnInit {
   abrirEliminar = new EventEmitter();
   @Output()
   refrecarPagina = new EventEmitter();
+  
+
   constructor( private peticionService: PeticionService, private magoService: MagoService,private router: Router) { 
     this.comprobarPeticionesPendientes()
+  
+  
   }
 
   ngOnInit() {
 console.log(this.peticionesPendientes)
+
     
   }
 
