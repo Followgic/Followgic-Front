@@ -7,6 +7,7 @@ import { PeticionService } from 'src/app/services/peticion.service';
 import { AvisoCancelarPeticionComponent } from './aviso-cancelar-peticion/aviso-cancelar-peticion.component';
 import { AvisoPeticionComponent } from './aviso-peticion/aviso-peticion.component';
 import {map, startWith} from 'rxjs/operators';
+import { ModalidadesService } from 'src/app/services/modalidades.service';
 
 
 @Component({
@@ -23,13 +24,18 @@ export class ListarMagosComponent implements OnInit {
   magoForm:FormGroup;
   buscarMagos:any;
   filtro_valor:any[]=['']
-  filtro_modalidad = '8'
-  @ViewChild('modalidadesFiltradas',{ static: false }) modalidadesFiltradas;
-  constructor(public dialog: MatDialog,private magoService: MagoService, private peticionService: PeticionService) {
+  filtrarNombre:any=''
+  filtrarModalidad:any[]=[]
+  filtros:boolean=false
+  modalidades:any[]=[]
+
+  @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
+  constructor(public dialog: MatDialog,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
+    this.getModalidades()
     this.getAllMagos()
     this.getAllAmigos()
     this.getPeticionesPendientes()
-
+   
     this.magoForm = new FormGroup({
 			nombre: new FormControl(''),
     })
@@ -59,6 +65,9 @@ export class ListarMagosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.modalidadesService.modalidadesControl$.subscribe(res =>{
+      this.filtrarMagos(null,res)
+    })
    
   }
 
@@ -104,6 +113,14 @@ export class ListarMagosComponent implements OnInit {
 
     })
   }
+  getModalidades() {
+    this.modalidadesService.getModalidades().subscribe(res => {
+      this.modalidades = res;
+      this.modalidadesService.modalidades$.emit(this.modalidades)
+    })
+
+  }
+
 
   getPeticionesPendientes(){
     this.peticionService.peticionesPendientes().subscribe(res =>{
@@ -128,13 +145,22 @@ export class ListarMagosComponent implements OnInit {
   }
 
   filtrarMagos(nombre?:String, modalidadesControl?:any[]){
-    let modalidades 
-    
-     modalidades = this.modalidadesFiltradas.buscarModalidades
+  
+    if(nombre!=null)this.filtrarNombre = nombre
+
+    if(modalidadesControl) this.filtrarModalidad = modalidadesControl
+
     
 
-    this.filtro_valor=[nombre,modalidades]
+    this.filtro_valor=[this.filtrarNombre,this.filtrarModalidad]
    
+  }
+  activarFiltros(){
+    this.filtros=!this.filtros
+  }
+
+  abrirFiltros(){
+    this.ventanaLateral.ventanaLateral()
   }
 
 

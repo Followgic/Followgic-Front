@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CartaComponent } from './components/carta/carta.component';
 import { AmigosComponent } from './views/amigos/amigos.component';
+import { FiltrosComponent } from './views/filtros/filtros.component';
 import { HomeComponent } from './views/home/home.component';
 import { ListarMagosComponent } from './views/listar-magos/listar-magos.component';
 import { LoginComponent } from './views/login/login.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'perfil', component: PerfilComponent},
   {path: 'perfil/:id', component: PerfilComponent},
   {path: 'registro', component: RegistroComponent},
-  {path: 'error-amigo', component: NoAmigoComponent}
+  {path: 'error-amigo', component: NoAmigoComponent},
+  {path: 'filtros', component: FiltrosComponent},
 
  
 

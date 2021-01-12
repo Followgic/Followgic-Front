@@ -32,6 +32,8 @@ import { FiltrarStringPipe } from './pipes/filtrar-string.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { EditarModalidadesComponent } from './views/perfil/editar-modalidades/editar-modalidades.component';
 import { BuscadorEtiquetasComponent } from './components/buscador-etiquetas/buscador-etiquetas.component';
+import { ToolbarFiltrosComponent } from './components/toolbar-filtros/toolbar-filtros.component';
+import { FiltrosComponent } from './views/filtros/filtros.component';
 
 
 
@@ -62,7 +64,9 @@ import { BuscadorEtiquetasComponent } from './components/buscador-etiquetas/busc
     FiltrarStringPipe,
     LoaderComponent,
     EditarModalidadesComponent,
-    BuscadorEtiquetasComponent
+    BuscadorEtiquetasComponent,
+    ToolbarFiltrosComponent,
+    FiltrosComponent
 
   ],
   imports: [

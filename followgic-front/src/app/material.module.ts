@@ -17,6 +17,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -38,7 +39,9 @@ import {MatChipsModule} from '@angular/material/chips';
     MatTabsModule,
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonToggleModule
+    
     
   ],
   exports: [
@@ -58,7 +61,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatTabsModule,
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonToggleModule
    
   ],
   providers: []
