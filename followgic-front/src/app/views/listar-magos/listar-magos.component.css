@@ -1,4 +1,74 @@
 .carta{
-    margin-top: 30px;
-    margin-left: 40px;
+   width: 100%;
 }
+.boton{
+    margin-bottom: 19px;
+    height: 50px;
+    margin-left: 5px;
+}
+.vacio{
+    height: 1000px;
+}
+
+
+@media only screen and (min-width : 1640px)  {
+
+    .content{
+        text-align: center;
+        justify-content: center;
+        width: 100% ;
+        margin-left : 4.8%;
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (min-width : 1280px) and (max-width : 1639px) {
+
+    .content{
+        text-align: center;
+        justify-content: center;
+        width: 100% ;
+        margin-left : 4%;
+        margin-top: 30px;
+    }
+}
+
+
+@media only screen and (min-width : 960px) and (max-width : 1279px)  {
+
+    .content{
+        text-align: center;
+        justify-content: center;
+        width: 100% ;
+        margin-left: 6%;
+        margin-top: 30px;
+    }
+   
+    }
+   @media only screen and (min-width : 771px) and (max-width : 959px)   {
+    
+    .content{
+        text-align: center;
+        justify-content: center;
+        width: 100% ;
+        margin-left: 11%;
+        margin-top: 30px;
+        
+    }
+}
+
+@media only screen and (min-width : 600px) and (max-width : 770px)   {
+    
+    .content{
+        text-align: center;
+        justify-content: center;
+        width: 60% ;
+        margin-left: 25%;
+        margin-top: 30px;
+        
+    }
+}
+
+  
+    
+  

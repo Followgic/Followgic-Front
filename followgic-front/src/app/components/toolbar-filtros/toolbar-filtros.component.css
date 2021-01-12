@@ -1,0 +1,20 @@
+mat-sidenav {
+    width: 400px;
+  }
+
+  mat-toolbar{
+    height: 70px;
+    background-color:#DCDCDC !important;  
+
+    box-shadow: 2px 2px 5px #999 !important;
+    
+}
+
+button{
+    color:black;
+     
+}
+
+.cerrar{
+  margin-top:5px !important;
+}

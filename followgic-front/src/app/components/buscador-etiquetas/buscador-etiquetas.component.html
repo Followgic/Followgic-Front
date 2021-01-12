@@ -1,6 +1,6 @@
-<mat-form-field class="example-chip-list">
-    <mat-label>Favorite Fruits</mat-label>
-    <mat-chip-list #chipList aria-label="Fruit selection">
+<mat-form-field class="input" appearance="fill">
+    <mat-label>Añade modalidades</mat-label>
+    <mat-chip-list  #chipList aria-label="Selección de modalidades">
       <mat-chip
         *ngFor="let modalidad of modalidadesFiltradas"
         [selectable]="selectable"
@@ -10,17 +10,17 @@
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
       <input
-        placeholder="New fruit..."
-        #fruitInput
-        [formControl]="fruitCtrl"
+        placeholder="Buscar Modalidad"
+        #modalidadInput
+        [formControl]="modalidadCtrl"
         [matAutocomplete]="auto"
         [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)">
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-        {{fruit}}
+      <mat-option *ngFor="let modalidad of filteredModalidad | async" [value]="modalidad">
+        {{modalidad}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+

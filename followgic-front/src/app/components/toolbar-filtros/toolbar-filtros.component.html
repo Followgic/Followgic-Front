@@ -1,0 +1,16 @@
+<mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0" [hasBackdrop]="false">
+ 
+  <mat-sidenav position="top" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches" fixedTopGap="70" >
+ 
+    <div fxLayout="row" fxLayoutAlign="end">
+      <mat-icon class="cerrar" (click)="ventanaLateral()"aria-hidden="false" aria-label="Cerrar">cancel</mat-icon>
+    </div>
+    <app-filtros></app-filtros>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,8 @@ export class ModalidadesService {
     'Authorization': 'Token '+ localStorage.getItem('auth_token'),
     'Content-Type': 'application/json'
   });
-
+  modalidades$ = new EventEmitter()
+  modalidadesControl$ = new EventEmitter()
   constructor(private http: HttpClient) { }
 
   getModalidades(){
@@ -23,4 +24,6 @@ export class ModalidadesService {
   crearModalidad(modalidad){
     return this.http.post<any>(`${this.URL}/user/crearModalidad/`, modalidad, { headers: this.httpHeadersToken });
   }
+
+  
 }
