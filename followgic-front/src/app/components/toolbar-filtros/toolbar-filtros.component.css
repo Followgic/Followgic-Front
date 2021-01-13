@@ -2,6 +2,12 @@ mat-sidenav {
     width: 400px;
   }
 
+  @media only screen and (max-width : 600px) {
+    mat-sidenav {
+      width: 100%;
+    }
+}
+
   mat-toolbar{
     height: 70px;
     background-color:#DCDCDC !important;  

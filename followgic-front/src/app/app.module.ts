@@ -34,6 +34,9 @@ import { EditarModalidadesComponent } from './views/perfil/editar-modalidades/ed
 import { BuscadorEtiquetasComponent } from './components/buscador-etiquetas/buscador-etiquetas.component';
 import { ToolbarFiltrosComponent } from './components/toolbar-filtros/toolbar-filtros.component';
 import { FiltrosComponent } from './views/filtros/filtros.component';
+import { PreguntasComponent } from './views/registro/preguntas/preguntas.component';
+import { AvisoPreguntasComponent } from './views/registro/aviso-preguntas/aviso-preguntas.component';
+import { SuspensoComponent } from './views/registro/suspenso/suspenso.component';
 
 
 
@@ -66,8 +69,11 @@ import { FiltrosComponent } from './views/filtros/filtros.component';
     EditarModalidadesComponent,
     BuscadorEtiquetasComponent,
     ToolbarFiltrosComponent,
-    FiltrosComponent
-
+    FiltrosComponent,
+    PreguntasComponent,
+    AvisoPreguntasComponent,
+    SuspensoComponent
+  
   ],
   imports: [
     BrowserModule,

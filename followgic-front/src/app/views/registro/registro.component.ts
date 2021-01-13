@@ -16,8 +16,10 @@ export class RegistroComponent implements OnInit {
   modalidades: any;
   errores:any =[]
   loginForm:FormGroup;
+  aprobado:boolean ;
   
   constructor( private formBuilder:FormBuilder, private loginService: LoginService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
+    this.aprobado=false;
     this.getModalidades()
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),

@@ -1,38 +1,41 @@
-<div fxLayout="row" fxLayoutAlign="center">
+<app-preguntas *ngIf="!aprobado" (aprobado)="aprobado=$event"></app-preguntas>
+<div *ngIf="aprobado" fxLayout="row" fxLayoutAlign="center">
     <mat-card class="caja sombra-movil">
         <h1 class="titulo"><strong>Registro</strong></h1>
-        <form [formGroup]="registroForm" (ngSubmit)="saveRegistro()" class="titulo"  fxLayout="column" fxLayoutAlign="center">
-<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
-            <mat-form-field>
-                <input type="text" matInput placeholder="Nombre *" formControlName="nombre">
-                <mat-error *ngIf="registroForm.controls.nombre.invalid">{{getErrorNombre()}}</mat-error>
-            </mat-form-field>
+        <form [formGroup]="registroForm" (ngSubmit)="saveRegistro()" class="titulo" fxLayout="column"
+            fxLayoutAlign="center">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nombre *" formControlName="nombre">
+                    <mat-error *ngIf="registroForm.controls.nombre.invalid">{{getErrorNombre()}}</mat-error>
+                </mat-form-field>
 
 
-            <mat-form-field>
-                <input type="email" matInput placeholder="Email *" formControlName="email">
-                <mat-error *ngIf="registroForm.controls.email.invalid">{{getErrorMensaje()}}</mat-error>
-            </mat-form-field>
-        </div>
-        <div fxLayout="row"fxLayout.xs="column"  fxLayoutAlign="space-around">
-            <mat-form-field>
-                <input type="tel" matInput placeholder="Teléfono" formControlName="telefono">
-                <mat-error *ngIf="registroForm.controls.telefono.invalid">{{getErrorTelefono()}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <input type="text" matInput placeholder="Nombre Artístico *" formControlName="nombre_artistico">
-                <mat-error *ngIf="registroForm.controls.nombre_artistico.invalid">{{getErrorNombreArtistico()}}</mat-error>
-            </mat-form-field>
+                <mat-form-field>
+                    <input type="email" matInput placeholder="Email *" formControlName="email">
+                    <mat-error *ngIf="registroForm.controls.email.invalid">{{getErrorMensaje()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
+                <mat-form-field>
+                    <input type="tel" matInput placeholder="Teléfono" formControlName="telefono">
+                    <mat-error *ngIf="registroForm.controls.telefono.invalid">{{getErrorTelefono()}}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Nombre Artístico *" formControlName="nombre_artistico">
+                    <mat-error *ngIf="registroForm.controls.nombre_artistico.invalid">{{getErrorNombreArtistico()}}
+                    </mat-error>
+                </mat-form-field>
 
-        </div>
-        <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="space-around">
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
 
 
-            <mat-form-field>
-                <input type="url" matInput placeholder="Página web" formControlName="pagina_web">
-                <mat-error *ngIf="registroForm.controls.pagina_web.invalid">{{getErrorUrl()}}</mat-error>
-            </mat-form-field>
-        </div>
+                <mat-form-field>
+                    <input type="url" matInput placeholder="Página web" formControlName="pagina_web">
+                    <mat-error *ngIf="registroForm.controls.pagina_web.invalid">{{getErrorUrl()}}</mat-error>
+                </mat-form-field>
+            </div>
 
             <mat-form-field>
                 <input type="text" matInput placeholder="Username *" formControlName="username">
@@ -45,7 +48,7 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input type="password" matInput placeholder="Repetir Contraseña *"   formControlName="re_password">
+                <input type="password" matInput placeholder="Repetir Contraseña *" formControlName="re_password">
                 <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error>
             </mat-form-field>
             <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error>
@@ -55,11 +58,12 @@
             <p class="errores" *ngFor="let error of errores.nombre_artistico">Nombre Artistico: {{error}}</p>
             <p class="errores" *ngFor="let error of errores.email">Email: {{error}}</p>
             <p class="errores" *ngFor="let error of errores.pagina_web">Pagina Web: {{error}}</p>
-            
-
+            <br>
+            <button mat-raised-button class="mat-primary" [disabled]="!registroForm.valid" type="button"
+            (click)="saveRegistro()">Registrar</button>
         </form>
 
-        <button mat-raised-button class="mat-primary"  [disabled]="!registroForm.valid" type="button" (click)="saveRegistro()">Registrar</button>
+      
 
 
 

@@ -8,6 +8,7 @@ import { ListarMagosComponent } from './views/listar-magos/listar-magos.componen
 import { LoginComponent } from './views/login/login.component';
 import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
+import { PreguntasComponent } from './views/registro/preguntas/preguntas.component';
 import { RegistroComponent } from './views/registro/registro.component';
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'perfil/:id', component: PerfilComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'error-amigo', component: NoAmigoComponent},
-  {path: 'filtros', component: FiltrosComponent},
+  {path: 'preguntas', component: PreguntasComponent},
+  
 
  
 

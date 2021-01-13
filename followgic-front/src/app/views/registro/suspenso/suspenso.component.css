@@ -1,0 +1,15 @@
+.contenido{
+    text-align: center;
+
+}
+.descripcion{
+    text-align: justify;
+}
+.botonera{
+    text-align: center;
+}
+
+button{
+    margin:5px;
+}
+

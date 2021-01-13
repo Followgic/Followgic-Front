@@ -11,13 +11,13 @@
             <input type="password" matInput placeholder="Contraseña" formControlName="password" required>
           </mat-form-field>
           <p class="errores" *ngFor="let error of errores"> {{error}}</p>
-          
-         
+          <br>
+          <button mat-raised-button  class="mat-primary" type="submit" (click)="login()" >Aceptar</button>
+ 
 
     </form>
 
-    <button mat-raised-button  class="mat-primary" type="submit" (click)="login()" >Aceptar</button>
- 
+   
     
 </mat-card>
 </div>

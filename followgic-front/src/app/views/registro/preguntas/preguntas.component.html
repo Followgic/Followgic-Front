@@ -1,0 +1,28 @@
+<div *ngIf="this.preguntas.length!=0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+    <div fxLayout="column" fxLayoutAlign="">
+        <div fxLayout="row" fxLayoutAlign="center">   
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <mat-card class="caja sombra-movil">
+                <h1>{{numeroPregunta+1}}.  {{preguntas[numeroPregunta].enunciado}}</h1>
+                <mat-selection-list  #respuesta [multiple]="false">
+                    <mat-list-option [value]="0">
+                        {{preguntas[numeroPregunta].primera_opcion}}
+                    </mat-list-option>
+                    <mat-list-option [value]="1">
+                    {{preguntas[numeroPregunta].segunda_opcion}}
+                    </mat-list-option>
+                    <mat-list-option [value]="2">
+                    {{preguntas[numeroPregunta].tercera_opcion}}
+                    </mat-list-option>
+                </mat-selection-list>
+                <br>
+            </mat-card>
+        </div>
+        <br>
+        <div  class="contenido" fxLayout="row" fxLayoutAlign="end">
+            <button mat-raised-button class="mat-primary" type="button" (click)="getRespuesta()">Siguiente</button>
+        </div>
+
+    </div>
+    
