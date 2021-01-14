@@ -8,37 +8,40 @@ p{
     color:white;
 }
 
+.iconos{
+    margin-bottom: 5px;
+}
+
 .LogoFacebook{
     width: 25px;
-    margin-top: 5px;
+  
 }
 .LogoTwitter{
     width: 25px;
     margin-left: 10px;
-    margin-top: 5px;
+ 
 }
 .LogoYoutube{
-    width: 30px;
+    width: 27px;
     margin-left: 10px;
-    margin-top: 10px;
+    
 }
+  
 .LogoInstagram{
     width: 25px;
     margin-left: 10px;
-    margin-top: 5px;
+  
 }
 
 h3{
     color:white;
-    margin-left: 10px;
-    margin-top: 20px;
+    margin-top:10px;
+  
 }
 
 a{
-    text-decoration: none;
     color:white;
-    margin-top: 5px;
-    font-size: 14px;
+
 }
 
 mat-card{
@@ -46,4 +49,7 @@ mat-card{
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
     border-bottom-right-radius: 0px;
+
+    height: 45px;
+    
 }
