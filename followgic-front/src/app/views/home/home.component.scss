@@ -1,6 +1,6 @@
 .header{
-    background-color:white;  
-    height: 250px;
+    background-color:#e0f1f0;  
+    height: 375px;
     border-top-left-radius: 0px; 
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
@@ -14,15 +14,40 @@
 .tituloPequeño{
     color:white;
     font-size: 17px;
-   
-    
-
 }
+
+.titulos{
+  font-size:30px;
+  margin-top: 20px;
+}
+.contenido{
+  font-size:17px;
+  text-align: center;
+}
+
+.caja{
+ 
+  box-shadow: 2px 2px 5px #999 !important;
+}
+.tarjetas{
+  margin-top: 70px;
+}
+
+.buscador{
+ margin-top:50px;
+}
+
+@media only screen and  (max-width : 600px)   {
+  .tarjetas{
+    margin-top: 30px;
+  }
+}
+
 
 
 //#f7941e
 .segunda{
-    background-color: #ff7514;
+    min-height: 380px;
     border-top-left-radius: 0px; 
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
@@ -32,10 +57,16 @@
 
 
 h1{
-    font-size: 40px;
+    font-size: 50px;
 }
 h2{
     font-size: 30px;
+}
+.subtitulo{
+  font-size:20px;
+}
+.subtitulo2{
+  font-size:15px;
 }
 .bajar{
     margin-top: 50px !important;
@@ -43,11 +74,14 @@ h2{
 
 .boton{
     margin-top: 30px;
+    width:130px;
+    height:45px;
+    font-size:18px;
 }
 
 .icono{
     margin-bottom: 10px;
-    width: 50px;
+    width: 75px;
     padding-right:10px ;
 }
 

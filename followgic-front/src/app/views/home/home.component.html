@@ -4,46 +4,65 @@
         <div class="bajar" fxLayout="column" fxLayoutAlign="center center">
 
             <mat-card-title class="fade-in">
-                <h1 fxHide.xs><strong> Bienvenidos a Followgic</strong></h1>
-                <h2 fxHide.gt-xs><strong> Bienvenidos a Followgic</strong></h2>
+                <h1 fxHide.xs> Bienvenidos a Followgic</h1>
+                <h2 fxHide.gt-xs> Bienvenidos a Followgic</h2>
+
             </mat-card-title>
-            <button *ngIf="!loginService.logueado()" class="boton" mat-raised-button color="primary" (click)="toolbarComponent.openDialog()">Registrate</button>
+            <mat-card-subtitle>
+                <p fxHide.xs class="subtitulo">¡Aplicación hecha por magos para magos!</p>
+                <p fxHide.gt-xs class="subtitulo2">¡Aplicación hecha por magos para magos!</p>
+
+            </mat-card-subtitle>
+
+            <button *ngIf="!loginService.logueado()" class="boton" mat-raised-button color="primary"
+                (click)="toolbarComponent.openDialog()">Registrate</button>
+              
+                <app-buscador (search)="redirigir(null,$event)" *ngIf="loginService.logueado()"></app-buscador>
+              <button *ngIf="loginService.logueado()"  mat-raised-button color="primary"
+              (click)="redirigir(true)">Buscar</button>
+
         </div>
 
     </mat-card>
+    <mat-divider></mat-divider>
 
-    <mat-card class="segunda" fxLayout="column" fxLayoutAlign="center center">
-        <br>
-        <mat-card-title fxHide.xs class="titulo">¡Aplicación hecha por magos para magos!</mat-card-title>
-        <mat-card-title fxHide.gt-xs class="tituloPequeño">¡Aplicación hecha por magos para magos!</mat-card-title>
-        <br><br>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around">
-            <mat-card fxFlex=30 class="caja sombra-movil">
+
+    <mat-card class="segunda">
+
+        <div class="tarjetas" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-evenly">
+            <mat-card fxFlex=25 fxFlex.md=30 class="caja sombra-movil">
                 <div fxLayout="column" fxLayoutAlign="space-around ">
                     <div class="izquierda" fxLayout="row" fxLayoutAlign="center center">
-                        <img class="icono" src="../../../assets/img/apreton-de-manos.png" alt="">
+                        <img class="icono" src="../../../assets/img/burbuja-de-dialogo.png" alt="">
+                        &nbsp;&nbsp;
                         <mat-card-title>
-                            <strong>Red Social</strong>
+                            <h4 class="titulos">Red Social</h4>
                         </mat-card-title>
                     </div>
+
                     <mat-card-content>
-                        No solo podrás conocer a personas que le gusten este grandísimo arte, sino que también te damos
-                        la opción de buscar por lugares y por modalidades.
+
+                        <p class="contenido">No solo podrás conocer a personas que le gusten este grandísimo arte, sino
+                            que también te damos
+                            la opción de buscar por lugares y por modalidades.</p>
                     </mat-card-content>
                 </div>
             </mat-card>
             <br>
-            <mat-card fxFlex=30 class="caja sombra-movil">
+            <br>
+            <mat-card fxFlex=25 fxFlex.md=30 class="caja sombra-movil">
                 <div fxLayout="column" fxLayoutAlign="space-around ">
                     <div class="izquierda" fxLayout="row" fxLayoutAlign="center center">
                         <img class="icono" src="../../../assets/img/calendario.png" alt="">
                         <mat-card-title>
-                            <strong>Eventos</strong>
+                            <h4 class="titulos">Eventos</h4>
                         </mat-card-title>
                     </div>
+
                     <mat-card-content>
-                        Podrás crear e inscribirte en quedadas y conferencias,
-                        disfrutar de la magia y compartir tus conocimientos.
+                        <p class="contenido">
+                            Podrás crear e inscribirte en quedadas y conferencias,
+                            disfrutar de la magia y compartir tus conocimientos.</p>
                     </mat-card-content>
 
                 </div>
@@ -51,17 +70,21 @@
 
             </mat-card>
             <br>
-            <mat-card fxFlex=30 class="caja sombra-movil">
+            <br>
+            <mat-card fxFlex=25 fxFlex.md=30 class="caja sombra-movil">
                 <div fxLayout="column" fxLayoutAlign="space-around ">
                     <div class="izquierda" fxLayout="row" fxLayoutAlign="center center">
                         <img class="icono" src="../../../assets/img/bloquear.png" alt="">
                         <mat-card-title>
-                           <strong>Privacidad</strong>
+                            <h4 class="titulos">Privacidad</h4>
                         </mat-card-title>
                     </div>
+
                     <mat-card-content>
-                        Con nuestro sistema de preguntas conseguiremos un ambiente
-                        mágico donde se puedan compartir conocimientos libremente.
+
+                        <p class="contenido">Con nuestro sistema de preguntas conseguiremos un ambiente
+                            mágico donde se puedan compartir conocimientos libremente.</p>
+
                     </mat-card-content>
                 </div>
 

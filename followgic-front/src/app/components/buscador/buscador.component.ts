@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounce, debounceTime } from 'rxjs/operators';
+import { MagoService } from 'src/app/services/mago.service';
 
 @Component({
   selector: 'app-buscador',
@@ -12,11 +13,18 @@ search = new FormControl('')
 @Output('search')
 searchEmitter = new EventEmitter<string>();
 
-  constructor() { }
+@Input()
+busqueda:string='';
+  constructor(private magoService: MagoService) { 
+  
+  }
 
   ngOnInit() {
     this.search.valueChanges
     .subscribe(value => this.searchEmitter.emit(value))
+
+    this.search.setValue(this.magoService.busqueda)
+
   }
 
 }

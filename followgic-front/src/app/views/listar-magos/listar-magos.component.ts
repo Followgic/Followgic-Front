@@ -29,6 +29,7 @@ export class ListarMagosComponent implements OnInit {
   filtros:boolean=false
   modalidades:any[]=[]
 
+
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor(public dialog: MatDialog,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
     this.getModalidades()
@@ -67,7 +68,12 @@ export class ListarMagosComponent implements OnInit {
   ngOnInit() {
     this.modalidadesService.modalidadesControl$.subscribe(res =>{
       this.filtrarMagos(null,res)
-    })
+    
+    
+      })
+      
+    
+ 
    
   }
 

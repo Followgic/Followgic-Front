@@ -1,5 +1,5 @@
 import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -30,13 +30,20 @@ export class MagoService implements HttpInterceptor {
     });
     return next.handle(headers);
   }
-
-
-  constructor(private http: HttpClient, private route: Router) { }
+  busqueda:any
+  busqueda$ = new EventEmitter()
+  constructor(private http: HttpClient, private route: Router) {
+    
+   }
 
   getUsuario() {
 
     return this.http.get<any>(`${this.URL}/user/miPerfil/`, { headers: this.httpHeaders });
+  }
+
+  setBusqueda(busqueda):void{
+    this.busqueda=busqueda
+   
   }
 
   editUsuario(mago){

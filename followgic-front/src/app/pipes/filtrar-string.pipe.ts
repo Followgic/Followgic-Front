@@ -12,8 +12,7 @@ export class FiltrarStringPipe implements PipeTransform {
 
     if (!filtro) return lista
     if (filtro.length == 1 || filtro[1].length==0) {
-      console.log(lista.filter(user => user.nombre.toUpperCase().includes(filtro[0].toUpperCase()) ||
-      user.nombre_artistico.toUpperCase().includes(filtro[0].toUpperCase())))
+      
       return lista.filter(user => user.nombre.toUpperCase().includes(filtro[0].toUpperCase()) ||
         user.nombre_artistico.toUpperCase().includes(filtro[0].toUpperCase()));
     } else {
