@@ -1,0 +1,84 @@
+<app-sidenav-mensajeria #ventanaLateral>
+    <div *ngIf="!mensajes"fxLayout="column" class="container">
+        <div fxFlex=40 fxLayout="row">
+            <button (click)="abrirVentana()" class="boton" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon class="icono">more_vert</mat-icon>
+            </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <img  src="../../../assets/img/logo.png" width="260" height="100">
+        </div>
+    </div>
+    <div *ngIf="mensajes" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+        <mat-card class="principal" fxLayout="column" fxLayoutAlign="start">
+            <mat-card class="cardPerfil" fxFlex=10 fxLayout="row">
+                <div>
+                    <button mat-icon-button (click)="abrirVentana()">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+                <mat-card-header>
+                    <img mat-card-avatar class="imagen" src={{mago.foto}}>
+                    <mat-card-title>{{mago.nombre}}</mat-card-title>
+                    <mat-card-subtitle>{{mago.nombre_artistico}}</mat-card-subtitle>
+                </mat-card-header>
+
+            </mat-card>
+            
+            <mat-card class="conversacion" fxFlex=60 fxFlex.xl=75>
+                <mat-card-content #scrollMe (scroll)="onScroll()" fxFlex=100 class="mensajes">
+                    <div *ngFor=" let mensaje of mensajes">
+                        <br>
+                        <div *ngIf="mensaje.destinatario!=mago.pk" fxLayout="row" fxLayoutAlign="start">
+                            <mat-card class="mensajeDestinatario" fxLayout="column">
+                                <p> {{mensaje.cuerpo}}</p>
+                                <div fxLayout="row" fxLayoutAlign="end">
+                                    <p class="fecha">{{mensaje.fecha}}</p>
+                                </div>
+
+                            </mat-card>
+                        </div>
+                        <div *ngIf="mensaje.destinatario==mago.pk" fxLayout="row" fxLayoutAlign="end">
+                            <mat-card [matMenuTriggerFor]="menu" class="mensajeReceptor" fxLayout="column">
+                                <div fxLayout="row">
+                                    <p>{{mensaje.cuerpo}} </p>
+                                    <img *ngIf="mensaje.estado==0" class="varita"
+                                        src="../../../assets/img/varita-magica.png" alt="">
+                                    <img *ngIf="mensaje.estado==1" class="varita"
+                                        src="../../../assets/img/varita-magica-color.png" alt="">
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="end">
+                                    <p class="fecha">{{mensaje.fecha}}</p>
+                                </div>
+
+                            </mat-card>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="eliminarMensaje(mensaje.id, mago.pk)">Eliminar
+                                    Mensaje</button>
+                            </mat-menu>
+
+                        </div>
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+            
+            <mat-card class="cardEnviar" fxFlex=15 fxFlex.xl=15>
+                <form [formGroup]="mensajeForm" fxLayout="row">
+                    <mat-form-field class="escribir" appearance="outline">
+                        <mat-label>Escribir mensaje</mat-label>
+                        <input formControlName="cuerpo" autocomplete="off" matInput placeholder="Escribe tu mensaje">
+                    </mat-form-field>
+                    <button class="enviar" (click)='enviarMensaje(mago.pk)' mat-icon-button color="primary"
+                        aria-label="Enviar mensaje">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </form>
+
+            </mat-card>
+        </mat-card>
+
+    </div>
+
+
+</app-sidenav-mensajeria>

@@ -17,7 +17,7 @@
             <button *ngIf="!loginService.logueado()" class="boton" mat-raised-button color="primary"
                 (click)="toolbarComponent.openDialog()">Registrate</button>
               
-                <app-buscador (search)="redirigir(null,$event)" *ngIf="loginService.logueado()"></app-buscador>
+                <app-buscador  [titulo]='"Buscar magos"' (search)="redirigir(null,$event)" *ngIf="loginService.logueado()"></app-buscador>
               <button *ngIf="loginService.logueado()"  mat-raised-button color="primary"
               (click)="redirigir(true)">Buscar</button>
 

@@ -37,6 +37,10 @@ import { FiltrosComponent } from './views/filtros/filtros.component';
 import { PreguntasComponent } from './views/registro/preguntas/preguntas.component';
 import { AvisoPreguntasComponent } from './views/registro/aviso-preguntas/aviso-preguntas.component';
 import { SuspensoComponent } from './views/registro/suspenso/suspenso.component';
+import { TarjetaMensajeComponent } from './components/tarjeta-mensaje/tarjeta-mensaje.component';
+import { MensajeriaComponent } from './views/mensajeria/mensajeria.component';
+import { SidenavMensajeriaComponent } from './components/sidenav-mensajeria/sidenav-mensajeria.component';
+import { MensajesAmigosComponent } from './views/mensajeria/mensajes-amigos/mensajes-amigos.component';
 
 
 
@@ -72,7 +76,11 @@ import { SuspensoComponent } from './views/registro/suspenso/suspenso.component'
     FiltrosComponent,
     PreguntasComponent,
     AvisoPreguntasComponent,
-    SuspensoComponent
+    SuspensoComponent,
+    TarjetaMensajeComponent,
+    MensajeriaComponent,
+    SidenavMensajeriaComponent,
+    MensajesAmigosComponent
   
   ],
   imports: [

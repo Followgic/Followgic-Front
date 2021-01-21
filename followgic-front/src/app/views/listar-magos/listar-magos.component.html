@@ -2,7 +2,7 @@
 <br>
 <div fxLayout="row" fxLayoutAlign="center center">
     
-    <app-buscador (search)="filtrarMagos($event)"></app-buscador>
+    <app-buscador   [titulo]='"Buscar magos"'  (search)="filtrarMagos($event)"></app-buscador>
     <button class="boton" mat-raised-button type="submit"  (click)="abrirFiltros()" color="primary">Filtros</button>
  
 </div>

@@ -14,7 +14,11 @@ peticion:any;
 @Output()
 recargar = new EventEmitter();
 
-mago:any = []
+@Input()
+amigo:any;
+
+@Input()
+mago:any 
   
   constructor(private magoService: MagoService, private peticionService: PeticionService) { 
    
@@ -23,7 +27,9 @@ mago:any = []
   }
 
   ngOnInit() {
+    if(!this.mago){
     this.getMago()
+    }
   }
 
 

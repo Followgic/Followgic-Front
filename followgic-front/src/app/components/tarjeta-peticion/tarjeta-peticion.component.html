@@ -4,7 +4,7 @@
       <mat-card-title>{{mago.nombre}}</mat-card-title>
       <mat-card-subtitle>{{mago.nombre_artistico}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-actions>
+    <mat-card-actions *ngIf='peticion'>
       <button mat-button (click)="aceptarPeticion(peticion.id)">Aceptar</button>
       <button mat-button (click)="rechazarPeticion(peticion.id)">Rechazar</button>
     </mat-card-actions>

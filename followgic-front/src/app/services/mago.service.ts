@@ -32,6 +32,7 @@ export class MagoService implements HttpInterceptor {
   }
   busqueda:any
   busqueda$ = new EventEmitter()
+  amigo$ = new EventEmitter()
   constructor(private http: HttpClient, private route: Router) {
     
    }
@@ -79,6 +80,20 @@ export class MagoService implements HttpInterceptor {
   console.log(id)
     return this.http.get<any>(`${this.URL}/peticiones/eliminarAmigo/${id}`, { headers: this.httpHeaders });
     
+  }
+  getYo(cb){
+  let pk 
+    this.getUsuario().subscribe( res => {
+      pk = res.pk
+      if (cb) {
+
+        cb(pk)
+        
+      }
+     
+    })
+    
+  
   }
 
 

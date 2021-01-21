@@ -12,6 +12,8 @@ export class BuscadorComponent implements OnInit {
 search = new FormControl('')
 @Output('search')
 searchEmitter = new EventEmitter<string>();
+@Input()
+titulo:any;
 
 @Input()
 busqueda:string='';

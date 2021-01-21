@@ -50,7 +50,7 @@
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="70">
                 
              
-                 <app-notificacion #notificacion ></app-notificacion>
+                 <app-notificacion *ngIf="loginService.logueado()"  #notificacion ></app-notificacion>
          
            
     </mat-sidenav>

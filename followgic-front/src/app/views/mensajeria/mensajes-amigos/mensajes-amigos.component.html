@@ -1,0 +1,42 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Mensajes">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+
+            <app-buscador (search)="filtrarMagos($event)" class="buscador" [titulo]='"Buscar amigos"'></app-buscador>
+            
+            <div *ngIf="mensajesRecibidos.length==0">
+                <h3>No tienes ninguna conversación</h3>
+                </div>
+            
+
+            <div *ngFor="let mensaje of mensajesRecibidos">
+
+                <br>
+                <app-tarjeta-mensaje (click)='getAmigo(mensaje)' [mensaje]="mensaje"></app-tarjeta-mensaje>
+                <br>
+            </div>
+        </div>
+
+
+    </mat-tab>
+
+    <mat-tab label="Amigos">
+        <div fxLayout="column" fxLayoutAlign="space-araundo center">
+            <div *ngIf="!amigos">
+            <h3>No tienes ningún amigo</h3>
+            </div>
+
+            <app-buscador (search)="filtrarMagos($event)"  class="buscador" [titulo]='"Buscar amigos"'></app-buscador>
+
+            <div *ngFor="let amigo of amigos ">
+
+                <br>
+                <app-tarjeta-peticion (click)='cargarConversacion(amigo)' [mago]="amigo"></app-tarjeta-peticion>
+                <br>
+            </div>
+
+
+        </div>
+    </mat-tab>
+
+</mat-tab-group>
