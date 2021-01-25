@@ -1,13 +1,11 @@
 <mat-card >
  
-    <mat-card-header>
+    <mat-card-header >
+      
        <img class="imagen" mat-card-avatar class="imagen" src={{mago.foto}}>
-       <div >
-        <p class="fecha">{{mensaje.fecha}}</p>
-       </div>
-       
-      <mat-card-title>{{mago.nombre}}</mat-card-title>
-      <mat-card-subtitle>{{mago.nombre_artistico}}</mat-card-subtitle>
+   
+      <mat-card-title>{{mago.nombre_artistico}}</mat-card-title>
+      <mat-card-subtitle>{{mensaje.fecha}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content  fxLayout="row" fxLayoutAlign="center">
     <p *ngIf="!identificador">{{nombre}}:&nbsp;</p>

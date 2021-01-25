@@ -32,7 +32,7 @@ ventana:boolean = false
 
   ngOnInit() {
     this.magoService.amigo$.subscribe(res =>{
-     console.log(res)
+    
     this.cargarConversacion(res.pk)
      this.mago = res
      this.abrirVentana()
@@ -87,7 +87,7 @@ abrirVentana(){
 
     this.mensajes =res.map(mensaje=> {return{ id: mensaje.id , cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
       destinatario: mensaje.destinatario , remitente: mensaje.remitente }})
-    console.log(this.mensajes)
+   
     if(!eliminar){
     this.disableScrollDown = false
     }
@@ -97,9 +97,9 @@ abrirVentana(){
 }
  
 enviarMensaje(id){
-  console.log(this.mensajeForm.value)
+ 
   this.mensajeService.enviarMensaje(id,this.mensajeForm.value).subscribe(res=>{
-    console.log(res)
+  
 
    
     this.cargarConversacion(res.destinatario)
@@ -109,7 +109,7 @@ enviarMensaje(id){
 
 eliminarMensaje(idMensaje , idMago){
   this.mensajeService.eliminarMensaje(idMensaje).subscribe(res => {
-    console.log(res)
+  
     let eliminar = true
     this.cargarConversacion(idMago,eliminar)
   })
@@ -132,7 +132,7 @@ getFechaStr(date) {
   if (!date) date = new Date()
   let mes = date.getMonth() + 1
   let dia = date.getDate()
-  return this.parse0(dia) + "-" + this.parse0(mes) + "-" + date.getFullYear()
+  return this.parse0(dia) + "/" + this.parse0(mes) + "/" + date.getFullYear()
 }
 
 getHoraStr(date) {

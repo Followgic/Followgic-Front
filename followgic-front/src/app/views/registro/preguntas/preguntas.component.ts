@@ -13,6 +13,7 @@ export class PreguntasComponent implements OnInit {
   preguntas: any[]=[]
   respuestasCorrectas: any
   numeroPregunta: any;
+  error:any;
   @Output()
   aprobado = new EventEmitter();
   @ViewChild('respuesta', { static: false }) respuesta;
@@ -28,7 +29,7 @@ export class PreguntasComponent implements OnInit {
 
   getPreguntas() {
     this.preguntaService.getPreguntas().subscribe(res => {
-      console.log(res)
+  
       this.preguntas = res
     })
 
@@ -36,6 +37,7 @@ export class PreguntasComponent implements OnInit {
 
   getRespuesta() {
     if (this.respuesta._value) {
+      this.error = ''
       if (this.preguntas[this.numeroPregunta].respuesta_correcta == this.respuesta._value[0]) {
         this.respuestasCorrectas = this.respuestasCorrectas + 1
       }
@@ -44,16 +46,18 @@ export class PreguntasComponent implements OnInit {
         this.numeroPregunta = this.numeroPregunta + 1
       } else {
         if (this.respuestasCorrectas <= 5 && this.respuestasCorrectas >= 4) {
-          console.log('Enhorabuena puedes registrarte en Followgic')
+      
           this.aprobado.emit(true)
         } else {
-          console.log('Lo sentimos pero no has superado el cuestionario, has acertado ' + this.respuestasCorrectas + 'preguntas')
+       
           this.openDialog(this.respuestasCorrectas)
         }
 
       }
     }else{
-      console.log('Tienes que seleccionar una respuesta')
+     
+      this.error = 'Tienes que seleccionar una respuesta'
+
     }
 
 

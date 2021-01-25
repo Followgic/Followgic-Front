@@ -1,15 +1,15 @@
-<mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Mensajes">
+<mat-tab-group mat-align-tabs="center"(selectedTabChange)="restearBusqueda()" >
+    <mat-tab label="Mensajes" >
         <div fxLayout="column" fxLayoutAlign="space-evenly center">
 
-            <app-buscador (search)="filtrarMagos($event)" class="buscador" [titulo]='"Buscar amigos"'></app-buscador>
+            <app-buscador #buscadorMensaje (search)="filtrarMensaje($event)" class="buscador"  [titulo]='"Buscar amigos"'></app-buscador>
             
             <div *ngIf="mensajesRecibidos.length==0">
                 <h3>No tienes ninguna conversación</h3>
                 </div>
             
 
-            <div *ngFor="let mensaje of mensajesRecibidos">
+            <div *ngFor="let mensaje of mensajesRecibidos|filtrarMensaje: filtro_valor ">
 
                 <br>
                 <app-tarjeta-mensaje (click)='getAmigo(mensaje)' [mensaje]="mensaje"></app-tarjeta-mensaje>
@@ -26,12 +26,12 @@
             <h3>No tienes ningún amigo</h3>
             </div>
 
-            <app-buscador (search)="filtrarMagos($event)"  class="buscador" [titulo]='"Buscar amigos"'></app-buscador>
+            <app-buscador #buscadorNombre (search)="filtrarMagos($event)"  class="buscador"  [titulo]='"Buscar amigos"'></app-buscador>
 
-            <div *ngFor="let amigo of amigos ">
+            <div *ngFor="let amigo of amigos |filtrarString: filtro_valor ">
 
                 <br>
-                <app-tarjeta-peticion (click)='cargarConversacion(amigo)' [mago]="amigo"></app-tarjeta-peticion>
+                <app-tarjeta-peticion  (click)='cargarConversacion(amigo)' [mago]="amigo"></app-tarjeta-peticion>
                 <br>
             </div>
 

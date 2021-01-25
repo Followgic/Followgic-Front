@@ -36,7 +36,7 @@ export class CartaComponent implements OnInit {
   }
 
   ngOnInit() {
-console.log(this.peticionesPendientes)
+
 
     
   }
@@ -47,7 +47,7 @@ console.log(this.peticionesPendientes)
       {
 
         this.abrirPopUp.emit(nombre)
-          console.log(res)
+       
           
       },
       err=> console.log(err)

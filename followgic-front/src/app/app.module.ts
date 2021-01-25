@@ -41,6 +41,7 @@ import { TarjetaMensajeComponent } from './components/tarjeta-mensaje/tarjeta-me
 import { MensajeriaComponent } from './views/mensajeria/mensajeria.component';
 import { SidenavMensajeriaComponent } from './components/sidenav-mensajeria/sidenav-mensajeria.component';
 import { MensajesAmigosComponent } from './views/mensajeria/mensajes-amigos/mensajes-amigos.component';
+import { FiltrarMensajePipe } from './pipes/filtrar-mensaje.pipe';
 
 
 
@@ -80,7 +81,8 @@ import { MensajesAmigosComponent } from './views/mensajeria/mensajes-amigos/mens
     TarjetaMensajeComponent,
     MensajeriaComponent,
     SidenavMensajeriaComponent,
-    MensajesAmigosComponent
+    MensajesAmigosComponent,
+    FiltrarMensajePipe
   
   ],
   imports: [

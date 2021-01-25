@@ -25,8 +25,9 @@
 
             </mat-card>
             
-            <mat-card class="conversacion" fxFlex=60 fxFlex.xl=75>
+            <mat-card class="conversacion" fxFlex=75  fxFlex.xs=80 >
                 <mat-card-content #scrollMe (scroll)="onScroll()" fxFlex=100 class="mensajes">
+                    
                     <div *ngFor=" let mensaje of mensajes">
                         <br>
                         <div *ngIf="mensaje.destinatario!=mago.pk" fxLayout="row" fxLayoutAlign="start">
@@ -38,6 +39,8 @@
 
                             </mat-card>
                         </div>
+                        
+
                         <div *ngIf="mensaje.destinatario==mago.pk" fxLayout="row" fxLayoutAlign="end">
                             <mat-card [matMenuTriggerFor]="menu" class="mensajeReceptor" fxLayout="column">
                                 <div fxLayout="row">

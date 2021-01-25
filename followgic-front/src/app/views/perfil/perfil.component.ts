@@ -145,7 +145,7 @@ export class PerfilComponent implements OnInit {
           modalidades: this.datosUsuario.modalidades
 
         })
-        console.log(res)
+     
       },
         err => console.log(err)
       )
@@ -170,7 +170,7 @@ export class PerfilComponent implements OnInit {
           username: ""
 
         })
-        console.log(res)
+      
       },
         err => console.log(err)
       )

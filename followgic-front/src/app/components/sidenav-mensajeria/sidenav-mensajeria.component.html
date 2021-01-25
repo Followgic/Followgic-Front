@@ -1,6 +1,6 @@
 <mat-sidenav-container class="example-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0" [hasBackdrop]="false">
  
-    <mat-sidenav position="top"  #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+    <mat-sidenav position="top"  #snav [mode]="mobileQuery.matches ? 'over' : 'over'"
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="70"    fixedBottomGap="0" >
    
       <div fxLayout="row" fxLayoutAlign="end">
@@ -11,8 +11,8 @@
     </mat-sidenav>
   
     <mat-sidenav-content>
-      <div fxLayout="column" style="min-height:80vh; overflow: hidden;">
+     
       <ng-content></ng-content>
-    </div>
+    
     </mat-sidenav-content>
   </mat-sidenav-container>

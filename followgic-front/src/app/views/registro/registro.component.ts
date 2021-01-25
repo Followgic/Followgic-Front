@@ -113,7 +113,7 @@ export class RegistroComponent implements OnInit {
   getModalidades() {
     this.modalidadesService.getModalidades().subscribe(res => {
       this.modalidades = res;
-      console.log(res)
+    
     })
 
   }

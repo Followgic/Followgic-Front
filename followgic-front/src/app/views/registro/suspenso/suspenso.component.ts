@@ -12,7 +12,7 @@ export class SuspensoComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<SuspensoComponent>,private router: Router, @Inject(MAT_DIALOG_DATA) public data: {respuestasCorrectas: number}) { }
 
   ngOnInit(): void {
-    console.log(this.data)
+    
   }
 
   cerrarDialog(): void {

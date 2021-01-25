@@ -25,14 +25,14 @@ export class AvisoCancelarPeticionComponent implements OnInit {
   cancelarPeticion(){
     this.peticionService.peticionPendienteConUsuario(this.data.id).subscribe(res=>{
      let idPeticion = res.pk
-     console.log(idPeticion)
+    
      this.eliminarPeticion(idPeticion)
       })
   }
 
   eliminarPeticion(id){
     this.peticionService.cancelarPeticion(id).subscribe(res=>{
-      console.log(res)
+     
       this.cerrarDialog()
       })
   }

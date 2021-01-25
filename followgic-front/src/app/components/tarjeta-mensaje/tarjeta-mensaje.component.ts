@@ -61,6 +61,7 @@ export class TarjetaMensajeComponent implements OnInit {
     if(this.mensaje.cuerpo.length> 28){
     this.mensaje.cuerpo= this.mensaje.cuerpo.substr(0,20) + '...'
     }
+    if( this.mensaje.fecha.includes('-') ){
     let fechaActual = new Date()
     let fecha = new Date(this.mensaje.fecha)
     
@@ -69,6 +70,7 @@ export class TarjetaMensajeComponent implements OnInit {
     }else{
       this.mensaje.fecha = this.getHoraStr(fecha)
     }
+  }
 
   }
 
@@ -78,7 +80,7 @@ export class TarjetaMensajeComponent implements OnInit {
     if (!date) date = new Date()
     let mes = date.getMonth() + 1
     let dia = date.getDate()
-    return this.parse0(dia) + "-" + this.parse0(mes) + "-" + date.getFullYear()
+    return this.parse0(dia) + "/" + this.parse0(mes) + "/" + date.getFullYear()
   }
 
   getHoraStr(date) {

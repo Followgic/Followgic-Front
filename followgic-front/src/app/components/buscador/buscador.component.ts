@@ -15,9 +15,12 @@ searchEmitter = new EventEmitter<string>();
 @Input()
 titulo:any;
 
+
+
 @Input()
 busqueda:string='';
   constructor(private magoService: MagoService) { 
+   
   
   }
 
@@ -26,7 +29,11 @@ busqueda:string='';
     .subscribe(value => this.searchEmitter.emit(value))
 
     this.search.setValue(this.magoService.busqueda)
-
+   
   }
 
+  resetarInput(){
+    this.search.setValue("")
+  }
+ 
 }

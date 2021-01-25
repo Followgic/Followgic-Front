@@ -106,7 +106,7 @@ export class EditarPerfilComponent implements OnInit {
   getMago() {
     this.magoService.getUsuario().subscribe(res => {
       this.datosUsuario = res;
-      console.log(this.datosUsuario)
+     
       this.perfilForm.setValue({
         nombre: this.datosUsuario.nombre,
         nombre_artistico: this.datosUsuario.nombre_artistico,
@@ -121,7 +121,7 @@ export class EditarPerfilComponent implements OnInit {
       this.preImagen = 'http://localhost:8000' + this.perfilForm.value.foto
 
 
-      console.log(res)
+    
     },
       err => console.log(err)
     )
@@ -130,7 +130,7 @@ export class EditarPerfilComponent implements OnInit {
   getModalidades() {
     this.modalidadesService.getModalidades().subscribe(res => {
       this.modalidades = res;
-      console.log(res)
+   
     })
 
   }
@@ -144,7 +144,7 @@ export class EditarPerfilComponent implements OnInit {
         this.saveImangen()
       }
       this.dialog.closeAll()
-      console.log(res)
+    
       this.getMago()
 
     },
@@ -164,7 +164,7 @@ export class EditarPerfilComponent implements OnInit {
     const formData = new FormData();
     formData.append('foto', this.imagen);
     this.magoService.editImagen(formData).subscribe(res => {
-      console.log(res)
+    
       this.getMago()
     })
 

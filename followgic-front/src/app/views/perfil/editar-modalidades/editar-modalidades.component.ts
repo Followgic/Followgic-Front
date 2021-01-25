@@ -49,7 +49,7 @@ export class EditarModalidadesComponent implements OnInit {
     this.copiaMago= Object.assign({} , this.data.mago)
     delete this.copiaMago.foto
     this.options = this.data["modalidades"]
-    console.log(this.data.misModalidades)
+  
 
 
   }
@@ -170,7 +170,7 @@ export class EditarModalidadesComponent implements OnInit {
     
     this.magoService.editUsuario(this.copiaMago).subscribe(res => {
  
-      console.log(res)
+     
 
 
     })
@@ -180,7 +180,7 @@ export class EditarModalidadesComponent implements OnInit {
 
   createModalidad(modalidad){
     this.modalidadesService.crearModalidad(modalidad).subscribe(res => {
-      console.log(res)
+     
       this.save(res.pk)
 
 

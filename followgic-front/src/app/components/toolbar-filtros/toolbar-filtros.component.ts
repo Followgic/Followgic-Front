@@ -28,7 +28,7 @@ export class ToolbarFiltrosComponent implements OnInit,OnDestroy  {
    }
 
   ngOnInit() {
-    console.log(this.modalidades)
+   
   }
 
   ngOnDestroy(): void {

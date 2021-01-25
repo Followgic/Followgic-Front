@@ -20,6 +20,7 @@
             </mat-card>
         </div>
         <br>
+        <p  fxLayout="row" fxLayoutAlign="center"class="error" *ngIf="error">{{error}}</p>
         <div  class="contenido" fxLayout="row" fxLayoutAlign="end">
             <button mat-raised-button class="mat-primary" type="button" (click)="getRespuesta()">Siguiente</button>
         </div>

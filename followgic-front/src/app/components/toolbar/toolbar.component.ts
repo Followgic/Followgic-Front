@@ -21,7 +21,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   abrirNotificaciones = new EventEmitter();
   constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, private router: Router) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('(max-width: 100px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
@@ -41,7 +41,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     let mago
     mago = localStorage.getItem('mago');
     this.loginService.logout(mago).subscribe(res => {
-      console.log(res)
+     
       localStorage.clear()
       this.router.navigate(['/login'])
     })

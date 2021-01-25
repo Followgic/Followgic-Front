@@ -13,7 +13,7 @@ export class RegistroService {
   constructor(private http: HttpClient) { }
 
   registro(mago){
-    console.log(mago)
+   
      return this.http.post<any>(this.URL + '/user/users/', mago, {headers: this.httpHeaders});
    }
 }

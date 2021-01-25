@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { getMatFormFieldDuplicatedHintError } from '@angular/material/form-field';
 import { MagoService } from 'src/app/services/mago.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
@@ -14,41 +14,63 @@ export class MensajesAmigosComponent implements OnInit {
   filtro_valor:any[]=[""]
   amigo: any;
   pk:any;
+  reset:any;
 
+  @ViewChild('buscadorNombre', { static: false }) buscadorNombre;
+  @ViewChild('buscadorMensaje', { static: false }) buscadorMensaje;
+  
   constructor(private mensajeService: MensajeService, private magoService: MagoService) {
     this.magoService.getYo(res =>{
       this.pk=res
-      this.getAmigos()
+      this.getAmigos(()=>{
+        this.getMensajesRecibidos()
+      })
+      
     })
  
     
    }
 
   ngOnInit(): void {
-    this.getMensajesRecibidos()
+    
   }
 
   getMensajesRecibidos() {
     this.mensajeService.getMensajes().subscribe(res => {
-      console.log(res)
+     
+    
       res.forEach(mensaje => {
+        let pkAmigo
+        if(mensaje.destinatario == this.pk){
+          pkAmigo = mensaje.remitente
+        }else{
+          pkAmigo = mensaje.destinatario
+        }
+
         this.mensajesRecibidos.push( {id: mensaje.id , cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: mensaje.fecha,
-          destinatario: mensaje.destinatario , remitente: mensaje.remitente, nombre: this.amigos.filter(amigo => amigo.pk==mensaje.remitente).map(amigo => amigo.nombre)[0],
-        nombre_artistico:  this.amigos.filter(amigo => amigo.pk==mensaje.remitente).map(amigo => amigo.nombre_artistico)[0]})
+          destinatario: mensaje.destinatario , remitente: mensaje.remitente, nombre: this.amigos.filter(amigo => amigo.pk==pkAmigo).map(amigo => amigo.nombre)[0],
+        nombre_artistico:  this.amigos.filter(amigo => amigo.pk==pkAmigo).map(amigo => amigo.nombre_artistico)[0]})
         })
-        console.log(this.mensajesRecibidos)
+       
+        
+        this.filtrarMensaje("")
         
       });
      
 }
 
-  getAmigos() {
+  getAmigos(cb) {
     this.magoService.getAllAmigos().subscribe(res => {
-      console.log(res)
+    
       this.amigos = res
       this.amigos = this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
       + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+      if(cb){
+        cb()
+      }
     })
+
+
   }
 
   cargarConversacion(amigo){
@@ -74,11 +96,26 @@ export class MensajesAmigosComponent implements OnInit {
 
   filtrarMagos(nombre:String){
     
-    if(nombre){
+    if(nombre|| nombre ==''){
 
     this.filtro_valor=[nombre]
     }
    
+  }
+
+  filtrarMensaje(nombre:String){
+    if(nombre|| nombre ==''){
+
+      this.filtro_valor=[nombre]
+      }
+
+  }
+
+  restearBusqueda(){
+    this.filtrarMensaje("")
+    this.filtrarMagos("")
+    this.buscadorNombre.resetarInput();
+    this.buscadorMensaje.resetarInput();
   }
 
   
