@@ -1,15 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LoginComponent } from '../views/login/login.component';
+import { LoginService } from './login.service';
+import { WebsocketService } from './websocket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeticionService {
   private URL = "http://localhost:8000"
-  peticiones:any;
+  peticiones: any;
+
+  public messages;
+
   private httpHeadersToken = new HttpHeaders({
-    'Authorization': 'Token '+ localStorage.getItem('auth_token'),
+    'Authorization': 'Token ' + localStorage.getItem('auth_token'),
     'Content-Type': 'application/json'
   });
 
@@ -18,14 +26,24 @@ export class PeticionService {
   });
 
 
-  constructor(private http: HttpClient, private route: Router) { }
+  constructor(private http: HttpClient, private route: Router, private wsService: WebsocketService,
+    private loginService: LoginService) {
+   // super(http);
+    if (this.loginService.logueado())
+    this.messages = <Subject<any>>wsService.connect('ws://localhost:8000/ws/crearSolicitudAmistad/peticion_'+ loginService.getUsername() + '/').pipe(
+        map((response: MessageEvent): any => {
+          let data = JSON.parse(response.data);
+          return data
+        })
+      );
+  }
 
   crearPeticionAmistad(id) {
 
     return this.http.get<any>(`${this.URL}/peticiones/crearSolicitudAmistad/${id}`, { headers: this.httpHeaders });
   }
 
-  cancelarPeticion(id){
+  cancelarPeticion(id) {
     return this.http.get<any>(`${this.URL}/peticiones/cancelarSolicitud/${id}/`, { headers: this.httpHeaders });
 
   }
@@ -37,26 +55,26 @@ export class PeticionService {
 
   peticionesRecibidas() {
 
-    return this.http.get<any>(`${this.URL}/peticiones/misNotificaciones/`,  { headers: this.httpHeadersToken });
+    return this.http.get<any>(`${this.URL}/peticiones/misNotificaciones/`, { headers: this.httpHeadersToken });
   }
 
-  aceptarPeticion(id){
+  aceptarPeticion(id) {
 
-    return this.http.get<any>(`${this.URL}/peticiones/aceptarSolicitud/${id}`,  { headers: this.httpHeadersToken });
-
-  }
-
-  rechazarPeticion(id){
-
-    return this.http.get<any>(`${this.URL}/peticiones/rechazarSolicitud/${id}`,  { headers: this.httpHeadersToken });
+    return this.http.get<any>(`${this.URL}/peticiones/aceptarSolicitud/${id}`, { headers: this.httpHeadersToken });
 
   }
 
-  peticionPendienteConUsuario(id){
-    return this.http.get<any>(`${this.URL}/peticiones/peticionPendienteConUsuario/${id}`,  { headers: this.httpHeadersToken });
+  rechazarPeticion(id) {
+
+    return this.http.get<any>(`${this.URL}/peticiones/rechazarSolicitud/${id}`, { headers: this.httpHeadersToken });
 
   }
-  
+
+  peticionPendienteConUsuario(id) {
+    return this.http.get<any>(`${this.URL}/peticiones/peticionPendienteConUsuario/${id}`, { headers: this.httpHeadersToken });
+
+  }
+
 
 
 

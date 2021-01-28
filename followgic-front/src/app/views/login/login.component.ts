@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
         
     
         localStorage.setItem('mago', JSON.stringify(this.loginForm.value));
+        localStorage.setItem('username',this.loginForm.value.username);
         localStorage.setItem('auth_token', res.auth_token);
        
       

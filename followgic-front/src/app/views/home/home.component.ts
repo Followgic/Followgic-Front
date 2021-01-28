@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 import { LoginService } from 'src/app/services/login.service';
 import { MagoService } from 'src/app/services/mago.service';
+import { PeticionService } from 'src/app/services/peticion.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,13 @@ import { MagoService } from 'src/app/services/mago.service';
 })
 export class HomeComponent implements OnInit {
 busqueda:any
-  constructor(public loginService: LoginService,public magoService: MagoService, private router: Router, public toolbarComponent: ToolbarComponent) { }
+notifications : any;
+  constructor(public loginService: LoginService,public magoService: MagoService, private router: Router, public toolbarComponent: ToolbarComponent, public peticionService: PeticionService) {
+    peticionService.messages.subscribe (msg => { 
+      this.notifications.unshift(msg.message); 
+      console.log(this.notifications)
+      });
+   }
 
   ngOnInit(): void {
     this.magoService.setBusqueda('')

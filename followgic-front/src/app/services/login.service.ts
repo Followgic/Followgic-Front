@@ -40,6 +40,12 @@ export class LoginService {
   logueado(){
    return localStorage.getItem('auth_token')
   }
+
+  getUsername(){
+  
+    return localStorage.getItem('username')
+  
+   }
   
 
   
