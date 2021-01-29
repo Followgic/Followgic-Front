@@ -14,7 +14,7 @@ export class PeticionService {
   private URL = "http://localhost:8000"
   peticiones: any;
 
-  public messages;
+  public messages:any;
 
   private httpHeadersToken = new HttpHeaders({
     'Authorization': 'Token ' + localStorage.getItem('auth_token'),
@@ -24,18 +24,20 @@ export class PeticionService {
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });
+  noNotificacion: string;
 
 
   constructor(private http: HttpClient, private route: Router, private wsService: WebsocketService,
     private loginService: LoginService) {
-   // super(http);
-    if (this.loginService.logueado())
-    this.messages = <Subject<any>>wsService.connect('ws://localhost:8000/ws/crearSolicitudAmistad/peticion_'+ loginService.getUsername() + '/').pipe(
+
+    if (this.loginService.logueado()) {
+      this.messages = <Subject<any>>wsService.connect('ws://localhost:8000/ws/crearSolicitudAmistad/peticion_' + loginService.getUsername() + '/').pipe(
         map((response: MessageEvent): any => {
           let data = JSON.parse(response.data);
           return data
         })
       );
+    }
   }
 
   crearPeticionAmistad(id) {
@@ -74,7 +76,23 @@ export class PeticionService {
     return this.http.get<any>(`${this.URL}/peticiones/peticionPendienteConUsuario/${id}`, { headers: this.httpHeadersToken });
 
   }
-
+/* 
+  getPeticionesRecibidas(){
+    this.noNotificacion = ""
+    let peticiones:any[]=[]
+    this.peticionesRecibidas().subscribe(res =>{
+      if(  JSON.stringify(this.peticionesRecibidas) !== JSON.stringify(res)){
+       peticiones = res
+      
+    }
+    if(this.peticionesRecibidas.length==0){
+      this.noNotificacion="No tienes ninguna petición"
+     
+    }
+    })
+    return peticiones
+  }
+ */
 
 
 

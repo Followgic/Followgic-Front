@@ -21,15 +21,15 @@ amigo:any;
 mago:any 
   
   constructor(private magoService: MagoService, private peticionService: PeticionService) { 
-   
+ 
   
  
   }
 
   ngOnInit() {
     if(!this.mago){
-    this.getMago()
-    }
+      this.getMago()
+      }
   }
 
 

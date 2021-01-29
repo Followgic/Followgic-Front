@@ -21,12 +21,13 @@
     </mat-tab>
 
     <mat-tab label="Amigos">
-        <div fxLayout="column" fxLayoutAlign="space-araundo center">
-            <div *ngIf="!amigos">
-            <h3>No tienes ningún amigo</h3>
-            </div>
-
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+           
             <app-buscador #buscadorNombre (search)="filtrarMagos($event)"  class="buscador"  [titulo]='"Buscar amigos"'></app-buscador>
+            <div *ngIf="amigos.length==0">
+                <h3>No tienes ningún amigo</h3>
+                </div>
+    
 
             <div *ngFor="let amigo of amigos |filtrarString: filtro_valor ">
 

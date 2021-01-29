@@ -14,10 +14,7 @@ export class HomeComponent implements OnInit {
 busqueda:any
 notifications : any;
   constructor(public loginService: LoginService,public magoService: MagoService, private router: Router, public toolbarComponent: ToolbarComponent, public peticionService: PeticionService) {
-    peticionService.messages.subscribe (msg => { 
-      this.notifications.unshift(msg.message); 
-      console.log(this.notifications)
-      });
+   
    }
 
   ngOnInit(): void {

@@ -8,6 +8,7 @@ import { AvisoCancelarPeticionComponent } from './aviso-cancelar-peticion/aviso-
 import { AvisoPeticionComponent } from './aviso-peticion/aviso-peticion.component';
 import {map, startWith} from 'rxjs/operators';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -28,15 +29,16 @@ export class ListarMagosComponent implements OnInit {
   filtrarModalidad:any[]=[]
   filtros:boolean=false
   modalidades:any[]=[]
+  notifications:any[]=[]
 
 
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
-  constructor(public dialog: MatDialog,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
+  constructor(public dialog: MatDialog,private loginService: LoginService,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
     this.getModalidades()
     this.getAllMagos()
     this.getAllAmigos()
     this.getPeticionesPendientes()
-   
+  
     this.magoForm = new FormGroup({
 			nombre: new FormControl(''),
     })

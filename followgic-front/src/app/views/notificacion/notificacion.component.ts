@@ -15,6 +15,9 @@ mensajesNoLeidos:any =[];
   constructor(private peticionService: PeticionService,private mensajeService: MensajeService) {
     this.getPeticionesRecibidas()
     this.getMensajesNoLeidos()
+   /*  this.peticionService.getPeticionesRecibidas().subscribe(res =>{
+      this.peticionesRecibidas=res
+    }) */
    }
 
   ngOnInit() {
@@ -24,7 +27,10 @@ mensajesNoLeidos:any =[];
   getPeticionesRecibidas(){
     this.noNotificacion = ""
     this.peticionService.peticionesRecibidas().subscribe(res =>{
+      if(  JSON.stringify(this.peticionesRecibidas) !== JSON.stringify(res)){
+       
       this.peticionesRecibidas=res
+    }
     if(this.peticionesRecibidas.length==0){
       this.noNotificacion="No tienes ninguna petición"
     }
