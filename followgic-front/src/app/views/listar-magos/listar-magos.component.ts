@@ -34,13 +34,18 @@ export class ListarMagosComponent implements OnInit {
 
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor(public dialog: MatDialog,private loginService: LoginService,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
+    this.peticionService.peticiones$.subscribe(res => {
+      this.pendientes = res.map(peticion => peticion.pk)
+    })
     this.getModalidades()
     this.getAllMagos()
     this.getAllAmigos()
     this.getPeticionesPendientes()
   
     this.magoForm = new FormGroup({
-			nombre: new FormControl(''),
+      nombre: new FormControl(''),
+      
+     
     })
     
     

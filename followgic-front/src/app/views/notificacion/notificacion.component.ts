@@ -8,23 +8,21 @@ import { PeticionService } from 'src/app/services/peticion.service';
   styleUrls: ['./notificacion.component.css']
 })
 export class NotificacionComponent implements OnInit {
-peticionesRecibidas:any = [];
+peticionesRecibidas:any[] = [];
 noNotificacion:any;
 noMensaje:any;
 mensajesNoLeidos:any =[];
   constructor(private peticionService: PeticionService,private mensajeService: MensajeService) {
-    this.getPeticionesRecibidas()
+   this.getPeticionesRecibidas() 
     this.getMensajesNoLeidos()
-   /*  this.peticionService.getPeticionesRecibidas().subscribe(res =>{
-      this.peticionesRecibidas=res
-    }) */
+  
    }
 
   ngOnInit() {
   
   }
 
-  getPeticionesRecibidas(){
+   getPeticionesRecibidas(){
     this.noNotificacion = ""
     this.peticionService.peticionesRecibidas().subscribe(res =>{
       if(  JSON.stringify(this.peticionesRecibidas) !== JSON.stringify(res)){
@@ -36,7 +34,7 @@ mensajesNoLeidos:any =[];
     }
     })
   
-  }
+  } 
 
   recargarpagina(id){
     if(id){

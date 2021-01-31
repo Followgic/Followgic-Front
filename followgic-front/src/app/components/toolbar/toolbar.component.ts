@@ -48,6 +48,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   }
+  nuevaPeticiones(){
+    this.notificacion.getPeticionesRecibidas()
+  }
 
   cargarNotificaciones() {
     this.notificacion.getPeticionesRecibidas()
