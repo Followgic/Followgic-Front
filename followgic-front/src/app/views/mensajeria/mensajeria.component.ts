@@ -28,7 +28,7 @@ ventana:boolean = false
 
     });
 
-   }
+  }
 
   ngOnInit() {
     this.magoService.amigo$.subscribe(res =>{

@@ -37,6 +37,10 @@ export class ListarMagosComponent implements OnInit {
     this.peticionService.peticiones$.subscribe(res => {
       this.pendientes = res.map(peticion => peticion.pk)
     })
+
+    this.magoService.recargaAmigos$.subscribe(res => {
+      this.amigos = res.map(amigo=> amigo.pk)
+    })
     this.getModalidades()
     this.getAllMagos()
     this.getAllAmigos()

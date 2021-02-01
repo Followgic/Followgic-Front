@@ -33,6 +33,7 @@ export class MagoService implements HttpInterceptor {
   busqueda:any
   busqueda$ = new EventEmitter()
   amigo$ = new EventEmitter()
+  recargaAmigos$ = new EventEmitter()
   constructor(private http: HttpClient, private route: Router) {
     
    }
