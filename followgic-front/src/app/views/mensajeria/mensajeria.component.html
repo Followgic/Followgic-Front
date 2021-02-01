@@ -1,5 +1,5 @@
 <app-sidenav-mensajeria #ventanaLateral>
-    <div *ngIf="!mensajes"fxLayout="column" class="container">
+    <div *ngIf="mensajes.length==0"fxLayout="column" class="container">
         <div fxFlex=40 fxLayout="row">
             <button (click)="abrirVentana()" class="boton" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
                 <mat-icon class="icono">more_vert</mat-icon>
@@ -9,7 +9,7 @@
             <img  src="../../../assets/img/logo.png" width="260" height="100">
         </div>
     </div>
-    <div *ngIf="mensajes" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+    <div *ngIf="mensajes.length!=0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
         <mat-card class="principal" fxLayout="column" fxLayoutAlign="start">
             <mat-card class="cardPerfil" fxFlex=10 fxLayout="row">
                 <div>

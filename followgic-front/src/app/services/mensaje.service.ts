@@ -1,11 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LoginService } from './login.service';
+import { WebsocketService } from './websocket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MensajeService {
   private URL = "http://localhost:8000"
+  public messages
   
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -16,7 +21,11 @@ export class MensajeService {
   });
 
   mensaje$ = new EventEmitter()
-  constructor(private http: HttpClient) { }
+  recargarMensaje$ = new EventEmitter()
+  //Varita = true si el usuario esta dentro de la vista
+  varita$ =  new EventEmitter()
+  constructor(private http: HttpClient, private loginService:LoginService, private wsService: WebsocketService) { 
+  }
 
   getMensajes(){
     return this.http.get<any>(`${this.URL}/mensajes/mensajes/`, { headers: this.httpHeadersToken });

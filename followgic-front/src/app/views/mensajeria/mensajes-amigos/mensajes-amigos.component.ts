@@ -75,6 +75,7 @@ export class MensajesAmigosComponent implements OnInit {
 
   cargarConversacion(amigo){
     this.magoService.amigo$.emit(amigo)
+    this.mensajeService.varita$.emit(true)
   }
 
   getAmigo(mensaje){

@@ -32,7 +32,7 @@ export class PeticionService {
     private loginService: LoginService) {
 
     if (this.loginService.logueado()) {
-      this.messages = <Subject<any>>wsService.connect('ws://localhost:8000/ws/crearSolicitudAmistad/peticion_' + loginService.getUsername() + '/').pipe(
+      this.messages = <Subject<any>>wsService.connect('ws://localhost:8000/ws/notificacion/canal_' + loginService.getUsername() + '/').pipe(
         map((response: MessageEvent): any => {
           let data = JSON.parse(response.data);
           return data

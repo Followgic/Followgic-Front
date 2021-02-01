@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AvisoPreguntasComponent } from 'src/app/views/registro/aviso-preguntas/aviso-preguntas.component';
+import { MensajeService } from 'src/app/services/mensaje.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -19,8 +20,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   @ViewChild('snav', { static: false }) snav;
   @ViewChild('notificacion', { static: false }) notificacion;
 
+
+
   abrirNotificaciones = new EventEmitter();
-  constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, private router: Router) {
+  constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, public mensajeService: MensajeService,private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 100px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -54,6 +57,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   cargarNotificaciones() {
     this.notificacion.getPeticionesRecibidas()
+    this.mensajeService.varita$.emit(false)
+    this.mensajeService.recargarMensaje$.emit([])
     this.snav.toggle()
   }
 
