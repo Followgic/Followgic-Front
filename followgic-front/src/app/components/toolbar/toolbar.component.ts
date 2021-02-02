@@ -42,6 +42,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   logout() {
     let mago
+    this.snav.close()
     mago = localStorage.getItem('mago');
     this.loginService.logout(mago).subscribe(res => {
      

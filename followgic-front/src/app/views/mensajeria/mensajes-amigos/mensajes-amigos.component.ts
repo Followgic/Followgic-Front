@@ -93,6 +93,8 @@ export class MensajesAmigosComponent implements OnInit {
       + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico}
       this.cargarConversacion(amigo)
     })
+
+    this.mensajeService.varita$.emit(true)
   }
 
   filtrarMagos(nombre:String){

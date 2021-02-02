@@ -10,18 +10,22 @@ import { PeticionService } from 'src/app/services/peticion.service';
   styleUrls: ['./mensajeria.component.scss']
 })
 export class MensajeriaComponent implements OnInit, AfterViewChecked {
-  mensajes: any[]=[]
+  mensajes: any[] = []
   mago: any = []
   mensajeForm: FormGroup
   disableScrollDown = false
   ventana: boolean = false
+  abrirConversacion: boolean = false
 
 
 
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor(private magoService: MagoService, private mensajeService: MensajeService, private peticionService: PeticionService) {
-this.mensajes=[]
+    this.mensajes = []
+    this.mensajeService.varita$.subscribe(res => {
+      this.abrirConversacion=res
+    })
     this.mensajeForm = new FormGroup({
       cuerpo: new FormControl(""),
       estado: new FormControl(""),
@@ -52,8 +56,8 @@ this.mensajes=[]
   }
 
   ngOnInit() {
-   
- 
+
+
 
     this.magoService.amigo$.subscribe(res => {
 
@@ -66,7 +70,7 @@ this.mensajes=[]
     })
     this.scrollToBottom();
 
-  
+
 
   }
 
@@ -110,6 +114,7 @@ this.mensajes=[]
   cargarConversacion(idMago, eliminar?) {
     this.mensajeService.getConversacionPorMago(idMago).subscribe(res => {
       this.mensajes = res
+      this.abrirConversacion = true
 
       this.mensajes = res.map(mensaje => {
         return {
