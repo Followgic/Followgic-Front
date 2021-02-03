@@ -12,10 +12,22 @@ import { ConfirmarEliminacionComponent } from './confirmar-eliminacion/confirmar
 export class AmigosComponent implements OnInit {
   amigosId:any;
   amigos:any =[]
+  hayAmigos:boolean = true
 
   @ViewChild(CartaComponent) carta:CartaComponent;	
   constructor(public dialog: MatDialog,private magoService: MagoService) {
   this.getAllAmigos()
+  this.magoService.recargaAmigos$.subscribe(res=> {
+    this.amigos = res
+    if(res.length==0){
+    this.hayAmigos =false
+  }else{
+    this.hayAmigos =true
+  }
+    this.amigosId=this.amigos.map(amigo => amigo.pk)
+      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
+      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+  })
   
   }
 
@@ -31,10 +43,7 @@ export class AmigosComponent implements OnInit {
 
    dialogRef.afterClosed().subscribe(result => {
      if(!result){
-      this.magoService.getAllAmigos().subscribe(res =>{
-        this.amigosId=res.map(amigo => amigo.pk)
-        
-      })
+      this.getAllAmigos()
      }
 
      console.log(`Dialog result: ${result}`);
@@ -47,6 +56,10 @@ export class AmigosComponent implements OnInit {
   getAllAmigos(){
     this.magoService.getAllAmigos().subscribe(res =>{
       this.amigos=res
+      if(res.length==0){
+      this.hayAmigos =false
+      }
+
       this.amigosId=this.amigos.map(amigo => amigo.pk)
       this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
       + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})

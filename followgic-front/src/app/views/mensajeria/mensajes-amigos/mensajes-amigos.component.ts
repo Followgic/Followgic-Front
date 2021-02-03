@@ -25,7 +25,32 @@ export class MensajesAmigosComponent implements OnInit {
       this.getAmigos(()=>{
         this.getMensajesRecibidos()
       })
+
       
+    })
+    this.magoService.recargaAmigos$.subscribe(res=>{
+      this.amigos = res
+      this.amigos = this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
+      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+    })
+
+    this.mensajeService.recargarConversaciones$.subscribe(res=>{
+      this.mensajesRecibidos = []
+      res.forEach(mensaje => {
+        let pkAmigo
+        if(mensaje.destinatario == this.pk){
+          pkAmigo = mensaje.remitente
+        }else{
+          pkAmigo = mensaje.destinatario
+        }
+
+        this.mensajesRecibidos.push( {id: mensaje.id , cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: mensaje.fecha,
+          destinatario: mensaje.destinatario , remitente: mensaje.remitente, nombre: this.amigos.filter(amigo => amigo.pk==pkAmigo).map(amigo => amigo.nombre)[0],
+        nombre_artistico:  this.amigos.filter(amigo => amigo.pk==pkAmigo).map(amigo => amigo.nombre_artistico)[0]})
+        })
+       
+        
+        this.filtrarMensaje("")
     })
  
     

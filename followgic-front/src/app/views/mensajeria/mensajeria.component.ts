@@ -115,7 +115,6 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
     this.mensajeService.getConversacionPorMago(idMago).subscribe(res => {
       this.mensajes = res
       this.abrirConversacion = true
-
       this.mensajes = res.map(mensaje => {
         return {
           id: mensaje.id, cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
@@ -134,10 +133,8 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   enviarMensaje(id) {
 
     this.mensajeService.enviarMensaje(id, this.mensajeForm.value).subscribe(res => {
-
-
-
       this.cargarConversacion(res.destinatario)
+      this.ventanaLateral.recargarMensajes()
       this.mensajeForm.reset()
     })
   }

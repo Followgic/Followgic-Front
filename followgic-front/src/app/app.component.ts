@@ -36,18 +36,36 @@ export class AppComponent {
           this.magoService.getAllAmigos().subscribe(res => {
             this.magoService.recargaAmigos$.emit(res)
           })
+
+        } else if (mensaje[0] == "Amigo") {
+          this.magoService.getAllAmigos().subscribe(res => {
+            this.magoService.recargaAmigos$.emit(res)
+          })
+          this.mensajeService.getMensajes().subscribe(res => {
+            //Se recargan las conversaciones entrantes
+            this.mensajeService.recargarConversaciones$.emit(res)
+          })
+
           console.log(this.notificationPeticion)
         } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" && this.varita) {
           this.mensajeService.getConversacionPorMago(mensaje[2]).subscribe(res => {
             this.mensajeService.recargarMensaje$.emit(res)
           })
+        
+
+        } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" ) {
+          this.mensajeService.getMensajes().subscribe(res => {
+            //Se recargan las conversaciones entrantes
+            this.mensajeService.recargarConversaciones$.emit(res)
+          })
 
 
         } else if (mensaje[0] == "Mensaje" && mensaje[1] == "destinatario") {
           this.mensajeService.getConversacionPorMago(mensaje[2]).subscribe(res => {
+            //Se recargan los mensajes entrantes
             this.mensajeService.recargarMensaje$.emit(res)
           })
-
+        
         }
       });
 

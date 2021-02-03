@@ -19,6 +19,8 @@ export class SidenavMensajeriaComponent implements OnInit {
   private _mobileQueryListener: () => void;
   @ViewChild('snav', { static: false }) snav;
   @ViewChild('buscadorEtiquetas', { static: false }) buscadorEtiquetas;
+  @ViewChild('mensajesAmigos', { static: false }) mensajesAmigos;
+  
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, private router: Router) {
 
     this.mobileQuery = media.matchMedia('max-width: 600px)');
@@ -42,6 +44,10 @@ export class SidenavMensajeriaComponent implements OnInit {
   }
   enviarModalidades(modalidadesFiltros){
   this.modalidadesEmitter.emit(modalidadesFiltros)
+  }
+
+  recargarMensajes(){
+    this.mensajesAmigos.getMensajesRecibidos() 
   }
 
 }

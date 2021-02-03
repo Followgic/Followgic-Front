@@ -1,8 +1,6 @@
 <br>
-<div *ngIf="amigos">
-    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="amigos.length==0">
-        <h1>No tienes amigos, busca a otros magos <a href="http://localhost:4200/listar-magos">aquí</a></h1>
-    </div>
+<div *ngIf="hayAmigos">
+    
 
     <div fxLayout="row wrap" fxLayout.xs="column">
         <div class="carta" fxFlex=22 fxFlex.md=28 fxFlex.sm=43 fxFlex.xs=100 *ngFor="let amigo of amigos">
@@ -13,7 +11,9 @@
     </div>
 </div>
 
-<div *ngIf="!amigos">
-    <mat-spinner></mat-spinner>
+<div *ngIf="!hayAmigos">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h1>No tienes amigos, busca a otros magos <a href="http://localhost:4200/listar-magos">aquí</a></h1>
+    </div>
 </div>
 <br>

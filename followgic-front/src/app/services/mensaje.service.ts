@@ -22,6 +22,7 @@ export class MensajeService {
 
   mensaje$ = new EventEmitter()
   recargarMensaje$ = new EventEmitter()
+  recargarConversaciones$ = new EventEmitter()
   //Varita = true si el usuario esta dentro de la vista
   varita$ =  new EventEmitter()
   constructor(private http: HttpClient, private loginService:LoginService, private wsService: WebsocketService) { 
