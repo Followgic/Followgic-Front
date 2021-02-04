@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer, Subject } from 'rxjs';
+import { LoginService } from './login.service';
+import { MagoService } from './mago.service';
+import { MensajeService } from './mensaje.service';
+import { PeticionService } from './peticion.service';
 
 
 @Injectable({
@@ -7,9 +11,13 @@ import { Observable, Observer, Subject } from 'rxjs';
 })
 export class WebsocketService {
 
-  constructor() { }
+
+
+  constructor() {
+
+  }
   private subject: Subject<MessageEvent>;
-  
+
   public connect(url): Subject<MessageEvent> {
     if (!this.subject) {
       this.subject = this.create(url);
@@ -34,4 +42,7 @@ export class WebsocketService {
     };
     return Subject.create(observer, observable);
   }
+
+
 }
+

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 //import * as CryptoJS from 'crypto-js';
 import { LoginService } from 'src/app/services/login.service';
 import { MagoService } from 'src/app/services/mago.service';
+import { PeticionService } from 'src/app/services/peticion.service';
+import { TiempoRealService } from 'src/app/services/tiempo-real.service';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { MagoService } from 'src/app/services/mago.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errores: any = [];
-  constructor(private loginService: LoginService, private router: Router, private magoService: MagoService) {
+  constructor(private loginService: LoginService, private router: Router, private magoService: MagoService, private peticionService: PeticionService , private tiempoRealService: TiempoRealService) {
 
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -36,6 +38,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username',this.loginForm.value.username);
         localStorage.setItem('auth_token', res.auth_token);
        
+        this.peticionService.abrirCanal()
+        this.tiempoRealService.recargarTiempoReal()
+        
       
         this.router.navigate(['/home']);
 

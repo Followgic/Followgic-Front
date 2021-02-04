@@ -16,6 +16,7 @@ export class PeticionService {
 
   public messages: any;
   peticiones$ = new EventEmitter()
+  peticionesRecibidas$ = new EventEmitter()
 
   private httpHeadersToken = new HttpHeaders({
     'Authorization': 'Token ' + localStorage.getItem('auth_token'),
@@ -31,14 +32,7 @@ export class PeticionService {
   constructor(private http: HttpClient, private route: Router, private wsService: WebsocketService,
     private loginService: LoginService) {
 
-    if (this.loginService.logueado()) {
-      this.messages = <Subject<any>>wsService.connect('ws://localhost:8000/ws/notificacion/canal_' + loginService.getUsername() + '/').pipe(
-        map((response: MessageEvent): any => {
-          let data = JSON.parse(response.data);
-          return data
-        })
-      );
-    }
+    this.abrirCanal()
   }
 
   crearPeticionAmistad(id) {
@@ -76,6 +70,17 @@ export class PeticionService {
   peticionPendienteConUsuario(id) {
     return this.http.get<any>(`${this.URL}/peticiones/peticionPendienteConUsuario/${id}`, { headers: this.httpHeadersToken });
 
+  }
+
+  abrirCanal(){
+    if (this.loginService.logueado()) {
+      this.messages = <Subject<any>>this.wsService.connect('ws://localhost:8000/ws/notificacion/canal_' + this.loginService.getUsername() + '/').pipe(
+        map((response: MessageEvent): any => {
+          let data = JSON.parse(response.data);
+          return data
+        })
+      );
+    }
   }
 
 

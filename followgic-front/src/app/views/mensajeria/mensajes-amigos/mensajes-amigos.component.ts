@@ -62,7 +62,7 @@ export class MensajesAmigosComponent implements OnInit {
 
   getMensajesRecibidos() {
     this.mensajeService.getMensajes().subscribe(res => {
-     
+      this.mensajesRecibidos = []
     
       res.forEach(mensaje => {
         let pkAmigo

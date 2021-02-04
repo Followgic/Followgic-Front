@@ -3,6 +3,8 @@ import { LoginService } from './services/login.service';
 import { MagoService } from './services/mago.service';
 import { MensajeService } from './services/mensaje.service';
 import { PeticionService } from './services/peticion.service';
+import { TiempoRealService } from './services/tiempo-real.service';
+import { WebsocketService } from './services/websocket.service';
 import { NotificacionComponent } from './views/notificacion/notificacion.component';
 
 @Component({
@@ -16,70 +18,7 @@ export class AppComponent {
   notificationMensajes: any[] = [];
   varita: boolean = false
   @ViewChild('toolbar', { static: false }) toolbar;
-  constructor(private loginService: LoginService, private peticionService: PeticionService, private magoService: MagoService, private mensajeService: MensajeService) {
-    this.mensajeService.varita$.subscribe(res => {
-      this.varita = res
-    })
-
-    if (this.loginService.logueado()) {
-
-      this.peticionService.messages.subscribe(msg => {
-        let mensaje = msg.message.split(" ")
-        if (mensaje[0] == "Petición") {
-          this.notificationPeticion = []
-          this.notificationPeticion.unshift(msg.message);
-          this.toolbar.nuevaPeticiones()
-          this.peticionService.peticionesPendientes().subscribe(res => {
-            this.peticionService.peticiones$.emit(res)
-          })
-
-          this.magoService.getAllAmigos().subscribe(res => {
-            this.magoService.recargaAmigos$.emit(res)
-          })
-
-        } else if (mensaje[0] == "Amigo") {
-          this.magoService.getAllAmigos().subscribe(res => {
-            this.magoService.recargaAmigos$.emit(res)
-          })
-          this.mensajeService.getMensajes().subscribe(res => {
-            //Se recargan las conversaciones entrantes
-            this.mensajeService.recargarConversaciones$.emit(res)
-          })
-
-          console.log(this.notificationPeticion)
-        } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" && this.varita) {
-          this.mensajeService.getConversacionPorMago(mensaje[2]).subscribe(res => {
-            this.mensajeService.recargarMensaje$.emit(res)
-          })
-        
-
-        } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" ) {
-          this.mensajeService.getMensajes().subscribe(res => {
-            //Se recargan las conversaciones entrantes
-            this.mensajeService.recargarConversaciones$.emit(res)
-          })
-
-
-        } else if (mensaje[0] == "Mensaje" && mensaje[1] == "destinatario") {
-          this.mensajeService.getConversacionPorMago(mensaje[2]).subscribe(res => {
-            //Se recargan los mensajes entrantes
-            this.mensajeService.recargarMensaje$.emit(res)
-          })
-        
-        }
-      });
-
-
-
-
-
-
-
-
-    }
+  constructor(private loginService: LoginService, private peticionService: PeticionService, private magoService: MagoService, private tiempoRealService: TiempoRealService, private mensajeService: MensajeService) {
+    this.tiempoRealService.recargarTiempoReal()
   }
-
-
-
-
 }
