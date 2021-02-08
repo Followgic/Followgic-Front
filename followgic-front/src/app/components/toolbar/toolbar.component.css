@@ -39,8 +39,10 @@ mat-icon{
     margin-top:8px
 }
 
+
 .buscarPerfil{
     margin-right: 10px;
+
 }
 .notificaciones{
     margin-top:10px
@@ -56,6 +58,11 @@ mat-sidenav {
     }
 
     
+}
+
+::ng-deep.mat-badge-content {
+    background: #e0f1f0 !important;
+    color: black !important;
 }
 
   

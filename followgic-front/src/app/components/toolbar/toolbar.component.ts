@@ -6,6 +6,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AvisoPreguntasComponent } from 'src/app/views/registro/aviso-preguntas/aviso-preguntas.component';
 import { MensajeService } from 'src/app/services/mensaje.service';
+import { PeticionService } from 'src/app/services/peticion.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,6 +15,8 @@ import { MensajeService } from 'src/app/services/mensaje.service';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
+  peticionesRecibidas: any = 0;
+  mensajesRecibidos: any = 0;
 
 
   private _mobileQueryListener: () => void;
@@ -23,11 +26,25 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   abrirNotificaciones = new EventEmitter();
-  constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, public mensajeService: MensajeService,private router: Router) {
+  constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, public peticionService: PeticionService, public mensajeService: MensajeService, private router: Router) {
+    this.getPeticionesRecibidas()
+    this.getConversancion()
     this.mobileQuery = media.matchMedia('(max-width: 100px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.peticionService.peticionesRecibidas$.subscribe(res => {
+      this.peticionesRecibidas = res.length
+    })
+
+
+    this.mensajeService.recargarMenssajesNoLeidos$.subscribe(res => {
+      this.mensajesRecibidos = res.length
+    })
   }
+
+
+
   ngOnInit(): void {
 
   }
@@ -45,14 +62,14 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.snav.close()
     mago = localStorage.getItem('mago');
     this.loginService.logout(mago).subscribe(res => {
-     
+
       localStorage.clear()
       this.router.navigate(['/login'])
     })
 
 
   }
-  nuevaPeticiones(){
+  nuevaPeticiones() {
     this.notificacion.getPeticionesRecibidas()
   }
 
@@ -64,24 +81,36 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    
 
-    const dialogRef = this.dialog.open(AvisoPreguntasComponent,  {
+
+    const dialogRef = this.dialog.open(AvisoPreguntasComponent, {
       height: '250px',
       width: '400px',
-      position: {top:'200px'},
-      restoreFocus:false,
+      position: { top: '200px' },
+      restoreFocus: false,
       disableClose: true,
       autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+
       console.log(`Dialog result: ${result}`);
     });
   }
 
+  getConversancion() {
+    this.mensajeService.getMensajesNoLeidos().subscribe(res => {
+      this.mensajesRecibidos = res.length
 
+    })
+  }
+
+  getPeticionesRecibidas() {
+    this.peticionService.peticionesRecibidas().subscribe(res => {
+      this.peticionesRecibidas = res.length
+
+    })
+  }
 
 
 

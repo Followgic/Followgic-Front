@@ -1,0 +1,74 @@
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center" class="formulario">
+    <form fxFlex=100 [formGroup]="eventosForm" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column"
+      fxLayout.md="column" fxLayoutAlign="center">
+
+
+      <mat-card fxFlex.lg=20 fxFlex.xl=15 fxLayout="column">
+        <mat-radio-group [(value)]="valorEvento" (change)="seleccionarEvento($event)" fxLayout="row"
+          fxLayoutAlign="space-around" aria-label="Seleccione una opción">
+          <mat-radio-button *ngFor="let tipo of tipoEventos" [value]="tipo.valor">
+            {{tipo.nombre}}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <br>
+
+        <mat-form-field appearance="outline">
+          <input type="number" min="2" matInput placeholder="Aforo" formControlName="aforo" autocomplete="off">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="fecha_evento" placeholder="Fecha del Evento" formControlName="fecha_evento"
+            name="fecha_evento">
+          <mat-datepicker-toggle matSuffix [for]="fecha_evento">
+          </mat-datepicker-toggle>
+          <mat-datepicker #fecha_evento>
+          </mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Hora del evento</mat-label>
+          <input type="time" matInput placeholder="Hora del Evento" formControlName="hora_evento">
+        </mat-form-field>
+        <mat-form-field *ngIf="eventosForm.value.tipo==0" appearance="outline">
+          <input type="url" matInput placeholder="Link de sala" formControlName="link">
+        </mat-form-field>
+      </mat-card>
+      <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
+
+        <mat-form-field appearance="outline">
+          <input type="text" matInput placeholder="Título" formControlName="titulo" autocomplete="off">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion" rows=14>
+        <mat-error></mat-error>
+      </textarea>
+        </mat-form-field>
+
+      </mat-card>
+
+
+      <mat-card fxFlex.lg=20 fxFlex.xl=15 fxLayout="column" fxLayoutAlign="space-between center">
+        <div fxLayout="row">
+          <img fxFlex=100 #imagen class="imagenPerfil" src={{preImagen}}>
+        </div>
+        <div class="image-upload" fxFlex=15>
+          <label for="file-input">
+            <a mat-stroked-button color="primary">Añadir Imagen </a>
+          </label>
+
+          <input type="file" id="file-input" name="foto" (change)="onChangeImagen($event.target.files)">
+        </div>
+
+
+      </mat-card>
+    </form>
+  </div>
+  <br>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button class="mat-primary" (click)="pintarVariables()">Crear Evento</button>
+  </div>
+  <br>
+
+</div>

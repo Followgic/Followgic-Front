@@ -1,0 +1,11 @@
+.formulario{
+    margin-top: 50px;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.imagenPerfil {
+    height: 168px !important;
+}

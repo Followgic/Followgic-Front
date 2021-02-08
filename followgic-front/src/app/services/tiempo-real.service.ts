@@ -58,12 +58,18 @@ recargarTiempoReal() {
           //Se recargan las conversaciones entrantes
           this.mensajeService.recargarConversaciones$.emit(res)
         })
+        this.mensajeService.getMensajesNoLeidos().subscribe(res =>{
+          this.mensajeService.recargarMenssajesNoLeidos$.emit(res)
+        })
 
 
       } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente") {
         this.mensajeService.getMensajes().subscribe(res => {
           //Se recargan las conversaciones entrantes
           this.mensajeService.recargarConversaciones$.emit(res)
+        })
+        this.mensajeService.getMensajesNoLeidos().subscribe(res =>{
+          this.mensajeService.recargarMenssajesNoLeidos$.emit(res)
         })
 
 
@@ -72,6 +78,21 @@ recargarTiempoReal() {
           //Se recargan los mensajes entrantes
           this.mensajeService.recargarMensaje$.emit(res)
         })
+      
+     
+      
+
+      }else if (mensaje[0] == "Mensaje" && mensaje[1] == "actualizar") {
+        this.mensajeService.getMensajesNoLeidos().subscribe(res =>{
+          this.mensajeService.recargarMenssajesNoLeidos$.emit(res)
+        })
+        this.mensajeService.getMensajes().subscribe(res => {
+          //Se recargan las conversaciones entrantes
+          this.mensajeService.recargarConversaciones$.emit(res)
+        })
+
+     
+      
 
       }
     });

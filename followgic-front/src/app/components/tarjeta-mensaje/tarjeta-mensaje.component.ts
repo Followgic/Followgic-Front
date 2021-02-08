@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MagoService } from 'src/app/services/mago.service';
+import { MensajeService } from 'src/app/services/mensaje.service';
 
 @Component({
   selector: 'app-tarjeta-mensaje',
@@ -14,8 +15,11 @@ export class TarjetaMensajeComponent implements OnInit {
   pk:any;
   identificador:any
   nombre:any
+  mensajesNoleidos:any;
+  invisible:boolean=false
   
-  constructor(private magoService: MagoService) { 
+  constructor(private magoService: MagoService,private mensajeService: MensajeService) { 
+
     
   }
 
@@ -30,6 +34,16 @@ export class TarjetaMensajeComponent implements OnInit {
   
 
     }
+  }
+
+  getMensajePorMago(idMago){
+    this.mensajeService.getMensajesNoLeidosPorMago(idMago).subscribe(res => {
+      console.log(res)
+      this.mensajesNoleidos= res
+      if(this.mensajesNoleidos.length==0){
+        this.invisible=true
+      }
+    })
   }
   
 
@@ -46,6 +60,7 @@ export class TarjetaMensajeComponent implements OnInit {
       pkAmigo = this.mensaje.destinatario
       this.identificador = true
     }
+    this.getMensajePorMago(pkAmigo)
 
     this.magoService.getPerfilAmigo(pkAmigo).subscribe(res =>{
       this.mago=res

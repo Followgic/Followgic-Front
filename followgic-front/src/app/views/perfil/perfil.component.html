@@ -98,6 +98,12 @@
                 <mat-card class="eventos">
                     <h2 class="content"> Eventos</h2>
                 </mat-card>
+                    <br>
+                <div fxLayout="row " fxLayout.xs="column" fxLayoutAlign="center  center">
+
+                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary"
+                    routerLink="/crear-eventos">Crear Eventos</button>
+                </div>
             </div>
         </div>
         <br>

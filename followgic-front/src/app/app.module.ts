@@ -42,6 +42,8 @@ import { MensajeriaComponent } from './views/mensajeria/mensajeria.component';
 import { SidenavMensajeriaComponent } from './components/sidenav-mensajeria/sidenav-mensajeria.component';
 import { MensajesAmigosComponent } from './views/mensajeria/mensajes-amigos/mensajes-amigos.component';
 import { FiltrarMensajePipe } from './pipes/filtrar-mensaje.pipe';
+import { CrearEventosComponent } from './views/crear-eventos/crear-eventos.component';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 
 
 
@@ -82,7 +84,8 @@ import { FiltrarMensajePipe } from './pipes/filtrar-mensaje.pipe';
     MensajeriaComponent,
     SidenavMensajeriaComponent,
     MensajesAmigosComponent,
-    FiltrarMensajePipe
+    FiltrarMensajePipe,
+    CrearEventosComponent
   
   ],
   imports: [
@@ -98,7 +101,10 @@ import { FiltrarMensajePipe } from './pipes/filtrar-mensaje.pipe';
 
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: MagoService, multi: true }],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: MagoService, multi: true },{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: { color:  'primary'},
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

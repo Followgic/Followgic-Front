@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CartaComponent } from './components/carta/carta.component';
 import { AmigosComponent } from './views/amigos/amigos.component';
+import { CrearEventosComponent } from './views/crear-eventos/crear-eventos.component';
 import { FiltrosComponent } from './views/filtros/filtros.component';
 import { HomeComponent } from './views/home/home.component';
 import { ListarMagosComponent } from './views/listar-magos/listar-magos.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'amigos', component: AmigosComponent},
   {path: 'carta', component: CartaComponent},
+  {path: 'crear-eventos', component: CrearEventosComponent},
   {path: 'error-amigo', component: NoAmigoComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},

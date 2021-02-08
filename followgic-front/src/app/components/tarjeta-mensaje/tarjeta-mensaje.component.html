@@ -1,6 +1,7 @@
-<mat-card >
+<mat-card [matBadge]="mensajesNoleidos.length" [matBadgeHidden]="invisible" matBadgePosition="above after" >
  
     <mat-card-header >
+      
       
        <img class="imagen" mat-card-avatar class="imagen" src={{mago.foto}}>
    
@@ -8,8 +9,8 @@
       <mat-card-subtitle>{{mensaje.fecha}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content  fxLayout="row" fxLayoutAlign="center">
-    <p *ngIf="!identificador">{{nombre}}:&nbsp;</p>
-    <p *ngIf="identificador">Yo:&nbsp;</p>
+    <p *ngIf="!identificador"><b>{{nombre}}:</b>&nbsp;</p>
+    <p *ngIf="identificador"><b>Yo:</b>&nbsp;</p>
     <p>{{mensaje.cuerpo}}</p>
     </mat-card-content>
     

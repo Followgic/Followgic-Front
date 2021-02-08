@@ -1,5 +1,9 @@
 <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Peticiones">
+    <mat-tab>
+        <ng-template mat-tab-label>
+          <span *ngIf="peticionesRecibidas.length!=0" [matBadge]="peticionesRecibidas.length" matBadgeOverlap="false">Peticiones</span>
+          <span *ngIf="peticionesRecibidas.length==0" >Peticiones</span>
+        </ng-template>
         <div fxLayout="column" fxLayoutAlign="space-between center">
 
             <div *ngIf="noNotificacion">
@@ -17,8 +21,11 @@
 
 
     </mat-tab>
-
-    <mat-tab label="Chat">
+    <mat-tab>
+    <ng-template mat-tab-label>
+        <span *ngIf="mensajesNoLeidos.length!=0" [matBadge]="mensajesNoLeidos.length" matBadgeOverlap="false">Chat</span>
+        <span *ngIf="mensajesNoLeidos.length==0" >Chat</span>
+      </ng-template>
        
 
           

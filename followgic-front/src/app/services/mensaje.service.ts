@@ -23,6 +23,8 @@ export class MensajeService {
   mensaje$ = new EventEmitter()
   recargarMensaje$ = new EventEmitter()
   recargarConversaciones$ = new EventEmitter()
+  recargarMenssajesNoLeidos$= new EventEmitter()
+  mensajesNoLeidosPorMago$ = new EventEmitter()
   //Varita = true si el usuario esta dentro de la vista
   varita$ =  new EventEmitter()
   constructor(private http: HttpClient, private loginService:LoginService, private wsService: WebsocketService) { 
@@ -34,6 +36,11 @@ export class MensajeService {
 
   getMensajesNoLeidos(){
     return this.http.get<any>(`${this.URL}/mensajes/nuevosMensajes/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  getMensajesNoLeidosPorMago(idMago){
+    return this.http.get<any>(`${this.URL}/mensajes/mensajesSinLeerPorMago/${idMago}/`,{ headers: this.httpHeadersToken });
 
   }
 

@@ -12,6 +12,7 @@ peticionesRecibidas:any[] = [];
 noNotificacion:any;
 noMensaje:any;
 mensajesNoLeidos:any =[];
+mensajes:any=[]
   constructor(private peticionService: PeticionService,private mensajeService: MensajeService) {
    this.getPeticionesRecibidas() 
     this.getMensajesNoLeidos()
@@ -20,10 +21,18 @@ mensajesNoLeidos:any =[];
       if(  JSON.stringify(this.peticionesRecibidas) !== JSON.stringify(res)){
        
         this.peticionesRecibidas=res
+        this.noNotificacion=""
       }
       if(this.peticionesRecibidas.length==0){
         this.noNotificacion="No tienes ninguna petición"
       }
+    })
+
+    this.mensajeService.recargarMenssajesNoLeidos$.subscribe(res => {
+      this.mensajesNoLeidos=res
+
+
+
     })
   
    }
