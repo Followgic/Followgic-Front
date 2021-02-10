@@ -3,6 +3,18 @@
     outline:0px;
     border: 0px
 }
+
+.logoChico{
+  margin-top: 20px;
+  border-radius: 8px;
+
+}
+
+.logoChico:focus{
+    outline:0px;
+    border: 0px
+
+}
 .example-spacer {
     flex: 1 1 auto;
   }

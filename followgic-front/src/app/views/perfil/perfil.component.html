@@ -1,8 +1,6 @@
 <div *ngIf="!errorAmigo">
-    <div *ngIf="datosUsuario">
-        <br>
-
-
+    <div *ngIf="datosUsuario" class="contenido"   >
+       
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutAlign.xs=" space-evenly center"
             fxLayoutAlign.sm="space-evenly center"    fxLayoutAlign.md="space-evenly center"fxLayoutAlign="space-evenly start">
             <div fxFlex=20  fxFlex.lg=25  fxLayout="column" fxLayoutAlign="space-evenly" fxLayoutAlign.xs=" space-evenly center">
@@ -32,18 +30,18 @@
                     <div fxLayout="row" fxLayoutAlign="center">
                         <div fxLayout="row">
                             <mat-icon svgIcon="mago"></mat-icon>
-                            <h3> Nombre Artístico: {{datosUsuario.nombre_artistico}}</h3>
+                            <h3> &nbsp; Nombre Artístico: {{datosUsuario.nombre_artistico}}</h3>
                         </div>
                     </div>
                     <div fxLayout="row"  fxLayout.xs="column"fxLayoutAlign="space-evenly" fxLayoutAlign.xs="center center">
                         <div fxLayout="row">
                             <mat-icon>email</mat-icon>
-                            <h3> Email: {{datosUsuario.email}}</h3>
+                            <h3> &nbsp; Email: {{datosUsuario.email}}</h3>
                         </div>
                         <div fxLayout="row" fxLayoutAlign.xs="center">
                             <mat-icon> phone</mat-icon>
-                            <h3 *ngIf="datosUsuario.telefono"> Teléfono: {{datosUsuario.telefono}}</h3>
-                            <h3 *ngIf="!datosUsuario.telefono"> Teléfono: </h3>
+                            <h3 *ngIf="datosUsuario.telefono"> &nbsp; Teléfono: {{datosUsuario.telefono}}</h3>
+                            <h3 *ngIf="!datosUsuario.telefono"> &nbsp; Teléfono: </h3>
                         </div>
                   
                     </div>
@@ -53,9 +51,9 @@
                      
                         <div fxLayout="row">
                             <mat-icon>computer</mat-icon>
-                            <h3 *ngIf="datosUsuario.pagina_web"> Página web: <a class="parametros"
+                            <h3 *ngIf="datosUsuario.pagina_web"> &nbsp; Página web: <a class="parametros"
                                     href=datosUsuario.pagina_web>{{datosUsuario.pagina_web}}</a></h3>
-                            <h3 *ngIf="!datosUsuario.pagina_web"> Página web:</h3>
+                            <h3 *ngIf="!datosUsuario.pagina_web"> &nbsp; Página web:</h3>
                         </div>
                     </div>
                 </div>
@@ -89,19 +87,19 @@
                     </mat-card-content>
 
                 </mat-card>
-                <br>
+                
                 <div fxLayout="row " fxLayout.xs="column" fxLayoutAlign="center  center">
 
-                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary"
+                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary botones"
                         (click)="openDialogModalidad(modalidades)">Editar Modalidades</button>
                 </div>
                 <mat-card class="eventos">
                     <h2 class="content"> Eventos</h2>
                 </mat-card>
-                    <br>
+                   
                 <div fxLayout="row " fxLayout.xs="column" fxLayoutAlign="center  center">
 
-                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary"
+                    <button *ngIf="!idAmigo" mat-raised-button class="mat-primary botones"
                     routerLink="/crear-eventos">Crear Eventos</button>
                 </div>
             </div>

@@ -1,31 +1,11 @@
-/*      :host::ng-deep.imagenPerfil {
-        width: 500px !important;
-        height: 500px !important;
-    }
-    
-     :host::ng-deep.picasTop {
-        padding-left: 10px !important;
-        padding-top: 20px !important;
-    }
-    
-     :host::ng-deep.picasBotton {
-        padding-right: 10px !important;
-        margin-bottom: 20px !important;
-    }
-    
-     :host::ng-deep.flip-card {
-        width: 250px !important;
-        height: 340px !important;
-    } */
 
-
-/* .seguidores {
-    max-width: 300px;
-}
- */
 
 .content {
     text-align: center;
+}
+
+.contenido{
+    margin-top:11px
 }
 
 .carta {
@@ -77,6 +57,7 @@ form {
 
 .perfilCard{
     width: 100%;
+    margin-bottom: 0px;
 }
 
 .modalidades {
@@ -97,12 +78,17 @@ form {
 }
 
 .eventos {
-    margin-top:53px;
+    margin-top:15px;
     max-height: 200px;
     min-height: 200px;
     position: relative;
     overflow: hidden;
     width: 95%;
+}
+
+.botones{
+    margin-top: 12px;
+    margin-bottom: 0px;
 }
 
 @media only screen and (min-width : 1024px) and (max-width : 1280px)  {

@@ -15,7 +15,7 @@ export class TarjetaMensajeComponent implements OnInit {
   pk:any;
   identificador:any
   nombre:any
-  mensajesNoleidos:any;
+  mensajesNoleidos:any=[];
   invisible:boolean=false
   
   constructor(private magoService: MagoService,private mensajeService: MensajeService) { 
