@@ -1,0 +1,42 @@
+.formulario{
+    margin-top: 50px;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.imagenPerfil {
+    height: 168px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+  color: red !important;
+}
+
+::ng-deep .errorInput.mat-form-field-appearance-outline .mat-form-field-outline{
+  
+    color:red  !important;
+
+    
+}
+
+.error{
+    color:red
+}
+
+.contenido{
+    height: 100%;
+}
+
+.fondo{
+    background-color: transparent!important;
+}
+
+.example-chip-list {
+    width: 100%;
+
+}
+
+
+

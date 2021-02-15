@@ -22,6 +22,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+
 
 
 
@@ -48,7 +52,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatStepperModule,
+    MatSlideToggleModule
     
     
   ],
@@ -74,7 +80,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatStepperModule,
+    MatSlideToggleModule
    
   ],
   providers: []

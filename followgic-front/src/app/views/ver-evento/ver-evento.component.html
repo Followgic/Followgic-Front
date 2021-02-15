@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+
+    <div class="contenido" fxLayout="column" fxFlex=20>
+        <img src={{evento.foto}} alt="Foto evento">
+        <br>
+        <mat-card>
+        <mat-calendar [(selected)]="evento.fecha_prueba" disabled matTooltip="Info about the action"  (selectedChange)="cambioDeDia($event)">
+       <mat-calendar-header ></mat-calendar-header>
+    </mat-calendar>
+    <h1 *ngIf="mostrarHora" style="text-align: center;">{{evento.hora_evento}}</h1>
+</mat-card>
+    </div>
+    <mat-card class="contenido" fxFlex=70>
+        <div  fxLayout="row">
+        <h1>{{evento.titulo}}</h1>
+        <div class="aforo" fxLayout="row">
+            <mat-icon [ngStyle]="{'color':personasInscritas == evento.aforo?'red':'green'}">people</mat-icon>
+            <p>{{personasInscritas}}/{{evento.aforo}}</p>
+            </div>
+        </div>
+        <div  fxLayout="row">
+        <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+                            (cdkDropListDropped)="drop($event)">
+                            <mat-chip color="primary" selected class="example-box" cdkDrag
+                                *ngFor="let modalidad of evento.modalidades">
+                                {{modalidad}}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <br>
+       
+        <p>{{evento.descripcion}}</p>
+    </mat-card>
+</div>

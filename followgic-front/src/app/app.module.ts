@@ -44,6 +44,7 @@ import { MensajesAmigosComponent } from './views/mensajeria/mensajes-amigos/mens
 import { FiltrarMensajePipe } from './pipes/filtrar-mensaje.pipe';
 import { CrearEventosComponent } from './views/crear-eventos/crear-eventos.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { VerEventoComponent } from './views/ver-evento/ver-evento.component';
 
 
 
@@ -85,7 +86,8 @@ import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
     SidenavMensajeriaComponent,
     MensajesAmigosComponent,
     FiltrarMensajePipe,
-    CrearEventosComponent
+    CrearEventosComponent,
+    VerEventoComponent
   
   ],
   imports: [

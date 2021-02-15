@@ -12,6 +12,7 @@ import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.comp
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { PreguntasComponent } from './views/registro/preguntas/preguntas.component';
 import { RegistroComponent } from './views/registro/registro.component';
+import { VerEventoComponent } from './views/ver-evento/ver-evento.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'perfil/:id', component: PerfilComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'preguntas', component: PreguntasComponent},
+  {path: 'ver-evento', component:  VerEventoComponent},
   
 
  

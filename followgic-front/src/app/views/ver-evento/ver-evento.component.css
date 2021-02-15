@@ -1,0 +1,12 @@
+.contenido{
+    margin: 30px ;
+}
+
+  ::ng-deep .mat-calendar-header{
+    display: none !important;
+  }
+
+  .aforo{
+    margin-left:10px
+  }
+  

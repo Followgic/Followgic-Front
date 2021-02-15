@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter,Injectable } from '@angular/core';
 import { LoginService } from './login.service';
 import { WebsocketService } from './websocket.service';
 
@@ -16,7 +16,7 @@ export class EventoService {
     'Authorization': 'Token '+ localStorage.getItem('auth_token'),
     'Content-Type': 'application/json'
   });
-
+  idEvento$ = new EventEmitter()
   constructor(private http: HttpClient) { }
 
 
@@ -24,7 +24,7 @@ export class EventoService {
     return this.http.get<any>(`${this.URL}/eventos/listarEventos/`, { headers: this.httpHeadersToken });
   }
   getEventoPorId(idEvento){
-    return this.http.get<any>(`${this.URL}/eventos/verEventos/${idEvento}`, { headers: this.httpHeadersToken });
+    return this.http.get<any>(`${this.URL}/eventos/verEvento/${idEvento}/`, { headers: this.httpHeadersToken });
   }
 
   crearEvento(evento){
@@ -32,15 +32,15 @@ export class EventoService {
   }
 
   guardarImagen(imagen,idEvento){
-    return this.http.post<any>(`${this.URL}/eventos/setImagenverEvento/${idEvento}`, imagen,{ headers: this.httpHeadersToken });
+    return this.http.post<any>(`${this.URL}/eventos/setImagenverEvento/${idEvento}/`, imagen);
   }
 
   inscribirseEvento(idEvento){
-    return this.http.get<any>(`${this.URL}/eventos/inscribirseEvento/${idEvento}`,{ headers: this.httpHeadersToken });
+    return this.http.get<any>(`${this.URL}/eventos/inscribirseEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
   }
 
   desuscribirseEvento(idEvento){
-    return this.http.get<any>(`${this.URL}/eventos/desuscribirseEvento/${idEvento}`,{ headers: this.httpHeadersToken });
+    return this.http.get<any>(`${this.URL}/eventos/desuscribirseEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
   }
 
 

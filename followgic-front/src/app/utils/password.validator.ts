@@ -10,3 +10,15 @@ export const validarQueSeanIguales: ValidatorFn = (
     ? null
     : { noSonIguales: true }
 }
+
+export const fechaInferiorActual: ValidatorFn = (
+  control: FormGroup
+): ValidationErrors | null => {
+  const fechaEvento = control.get("fecha_evento")
+  const fechaActual = new Date()
+  if (fechaEvento.value && typeof fechaEvento.value !== 'string') {
+    return fechaEvento.value.getDate() >= fechaActual.getDate()
+      ? null
+      : { noEsMayor: true }
+  }
+}

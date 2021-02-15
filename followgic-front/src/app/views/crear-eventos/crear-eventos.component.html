@@ -1,74 +1,170 @@
-<div fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="center" class="formulario">
-    <form fxFlex=100 [formGroup]="eventosForm" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column"
-      fxLayout.md="column" fxLayoutAlign="center">
+<div class="contenido" fxLayout="column">
+  <mat-horizontal-stepper linear #stepper fxFlex=100 class="fondo">
+    <mat-step [stepControl]="eventosForm" style="width: 500px;">
+      <form [formGroup]="eventosForm">
+        <ng-template matStepLabel>Datos del eventos</ng-template>
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="center" fxLayoutAlign.xs="end">
+            <div fxLayout="row" fxFlex.xl=73 fxFlex.lg=85 fxLayoutAlign="end">
+              <mat-slide-toggle [color]="'primary'" [(ngModel)]="esPrivado" [ngModelOptions]="{standalone: true}">
+                <div *ngIf="!esPrivado">Público</div>
+                <div *ngIf="esPrivado">Privado</div>
+              </mat-slide-toggle>
+            </div>
+           
+          </div>
+          <br>
+        
+          <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column">
+            <mat-card fxFlex.lg=20 fxFlex.xl=17 fxLayout="column">
+              <mat-radio-group [(value)]="valorEvento" (change)="seleccionarEvento($event)" fxLayout="row"
+                fxLayoutAlign="space-around" aria-label="Seleccione una opción">
+                <mat-radio-button *ngFor="let tipo of tipoEventos" [value]="tipo.valor">
+                  {{tipo.nombre}}
+                </mat-radio-button>
+              </mat-radio-group>
 
+              <br>
 
-      <mat-card fxFlex.lg=20 fxFlex.xl=15 fxLayout="column">
-        <mat-radio-group [(value)]="valorEvento" (change)="seleccionarEvento($event)" fxLayout="row"
-          fxLayoutAlign="space-around" aria-label="Seleccione una opción">
-          <mat-radio-button *ngFor="let tipo of tipoEventos" [value]="tipo.valor">
-            {{tipo.nombre}}
-          </mat-radio-button>
-        </mat-radio-group>
+              <mat-form-field appearance="outline">
+                <input type="number" min="2" matInput placeholder="Aforo" formControlName="aforo" autocomplete="off">
+                <mat-error *ngIf="eventosForm.controls.aforo.invalid">{{getErrorAforo()}}</mat-error>
+              </mat-form-field>
 
-        <br>
+              <mat-form-field appearance="outline" [ngClass]="{'errorInput':fechaMayorActual()}">
+                <input matInput [matDatepicker]="fecha_evento" placeholder="Fecha del Evento"
+                  formControlName="fecha_evento" name="fecha_evento">
+                <mat-datepicker-toggle matSuffix [for]="fecha_evento">
+                </mat-datepicker-toggle>
+                <mat-datepicker #fecha_evento>
+                </mat-datepicker>
+                <mat-hint class="error" *ngIf="fechaMayorActual()">La fecha tiene que ser igual o mayor a la actual
+                </mat-hint>
+                <mat-error *ngIf="eventosForm.controls.fecha_evento.invalid">{{getErrorfechaEvento()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Hora del evento</mat-label>
+                <input type="time" matInput placeholder="Hora del Evento" formControlName="hora_evento">
+                <mat-error *ngIf="eventosForm.controls.hora_evento.invalid">{{getErrorHoraEvento()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field *ngIf="eventosForm.value.tipo==0" appearance="outline">
+                <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
+              </mat-form-field>
+            </mat-card>
+            <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
 
-        <mat-form-field appearance="outline">
-          <input type="number" min="2" matInput placeholder="Aforo" formControlName="aforo" autocomplete="off">
-        </mat-form-field>
+              <mat-form-field appearance="outline">
+                <input type="text" matInput placeholder="Título" formControlName="titulo" autocomplete="off">
+                <mat-error *ngIf="eventosForm.controls.titulo.invalid">{{getErrorTitulo()}}</mat-error>
+              </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <input matInput [matDatepicker]="fecha_evento" placeholder="Fecha del Evento" formControlName="fecha_evento"
-            name="fecha_evento">
-          <mat-datepicker-toggle matSuffix [for]="fecha_evento">
-          </mat-datepicker-toggle>
-          <mat-datepicker #fecha_evento>
-          </mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Hora del evento</mat-label>
-          <input type="time" matInput placeholder="Hora del Evento" formControlName="hora_evento">
-        </mat-form-field>
-        <mat-form-field *ngIf="eventosForm.value.tipo==0" appearance="outline">
-          <input type="url" matInput placeholder="Link de sala" formControlName="link">
-        </mat-form-field>
-      </mat-card>
-      <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
-
-        <mat-form-field appearance="outline">
-          <input type="text" matInput placeholder="Título" formControlName="titulo" autocomplete="off">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion" rows=14>
-        <mat-error></mat-error>
+              <mat-form-field appearance="outline">
+                <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion" rows=14>
       </textarea>
-        </mat-form-field>
+                <mat-error *ngIf="eventosForm.controls.descripcion.invalid">{{getErrorDescripcion()}}</mat-error>
+              </mat-form-field>
 
-      </mat-card>
+            </mat-card>
 
 
-      <mat-card fxFlex.lg=20 fxFlex.xl=15 fxLayout="column" fxLayoutAlign="space-between center">
-        <div fxLayout="row">
-          <img fxFlex=100 #imagen class="imagenPerfil" src={{preImagen}}>
+            <mat-card fxFlex.lg=20 fxFlex.xl=17 fxLayout="column" fxLayoutAlign="space-between center">
+              <div fxLayout="row">
+                <img fxFlex=100 #imagen class="imagenPerfil" src={{preImagen}}>
+              </div>
+              <div class="image-upload" fxFlex=15>
+                <label for="file-input">
+                  <a mat-stroked-button color="primary">Añadir Imagen </a>
+                </label>
+
+                <input type="file" id="file-input" name="foto" (change)="onChangeImagen($event.target.files)">
+              </div>
+
+
+            </mat-card>
+          </div>
+          <br>
+          <div fxLayout="row" fxLayoutAlign="center" fxLayoutAlign.xs="end">
+            <div fxLayout="row" fxFlex.xl=74 fxFlex.lg=86 fxLayoutAlign="end">
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </div>
         </div>
-        <div class="image-upload" fxFlex=15>
-          <label for="file-input">
-            <a mat-stroked-button color="primary">Añadir Imagen </a>
-          </label>
 
-          <input type="file" id="file-input" name="foto" (change)="onChangeImagen($event.target.files)">
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="eventosForm" label="Modalidades asociadas y mensaje de bienvenida ">
+      <form [formGroup]="eventosForm">
+        <div>
+          <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column">
+
+
+            <mat-card fxFlex=20>
+              <mat-dialog-content>
+                <mat-form-field class="example-chip-list" appearance="outline">
+                  <mat-label>Modalidades del Evento</mat-label>
+                  <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let modalidad of  nombreMisModalidades" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(modalidad)">
+                      {{modalidad}}
+                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Modalidades" #modalidadInput [formControl]="modalidadControl"
+                      [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let modalidad of filteredModalidad | async" [value]="modalidad">
+                      {{modalidad}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-hint>Puedes crear nuevas modalidades dandole al Enter.</mat-hint>
+                </mat-form-field>
+              </mat-dialog-content>
+            </mat-card>
+
+            <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
+              <h1 fxLayout="row" fxLayoutAlign="center">
+                Aquí puedes añadir un mensaje de bienvenida del evento
+              </h1>
+
+              <mat-form-field appearance="outline">
+                <textarea type="text" matInput placeholder="Mensaje" formControlName="comentario" rows=7>
+      </textarea>
+                <mat-error *ngIf="eventosForm.controls.descripcion.invalid">{{getErrorDescripcion()}}</mat-error>
+              </mat-form-field>
+
+            </mat-card>
+          </div>
+          <br>
+          <div fxLayout="row" fxLayoutAlign.xs="end">
+            <div fxLayout="row" fxFlex.xl=23.7 fxFlex.lg=21.7 fxLayoutAlign="end">
+              <button mat-button matStepperPrevious>Volver</button>
+            </div>
+            <div fxLayout="row" fxFlex.xl=57 fxFlex.lg=61 fxLayoutAlign="end">
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </div>
         </div>
+       
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Crear Evento</ng-template>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxLayout="column">
+          <h1 style="text-align: center;">¿Estás segur@ que quieres crear el evento?</h1>
+          <div>
+            <br>
+            <div fxLayout="row" fxLayoutAlign="center">
+              <button mat-raised-button class="mat-primary" type="submit" (click)="save()">Crear Evento</button>
+            </div>
+            <br>
+            <button mat-button matStepperPrevious>Volver</button>
+            <button mat-button (click)="stepper.reset()">Inicio</button>
+          </div>
+        </div>
+      </div>
+    </mat-step>
 
-
-      </mat-card>
-    </form>
-  </div>
-  <br>
-  <div fxLayout="row" fxLayoutAlign="center">
-    <button mat-raised-button class="mat-primary" (click)="pintarVariables()">Crear Evento</button>
-  </div>
-  <br>
-
+  </mat-horizontal-stepper>
 </div>
