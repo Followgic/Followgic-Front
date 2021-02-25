@@ -78,7 +78,6 @@ recargarTiempoReal() {
           //Se recargan los mensajes entrantes
           this.mensajeService.recargarMensaje$.emit(res)
         })
-      
      
       
 

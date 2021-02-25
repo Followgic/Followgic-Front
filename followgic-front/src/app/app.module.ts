@@ -45,6 +45,14 @@ import { FiltrarMensajePipe } from './pipes/filtrar-mensaje.pipe';
 import { CrearEventosComponent } from './views/crear-eventos/crear-eventos.component';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { VerEventoComponent } from './views/ver-evento/ver-evento.component';
+import { TarjetaChicaComponent } from './components/tarjetas-eventos/tarjeta-chica/tarjeta-chica.component';
+import { ListarEventosComponent } from './views/listar-eventos/listar-eventos.component';
+import { TarjetaGrandeComponent } from './components/tarjetas-eventos/tarjeta-grande/tarjeta-grande.component';
+import { FiltrarEventoPipe } from './pipes/filtrar-evento.pipe';
+import { ListarAsistentesComponent } from './views/ver-evento/listar-asistentes/listar-asistentes.component';
+import { AvisoEliminarAsistenteComponent } from './views/ver-evento/listar-asistentes/aviso-eliminar-asistente/aviso-eliminar-asistente.component';
+
+
 
 
 
@@ -87,7 +95,15 @@ import { VerEventoComponent } from './views/ver-evento/ver-evento.component';
     MensajesAmigosComponent,
     FiltrarMensajePipe,
     CrearEventosComponent,
-    VerEventoComponent
+    VerEventoComponent,
+    TarjetaChicaComponent,
+    ListarEventosComponent,
+    TarjetaGrandeComponent,
+    FiltrarEventoPipe,
+    ListarAsistentesComponent,
+    AvisoEliminarAsistenteComponent,
+  
+  
   
   ],
   imports: [

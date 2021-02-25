@@ -1,4 +1,13 @@
-<app-toolbar-filtros #ventanaLateral>
+<br>
+<div fxLayout="row" fxLayoutAlign="end">
+
+<mat-slide-toggle fxFlex=10 fxFlex.xs=30 fxFlex.sm=30 [color]="'primary'" [(ngModel)]="listarMagos" [ngModelOptions]="{standalone: true}">
+    <div *ngIf="!listarMagos">Eventos</div>
+    <div *ngIf="listarMagos">Magos</div>
+ </mat-slide-toggle>
+</div>
+
+<app-toolbar-filtros *ngIf="listarMagos" #ventanaLateral>
 <br>
 <div fxLayout="row" fxLayoutAlign="center center">
     
@@ -32,3 +41,5 @@
 <br>
 
 </app-toolbar-filtros>
+
+<app-listar-eventos *ngIf="!listarMagos"></app-listar-eventos>

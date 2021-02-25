@@ -30,6 +30,7 @@ export class ListarMagosComponent implements OnInit {
   filtros:boolean=false
   modalidades:any[]=[]
   notifications:any[]=[]
+  listarMagos = true
 
 
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;

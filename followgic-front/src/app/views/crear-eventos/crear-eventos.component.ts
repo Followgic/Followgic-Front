@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -11,6 +11,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VerEventoComponent } from '../ver-evento/ver-evento.component';
 
 export interface Modalidad {
   pk: number;
@@ -42,11 +44,14 @@ export class CrearEventosComponent implements OnInit {
   selectable = true;
   removable = true;
   esPrivado= false;
+  datosEvento: any;
 
   isLinear = false;
   @ViewChild('modalidadInput') modalidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  constructor( private formBuilder:FormBuilder, private router: Router,private eventoService: EventoService, private utilidadesService:UtilidadesService, private modalidadesService:ModalidadesService) {
+
+  constructor( private formBuilder:FormBuilder, private router: Router,private eventoService: EventoService, private utilidadesService:UtilidadesService, private modalidadesService:ModalidadesService
+    , @Optional() @Inject(MAT_DIALOG_DATA) public data:{ idEvento:any;}, public dialog: MatDialog) {
     this.getModalidades( ()=>{
     this.filtroModalidad()})
     this.tipoEventos = [{ valor: 0, nombre: 'Conferencia' }, { valor: 1, nombre: 'Quedada' }]
@@ -80,6 +85,10 @@ export class CrearEventosComponent implements OnInit {
       }
     )
     this.eventosForm.controls.tipo.setValue(0)
+
+    if(this.data){
+      this.getEventoPorId(this.data)
+    }
  
   }
 
@@ -136,11 +145,37 @@ export class CrearEventosComponent implements OnInit {
      
       if (this.imagen) {
         this.saveImangen(res.pk)
+      }else{
+        this.eventoService.idEvento$.emit(res.pk)
+        this.router.navigate(['/ver-evento']);
+
       }
 
     })
   }
 
+  }
+
+  editarEvento(){
+    if(this.esPrivado){
+      this.eventosForm.controls.privacidad.setValue(1)
+    }else{
+      this.eventosForm.controls.privacidad.setValue(0)
+
+    }
+    if(  typeof this.eventosForm.value.fecha_evento!== 'string' ){
+    this.eventosForm.controls.fecha_evento.setValue(this.utilidadesService.getFechaStrBD(this.eventosForm.value.fecha_evento))
+    }
+    this.eventoService.editarEvento(this.datosEvento.id,this.eventosForm.value).subscribe(res=>{
+      console.log(res)
+      
+      if (this.imagen) {
+        this.saveImangen(res.pk)
+        this.dialog.closeAll()
+      }else{
+        this.dialog.closeAll()
+      }
+    })
   }
 
 
@@ -149,10 +184,12 @@ export class CrearEventosComponent implements OnInit {
     const formData = new FormData();
     formData.append('foto', this.imagen);
     this.eventoService.guardarImagen(formData, idEvento).subscribe(res => {
+      if(!this.data){
       this.eventoService.idEvento$.emit(res.pk)
       this.router.navigate(['/ver-evento']);
       this.imagen =null
       this.preImagen=" "
+      }
     })
 
   }
@@ -282,6 +319,39 @@ add(event: MatChipInputEvent): void {
   misModalidadesId(){
     this.idMisModalidades = this.modalidades.filter(modalidad=> this.nombreMisModalidades.includes(modalidad.nombre)).map(modalidad => modalidad.pk)
     console.log(this.idMisModalidades)
+  }
+
+  getEventoPorId(idEvento){
+    this.eventoService.getEventoPorId(idEvento).subscribe(res => {
+      this.datosEvento = res
+      console.log(this.datosEvento)
+      this.eventosForm.setValue({
+        titulo: this.datosEvento.titulo,
+        tipo: this.datosEvento.tipo,
+        descripcion: this.datosEvento.descripcion,
+        fecha_creacion: this.datosEvento.fecha_creacion,
+        fecha_evento: this.datosEvento.fecha_evento,
+        hora_evento: this.datosEvento.hora_evento,
+        aforo: this.datosEvento.aforo,
+        link_conferencia: this.datosEvento.link_conferencia,
+        modalidades: this.datosEvento.modalidades,
+        foto: this.datosEvento.foto,
+        comentario: this.datosEvento.comentarios,
+        privacidad: this.datosEvento.privacidad
+       
+      })
+      if(this.datosEvento.privacidad==0){
+        this.esPrivado=false
+      }else{
+        this.esPrivado=true
+      }
+      this.preImagen = 'http://localhost:8000' + this.eventosForm.value.foto
+
+
+
+      
+      
+    })
   }
 
  

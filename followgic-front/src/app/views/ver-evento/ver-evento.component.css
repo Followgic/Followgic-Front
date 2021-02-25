@@ -2,8 +2,8 @@
     margin: 30px ;
 }
 
-  ::ng-deep .mat-calendar-header{
-    display: none !important;
+   .calendario .mat-calendar-header{
+    display: none;
   }
 
   .aforo{

@@ -1,49 +1,120 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { EventoService } from 'src/app/services/evento.service';
+import { MagoService } from 'src/app/services/mago.service';
+import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { UtilidadesService } from 'src/app/services/utilidades.service';
+import { CrearEventosComponent } from '../crear-eventos/crear-eventos.component';
+import { ListarAsistentesComponent } from './listar-asistentes/listar-asistentes.component';
 
 @Component({
   selector: 'app-ver-evento',
   templateUrl: './ver-evento.component.html',
-  styleUrls: ['./ver-evento.component.css']
+  styleUrls: ['./ver-evento.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class VerEventoComponent implements OnInit {
   evento: any
-  personasInscritas: any
+  copiaFechaEvento: any
+  modalidades: any =[]
+  magosInscritos:any
+  idMia:any
+  cargadasModalidades = false
   mostrarHora = true;
+  minDate: Date;
+  maxDate: Date;
+  idEvento :any
+  esCreador:boolean = false
 
 
-  constructor(private eventoService: EventoService, private utilidadesService: UtilidadesService) {
-    this.personasInscritas = 10
-    this.evento = {
-      titulo: 'Quedada para cartomagos en la estación de Málaga ',
-      tipo: 1,
-      descripcion: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,',
-      fecha_creacion: '14/02/2021',
-      fecha_evento: '14/02/2021',
-      fecha_prueba: new Date(),
-      hora_evento: '17:00',
-      aforo: 50,
-      link_conferencia: 'http://follogic.com',
-      foto: 'http://localhost:8000/carga/imagenes/Ejemplo_3_kXVl2AL.jpg',
-      modalidades: ['cartomagia', 'magia de cerca'],
-      privacidad: 0
+  constructor(private eventoService: EventoService, public dialog: MatDialog, private utilidadesService: UtilidadesService, private modalidadesService: ModalidadesService,  private magoService: MagoService) {
+
+  this.magoService.getYo(res=> this.idMia=res ) 
+
+  this.cargarPagina()
+  this.eventoService.recargarEventos$.subscribe(res => {
+    if(res){
+      this.getMagosInscritosPorEventoId(this.idEvento)
     }
-    this.eventoService.idEvento$.subscribe(res => {
-      this.getEventoId(res)
-    })
+  })
+
+  }
+
+  cargarPagina(){
+    if (this.eventoService.idEvento) {
+      this.idEvento = this.eventoService.idEvento
+      this.getEventoId(this.eventoService.idEvento)
+      this.getMagosInscritosPorEventoId(this.eventoService.idEvento)
+    } else if (localStorage.getItem('evento')) {
+      this.idEvento = localStorage.getItem('evento')
+      this.getEventoId(localStorage.getItem('evento'))
+      this.getMagosInscritosPorEventoId(localStorage.getItem('evento'))
+    }
   }
 
   ngOnInit(): void {
 
   }
 
+  openDialog(idEvento) {
+    if(idEvento){
+    const dialogRef = this.dialog.open(CrearEventosComponent, {
+      height: '610px',
+      width: '1600px',
+      data:idEvento,
+      autoFocus: false 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  }
+
+  
+  openDialogAsistentes() {
+    
+    const dialogRef = this.dialog.open(ListarAsistentesComponent, {
+   
+      data:{magosInscritos:this.magosInscritos,idEvento:this.idEvento , esCreador:this.esCreador},
+      autoFocus: false 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     console.log(result)
+     if(result !="cancelar"){
+      this.cargarPagina()
+     }
+      
+      console.log(`Dialog result: ${result}`);
+    });
+  
+  }
+
   getEventoId(idEvento) {
+    let fechaEvento
+   
     this.eventoService.getEventoPorId(idEvento).subscribe(res => {
       this.evento = res
+      this.copiaFechaEvento = new Date(this.evento.fecha_evento)
+      
+      this.getModalidadesNombre(this.evento.modalidades, () => this.transformarEvento())
+
+
     })
 
+  }
+
+  getMagosInscritosPorEventoId(idEvento){
+    this.eventoService.getMagosInscritosEventoId(idEvento).subscribe(res =>{
+      this.magosInscritos = res
+      this.magosInscritos = this.magosInscritos.map(mago=> {return{ pk: mago.pk , foto: "http://localhost:8000"
+      + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades }})
+     
+    })
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -52,7 +123,7 @@ export class VerEventoComponent implements OnInit {
 
   cambioDeDia(event) {
     console.log(event)
-    if (this.utilidadesService.getFechaStr(event) != this.evento.fecha_evento) {
+    if (event.getDate() !== this.copiaFechaEvento.getDate()) {
       this.mostrarHora = false
     } else {
       this.mostrarHora = true
@@ -60,5 +131,50 @@ export class VerEventoComponent implements OnInit {
 
   }
 
+  transformarEvento() {
+    this.minDate = new Date(this.evento.fecha_evento);
+    this.maxDate = new Date(this.evento.fecha_evento);
+    this.evento = {
+      aforo: this.evento.aforo, id: this.evento.id, asistentes: this.evento.asistentes, comentarios: this.evento.comentarios, creador: this.evento.creador, descripcion: this.evento.descripcion,
+      fecha_creacion: new Date(this.evento.fecha_creacion), fecha_evento: new Date(this.evento.fecha_evento), foto: "http://localhost:8000" + this.evento.foto, hora_evento: this.utilidadesService.quitarSegundos(this.evento.hora_evento),
+      link_conferencia: this.evento.link_conferencia, modalidades: this.modalidades, privacidad: this.evento.privacidad, tipo: this.evento.tipo, titulo: this.evento.titulo, token: this.evento.token, usuarios_activos: this.evento.usuarios_activos
+    }
+    this.cargadasModalidades = true
+    if(this.evento.creador == this.idMia){
+      this.esCreador=true
+    }
 
+  
   }
+
+  getModalidadesNombre(modalidadesEventosID, cb) {
+    let modalidades
+    
+    this.modalidadesService.getModalidades().subscribe(res => {
+      modalidades = res.filter(modalidad => modalidadesEventosID.includes(modalidad.pk))
+
+      this.modalidades = modalidades
+      if (cb) {
+        cb()
+      }
+
+    }
+    )
+  }
+
+  inscribirEnEvento(idEvento){
+    this.eventoService.inscribirseEvento(idEvento).subscribe(res=> {
+      console.log(res)
+      this.cargarPagina()
+    })
+  }
+
+  desinscribirse(idEvento){
+    this.eventoService.desuscribirseEvento(idEvento).subscribe(res => {
+      console.log(res)
+      this.cargarPagina()
+    })
+  }
+
+
+}

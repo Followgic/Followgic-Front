@@ -82,7 +82,7 @@ export class MagoService implements HttpInterceptor {
     return this.http.get<any>(`${this.URL}/peticiones/eliminarAmigo/${id}`, { headers: this.httpHeaders });
     
   }
-  getYo(cb){
+  getYo(cb?){
   let pk 
     this.getUsuario().subscribe( res => {
       pk = res.pk

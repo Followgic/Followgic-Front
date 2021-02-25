@@ -1,0 +1,18 @@
+<div fxLayout="column" >
+    <div class="titulo">
+    <h1 style="margin-bottom: 5px;">Asistentes</h1>
+    <mat-divider></mat-divider>
+</div>
+<mat-dialog-content>
+ 
+    <div *ngIf="!data || data.magosInscritos.length == 0">
+        <br>
+        <h3>No hay magos inscritos</h3>
+    </div>
+
+    <div *ngFor="let asistente of data.magosInscritos">
+        <app-tarjeta-peticion (recargar)="cerrarDialog($event)"  [idEvento]="data.idEvento"[mago]="asistente" [esCreador]="data.esCreador"></app-tarjeta-peticion>
+        <br>
+    </div>
+</mat-dialog-content>
+</div>

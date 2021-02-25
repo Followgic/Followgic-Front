@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CartaComponent } from './components/carta/carta.component';
+import { TarjetaChicaComponent } from './components/tarjetas-eventos/tarjeta-chica/tarjeta-chica.component';
 import { AmigosComponent } from './views/amigos/amigos.component';
 import { CrearEventosComponent } from './views/crear-eventos/crear-eventos.component';
 import { FiltrosComponent } from './views/filtros/filtros.component';
 import { HomeComponent } from './views/home/home.component';
+import { ListarEventosComponent } from './views/listar-eventos/listar-eventos.component';
 import { ListarMagosComponent } from './views/listar-magos/listar-magos.component';
 import { LoginComponent } from './views/login/login.component';
 import { MensajeriaComponent } from './views/mensajeria/mensajeria.component';
@@ -22,6 +24,7 @@ const routes: Routes = [
   {path: 'error-amigo', component: NoAmigoComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'listar-eventos', component: ListarEventosComponent},
   {path: 'listar-magos', component: ListarMagosComponent},
   {path: 'mensajeria', component: MensajeriaComponent},
   {path: 'perfil', component: PerfilComponent},
@@ -29,6 +32,7 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'preguntas', component: PreguntasComponent},
   {path: 'ver-evento', component:  VerEventoComponent},
+  {path: 'tarjeta-chica', component:  TarjetaChicaComponent},
   
 
  

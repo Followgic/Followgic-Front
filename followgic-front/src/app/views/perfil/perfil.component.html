@@ -1,11 +1,13 @@
 <div *ngIf="!errorAmigo">
-    <div *ngIf="datosUsuario" class="contenido"   >
-       
-        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxLayoutAlign.xs=" space-evenly center"
-            fxLayoutAlign.sm="space-evenly center"    fxLayoutAlign.md="space-evenly center"fxLayoutAlign="space-evenly start">
-            <div fxFlex=20  fxFlex.lg=25  fxLayout="column" fxLayoutAlign="space-evenly" fxLayoutAlign.xs=" space-evenly center">
+    <div *ngIf="datosUsuario" class="contenido">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column"
+            fxLayoutAlign.xs=" space-evenly center" fxLayoutAlign.sm="space-evenly center"
+            fxLayoutAlign.md="space-evenly center" fxLayoutAlign="space-evenly start">
+            <div fxFlex=20 fxFlex.lg=25 fxLayout="column" fxLayoutAlign="space-evenly"
+                fxLayoutAlign.xs=" space-evenly center">
                 <h2 *ngIf="numeroAmigos!=1" class="content">{{numeroAmigos}} Seguidores</h2>
-                <h2 *ngIf="numeroAmigos==1"class="content">{{numeroAmigos}} Seguidor</h2>
+                <h2 *ngIf="numeroAmigos==1" class="content">{{numeroAmigos}} Seguidor</h2>
 
                 <app-carta fxLayoutAlign="space-evenly center" class="carta" [usuario]="perfilForm.value"></app-carta>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
@@ -17,64 +19,66 @@
 
             </div>
             <br><br>
-            <div fxFlex=40  fxFlex.lg=40 class="perfil" fxLayout="row" fxLayoutAlign="center">
-            <mat-card class="perfilCard">
-                <div>
-                    <h1 *ngIf="!idAmigo" class="content">Hola, {{datosUsuario.nombre}}</h1>
-                    <h1 *ngIf="idAmigo" class="content">Estás en el perfíl de {{datosUsuario.nombre}}</h1>
+            <div fxFlex=40 fxFlex.lg=40 class="perfil" fxLayout="row" fxLayoutAlign="center">
+                <mat-card class="perfilCard">
+                    <div>
+                        <h1 *ngIf="!idAmigo" class="content">Hola, {{datosUsuario.nombre}}</h1>
+                        <h1 *ngIf="idAmigo" class="content">Estás en el perfíl de {{datosUsuario.nombre}}</h1>
+
+                        <mat-divider></mat-divider>
+                    </div>
+                    <br>
+                    <div fxLayout="column" fxLayoutAlign="space-evenly">
+                        <div fxLayout="row" fxLayoutAlign="center">
+                            <div fxLayout="row">
+                                <mat-icon svgIcon="mago"></mat-icon>
+                                <h3> &nbsp; Nombre Artístico: {{datosUsuario.nombre_artistico}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly"
+                            fxLayoutAlign.xs="center center">
+                            <div fxLayout="row">
+                                <mat-icon>email</mat-icon>
+                                <h3> &nbsp; Email: {{datosUsuario.email}}</h3>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign.xs="center">
+                                <mat-icon> phone</mat-icon>
+                                <h3 *ngIf="datosUsuario.telefono"> &nbsp; Teléfono: {{datosUsuario.telefono}}</h3>
+                                <h3 *ngIf="!datosUsuario.telefono"> &nbsp; Teléfono: </h3>
+                            </div>
+
+                        </div>
+
+
+                        <div fxLayout="row" fxLayoutAlign="center">
+
+                            <div fxLayout="row">
+                                <mat-icon>computer</mat-icon>
+                                <h3 *ngIf="datosUsuario.pagina_web"> &nbsp; Página web: <a class="parametros"
+                                        href={{datosUsuario.pagina_web}}>{{datosUsuario.pagina_web}}</a></h3>
+                                <h3 *ngIf="!datosUsuario.pagina_web"> &nbsp; Página web:</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
 
                     <mat-divider></mat-divider>
-                </div>
-                <br>
-                <div fxLayout="column" fxLayoutAlign="space-evenly">
-                    <div fxLayout="row" fxLayoutAlign="center">
-                        <div fxLayout="row">
-                            <mat-icon svgIcon="mago"></mat-icon>
-                            <h3> &nbsp; Nombre Artístico: {{datosUsuario.nombre_artistico}}</h3>
-                        </div>
-                    </div>
-                    <div fxLayout="row"  fxLayout.xs="column"fxLayoutAlign="space-evenly" fxLayoutAlign.xs="center center">
-                        <div fxLayout="row">
-                            <mat-icon>email</mat-icon>
-                            <h3> &nbsp; Email: {{datosUsuario.email}}</h3>
-                        </div>
-                        <div fxLayout="row" fxLayoutAlign.xs="center">
-                            <mat-icon> phone</mat-icon>
-                            <h3 *ngIf="datosUsuario.telefono"> &nbsp; Teléfono: {{datosUsuario.telefono}}</h3>
-                            <h3 *ngIf="!datosUsuario.telefono"> &nbsp; Teléfono: </h3>
-                        </div>
-                  
-                    </div>
-                        
-                 
-                    <div fxLayout="row" fxLayoutAlign="center">
-                     
-                        <div fxLayout="row">
-                            <mat-icon>computer</mat-icon>
-                            <h3 *ngIf="datosUsuario.pagina_web"> &nbsp; Página web: <a class="parametros"
-                                    href=datosUsuario.pagina_web>{{datosUsuario.pagina_web}}</a></h3>
-                            <h3 *ngIf="!datosUsuario.pagina_web"> &nbsp; Página web:</h3>
-                        </div>
-                    </div>
-                </div>
-                <br>
+                    <br>
+                    <h2 class="content">Descripción</h2>
+                    <mat-card class="descripcion">
+                        <p *ngIf="datosUsuario.descripcion">{{datosUsuario.descripcion}}</p>
+                        <p *ngIf="!datosUsuario.descripcion">Añade una descripción para que tus amigos puedan saber más
+                            de
+                            ti.</p>
+                    </mat-card>
 
-                <mat-divider></mat-divider>
-                <br>
-                <h2 class="content">Descripción</h2>
-                <mat-card class="descripcion">
-                    <p *ngIf="datosUsuario.descripcion">{{datosUsuario.descripcion}}</p>
-                    <p *ngIf="!datosUsuario.descripcion">Añade una descripción para que tus amigos puedan saber más de
-                        ti.</p>
+                    <br>
+
                 </mat-card>
-                
-                <br>
-
-            </mat-card>
-        </div>
-                <br>
+            </div>
+            <br>
             <div fxFlex=20 fxLayout="column" fxLayoutAlign="space-evenly center">
-                <mat-card  class="modalidades">
+                <mat-card class="modalidades">
                     <h2 class="content">Modalidades</h2>
                     <mat-card-content class="contenidoModalidad">
                         <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
@@ -87,20 +91,28 @@
                     </mat-card-content>
 
                 </mat-card>
-                
+
                 <div fxLayout="row " fxLayout.xs="column" fxLayoutAlign="center  center">
 
                     <button *ngIf="!idAmigo" mat-raised-button class="mat-primary botones"
                         (click)="openDialogModalidad(modalidades)">Editar Modalidades</button>
                 </div>
                 <mat-card class="eventos">
-                    <h2 class="content"> Eventos</h2>
+                    <h2 style="text-align: center; margin-bottom: 0px;"> Eventos</h2>
+                    <mat-card-content class="contenidoEvento">
+
+                        <div style="margin-top: 3px; margin-bottom:2px ;"  *ngFor="let evento of misEventos">
+                            <app-tarjeta-chica  [evento]="evento"></app-tarjeta-chica>
+                           
+                        </div>
+                    </mat-card-content>
                 </mat-card>
-                   
+
+
                 <div fxLayout="row " fxLayout.xs="column" fxLayoutAlign="center  center">
 
                     <button *ngIf="!idAmigo" mat-raised-button class="mat-primary botones"
-                    routerLink="/crear-eventos">Crear Eventos</button>
+                        routerLink="/crear-eventos">Crear Eventos</button>
                 </div>
             </div>
         </div>

@@ -26,4 +26,10 @@ export class UtilidadesService {
   parse0(number){
     return number < 10 ? '0' + number : number
   }
+
+  quitarSegundos(hora){
+    hora= hora.slice(0,-3)
+    return hora
+
+  }
 }

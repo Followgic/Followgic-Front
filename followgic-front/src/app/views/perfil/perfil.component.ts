@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { EditarModalidadesComponent } from './editar-modalidades/editar-modalidades.component';
@@ -30,10 +31,11 @@ export class PerfilComponent implements OnInit {
   errorAmigo: boolean =true;
   misModalidades:any = []
   numeroAmigos:any;
+  misEventos:any = []
 
 
 
-  constructor(private route: ActivatedRoute, private magoService: MagoService, private modalidadesService: ModalidadesService, private router: Router, public dialog: MatDialog,
+  constructor( private eventoService: EventoService,private route: ActivatedRoute, private magoService: MagoService, private modalidadesService: ModalidadesService, private router: Router, public dialog: MatDialog,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'mago',
@@ -44,6 +46,7 @@ export class PerfilComponent implements OnInit {
     this.getModalidades()
     this.obtenerIdUrl()
     this.getAllAmigos()
+    this.getMisEventos()
 
 
     this.perfilForm = new FormGroup({
@@ -213,5 +216,14 @@ export class PerfilComponent implements OnInit {
   drop(event: CdkDragDrop<Modalidad[]>) {
     moveItemInArray(this.misModalidades.nombre, event.previousIndex, event.currentIndex);
   }
+
+
+  //Metodos para mis eventos
+  getMisEventos(){
+    this.eventoService.getMisEventos().subscribe( res => {
+      this.misEventos = res
+    })
+  }
+
 }
 

@@ -17,11 +17,25 @@ export class EventoService {
     'Content-Type': 'application/json'
   });
   idEvento$ = new EventEmitter()
-  constructor(private http: HttpClient) { }
+  idEvento:any
+  recargarEventos$ = new EventEmitter()
+  constructor(private http: HttpClient) { 
+
+    this.idEvento$.subscribe(res => {
+      localStorage.setItem('evento', res)
+      this.idEvento=res
+      
+    })
+
+  }
 
 
   getEventos(){
     return this.http.get<any>(`${this.URL}/eventos/listarEventos/`, { headers: this.httpHeadersToken });
+  }
+
+  getMisEventos(){
+    return this.http.get<any>(`${this.URL}/eventos/listarEventosCreadosPorMi/`, { headers: this.httpHeadersToken });
   }
   getEventoPorId(idEvento){
     return this.http.get<any>(`${this.URL}/eventos/verEvento/${idEvento}/`, { headers: this.httpHeadersToken });
@@ -29,6 +43,10 @@ export class EventoService {
 
   crearEvento(evento){
     return this.http.post<any>(`${this.URL}/eventos/crearEvento/`, evento,{ headers: this.httpHeadersToken });
+  }
+  
+  editarEvento(idEvento,evento){
+    return this.http.put<any>(`${this.URL}/eventos/editarEvento/${idEvento}/`, evento,{ headers: this.httpHeadersToken });
   }
 
   guardarImagen(imagen,idEvento){
@@ -40,7 +58,17 @@ export class EventoService {
   }
 
   desuscribirseEvento(idEvento){
-    return this.http.get<any>(`${this.URL}/eventos/desuscribirseEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+    return this.http.get<any>(`${this.URL}/eventos/cancelarInscripcionEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+  }
+
+  getMagosInscritosEventoId(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/verMagosInscritosPorEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  eliminarAsistenteEvento(idEvento,idMago){
+    return this.http.get<any>(`${this.URL}/eventos/eliminarAsistenteEvento/${idEvento}/${idMago}/`,{ headers: this.httpHeadersToken });
+
   }
 
 

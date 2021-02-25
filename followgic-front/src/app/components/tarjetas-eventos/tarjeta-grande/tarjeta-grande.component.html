@@ -1,0 +1,20 @@
+<mat-card *ngIf="evento" class="tarjeta" fxLayout="column" (dblclick)="verEvento(evento.id)">
+    <strong>
+        <p style="margin-bottom: 8px; font-size:17px ; text-align: center;">{{evento.titulo}}</p>
+    </strong>
+    <img src={{evento.foto}} alt="Foto evento">
+    <div fxLayout="row" fxLayoutAlign="end">
+        <p style=" font-size:11px; margin: 0px;"> {{evento.fecha_evento}} {{evento.hora_evento}}</p>
+        
+    </div>
+
+    <p  fxFlex=40 style="text-align: justify">{{evento.descripcion}}</p>
+    <br>
+    <div fxFlex=10 fxLayout="row" fxLayoutAlign="center">
+        <button *ngIf="!evento.asistentes.includes(miId) && evento.creador!=miId && evento.aforo > magosInscritos"  mat-raised-button type="submit" (click)="inscribirEnEvento(evento.id)" color="primary">Inscribirme</button>
+        <button *ngIf="!evento.asistentes.includes(miId) && evento.creador!=miId && evento.aforo <= evento.asistentes.length " [disabled]="true"  mat-raised-button >Aforo Completo</button>
+        <button *ngIf="evento.asistentes.includes(miId) && evento.creador!=miId "  mat-raised-button type="submit" (click)="desinscribirse(evento.id)"  color="primary">Cancelar Inscripción</button>
+    </div>
+    
+
+</mat-card>

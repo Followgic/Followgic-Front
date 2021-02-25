@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { PeticionService } from 'src/app/services/peticion.service';
+import { AvisoEliminarAsistenteComponent } from 'src/app/views/ver-evento/listar-asistentes/aviso-eliminar-asistente/aviso-eliminar-asistente.component';
 
 @Component({
   selector: 'app-tarjeta-peticion',
@@ -19,11 +22,33 @@ amigo:any;
 
 @Input()
 mago:any 
+
+@Input()
+idEvento:any
+
+@Input()
+esCreador:boolean =false
   
-  constructor(private magoService: MagoService, private peticionService: PeticionService) { 
+  constructor(private magoService: MagoService,public dialog: MatDialog, private peticionService: PeticionService, private eventoService: EventoService) { 
  
   
  
+  }
+
+  openDialog(mago) {
+    if(this.magoService){
+    const dialogRef = this.dialog.open(AvisoEliminarAsistenteComponent, {
+      data:{idEvento:this.idEvento, mago:mago},
+      autoFocus: false 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     console.log(result)
+   
+      
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   }
 
   ngOnInit() {
@@ -56,6 +81,15 @@ mago:any
     this.recargar.emit(id)
     
     })
+  }
+
+  
+
+  elimnarUsuarioEvento(idMago){
+   this.eventoService.eliminarAsistenteEvento(this.idEvento, idMago).subscribe(res => {
+     console.log(res)
+     this.recargar.emit(this.idEvento)
+   })
   }
 
 }

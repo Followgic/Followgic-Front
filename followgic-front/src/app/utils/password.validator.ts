@@ -17,7 +17,7 @@ export const fechaInferiorActual: ValidatorFn = (
   const fechaEvento = control.get("fecha_evento")
   const fechaActual = new Date()
   if (fechaEvento.value && typeof fechaEvento.value !== 'string') {
-    return fechaEvento.value.getDate() >= fechaActual.getDate()
+    return (fechaEvento.value.getTime() >= fechaActual.getTime() ||   (fechaEvento.value.getMonth() == fechaActual.getMonth() &&  fechaEvento.value.getDate() == fechaActual.getDate()))
       ? null
       : { noEsMayor: true }
   }
