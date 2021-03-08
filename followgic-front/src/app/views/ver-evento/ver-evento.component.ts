@@ -7,6 +7,11 @@ import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { UtilidadesService } from 'src/app/services/utilidades.service';
 import { CrearEventosComponent } from '../crear-eventos/crear-eventos.component';
+import { AvisoCancelarInscripcionComponent } from '../listar-eventos/aviso-cancelar-inscripcion/aviso-cancelar-inscripcion.component';
+import { AvisoInscripcionComponent } from '../listar-eventos/aviso-inscripcion/aviso-inscripcion.component';
+import { AvisoHabilitarMensajesComponent } from './aviso-habilitar-mensajes/aviso-habilitar-mensajes.component';
+import { AvisoSilenciarMensajesComponent } from './aviso-silenciar-mensajes/aviso-silenciar-mensajes.component';
+import { ListaAmigosInvitacionComponent } from './lista-amigos-invitacion/lista-amigos-invitacion.component';
 import { ListarAsistentesComponent } from './listar-asistentes/listar-asistentes.component';
 
 @Component({
@@ -27,13 +32,18 @@ export class VerEventoComponent implements OnInit {
   maxDate: Date;
   idEvento :any
   esCreador:boolean = false
+  mensajesHabilitados:boolean;
+  amigos:any=[]
 
 
   constructor(private eventoService: EventoService, public dialog: MatDialog, private utilidadesService: UtilidadesService, private modalidadesService: ModalidadesService,  private magoService: MagoService) {
 
-  this.magoService.getYo(res=> this.idMia=res ) 
+  this.magoService.getYo(res=> {
+    this.idMia=res
+    this.cargarPagina()
+  } ) 
 
-  this.cargarPagina()
+
   this.eventoService.recargarEventos$.subscribe(res => {
     if(res){
       this.getMagosInscritosPorEventoId(this.idEvento)
@@ -64,11 +74,14 @@ export class VerEventoComponent implements OnInit {
       height: '610px',
       width: '1600px',
       data:idEvento,
-      autoFocus: false 
+      autoFocus: false,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+      if(result !="cancelar"){
+     this.cargarPagina()
+    }
       console.log(`Dialog result: ${result}`);
     });
   }
@@ -80,7 +93,8 @@ export class VerEventoComponent implements OnInit {
     const dialogRef = this.dialog.open(ListarAsistentesComponent, {
    
       data:{magosInscritos:this.magosInscritos,idEvento:this.idEvento , esCreador:this.esCreador},
-      autoFocus: false 
+      autoFocus: false,
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -94,13 +108,111 @@ export class VerEventoComponent implements OnInit {
   
   }
 
+  openDialogInvitaciones() {
+    
+    const dialogRef = this.dialog.open(ListaAmigosInvitacionComponent, {
+   
+      data:{amigos:this.amigos,idEvento:this.idEvento , esCreador:this.esCreador},
+      autoFocus: false,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     console.log(result)
+     if(result !="cancelar"){
+      this.cargarPagina()
+     }
+      
+      console.log(`Dialog result: ${result}`);
+    });
+  
+  }
+
+  openDialogInscripcion(evento) {
+    if(evento){
+   const dialogRef = this.dialog.open(AvisoInscripcionComponent, {
+     height: '200px',
+     width: '300px',
+     data: { evento: evento },
+     autoFocus: false 
+   });
+
+   dialogRef.afterClosed().subscribe(result => {
+    if(result!='cancelar'){
+      this.cargarPagina()
+    }
+    console.log(`Dialog result: ${result}`);
+  });
+  }
+}
+
+openDialogCancelar(evento) {
+  if(evento){
+ const dialogRef = this.dialog.open(AvisoCancelarInscripcionComponent, {
+   height: '200px',
+   width: '300px',
+   data: { evento: evento },
+   autoFocus: false 
+ });
+
+ dialogRef.afterClosed().subscribe(result => {
+   if(result!='cancelar'){
+    this.cargarPagina()
+}
+   console.log(`Dialog result: ${result}`);
+ });
+}
+}
+openDialogSilenciarMensajes(evento) {
+  if(evento){
+ const dialogRef = this.dialog.open(AvisoSilenciarMensajesComponent, {
+   
+   minWidth: '300px',
+   maxWidth:'350px',
+   data: { evento: evento },
+   autoFocus: false 
+ });
+
+ dialogRef.afterClosed().subscribe(result => {
+   if(result!='cancelar'){
+    this.mensajesHabilitados =false
+}
+   console.log(`Dialog result: ${result}`);
+ });
+}
+}
+openDialogHabilitarMensajes(evento) {
+  if(evento){
+ const dialogRef = this.dialog.open(AvisoHabilitarMensajesComponent, {
+  
+   minWidth: '300px',
+   maxWidth:'350px',
+   data: { evento: evento },
+   autoFocus: false 
+ });
+
+ dialogRef.afterClosed().subscribe(result => {
+   if(result!='cancelar'){
+    this.mensajesHabilitados =true
+}
+   console.log(`Dialog result: ${result}`);
+ });
+}
+}
+
+
   getEventoId(idEvento) {
     let fechaEvento
    
     this.eventoService.getEventoPorId(idEvento).subscribe(res => {
       this.evento = res
       this.copiaFechaEvento = new Date(this.evento.fecha_evento)
-      
+      if(this.evento.usuarios_activos.includes(this.idMia)){
+        this.mensajesHabilitados = true
+      }else{
+        this.mensajesHabilitados = false
+      }
+    
       this.getModalidadesNombre(this.evento.modalidades, () => this.transformarEvento())
 
 
@@ -175,6 +287,9 @@ export class VerEventoComponent implements OnInit {
       this.cargarPagina()
     })
   }
+
+ 
+
 
 
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { AvisoCancelarInscripcionComponent } from './aviso-cancelar-inscripcion/aviso-cancelar-inscripcion.component';
+import { AvisoInscripcionComponent } from './aviso-inscripcion/aviso-inscripcion.component';
 
 @Component({
   selector: 'app-listar-eventos',
@@ -15,8 +18,9 @@ modalidades:any=[]
 filtrarNombre:any=''
 filtrarModalidad:any[]=[]
 filtro_valor:any[]=['']
+listarMagos:boolean =false
 @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
-  constructor(private modalidadesService: ModalidadesService, private eventoService: EventoService, private magoService:MagoService) {
+  constructor(public dialog: MatDialog,private modalidadesService: ModalidadesService, private eventoService: EventoService, private magoService:MagoService) {
     this.magoService.getYo(res => {
       this.miId=res
       this.getEventos()
@@ -24,6 +28,50 @@ filtro_valor:any[]=['']
     })
     
    }
+
+   openDialog(evento) {
+    if(evento){
+   const dialogRef = this.dialog.open(AvisoInscripcionComponent, {
+  
+     width: '300px',
+     data: { evento: evento },
+     autoFocus: false 
+   });
+
+   dialogRef.afterClosed().subscribe(result => {
+     if(result!='cancelar'){
+    this.magoService.getYo(res => {
+      this.miId=res
+      this.getEventos()
+      this.getModalidades()
+    })
+  }
+     console.log(`Dialog result: ${result}`);
+   });
+ }
+ }
+ openDialogCancelar(evento) {
+  if(evento){
+ const dialogRef = this.dialog.open(AvisoCancelarInscripcionComponent, {
+   
+   width: '300px',
+   data: { evento: evento },
+   autoFocus: false 
+ });
+
+ dialogRef.afterClosed().subscribe(result => {
+   if(result!='cancelar'){
+  this.magoService.getYo(res => {
+    this.miId=res
+    this.getEventos()
+    this.getModalidades()
+  })
+}
+   console.log(`Dialog result: ${result}`);
+ });
+}
+}
+
 
   ngOnInit(){
     this.modalidadesService.modalidadesControl$.subscribe(res =>{

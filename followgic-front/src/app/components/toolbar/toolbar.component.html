@@ -27,6 +27,8 @@
       <mat-menu  #menuPrincipal="matMenu">
         <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/perfil">Perfil</button>
         <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/amigos">Mis amigos</button>
+        <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/lista-eventos-inscritos">Eventos Inscritos</button>
+        
         <button *ngIf="loginService.logueado()" mat-menu-item (click)="logout()">Cerrar sesión</button>
       </mat-menu>
     

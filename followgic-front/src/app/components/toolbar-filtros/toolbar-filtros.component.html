@@ -6,7 +6,8 @@
     <div fxLayout="row" fxLayoutAlign="end">
       <mat-icon class="cerrar" (click)="ventanaLateral()"aria-hidden="false" aria-label="Cerrar">cancel</mat-icon>
     </div>
-    <app-filtros></app-filtros>
+    <app-filtros *ngIf="filtros"></app-filtros>
+    <app-calendario></app-calendario>
 
   </mat-sidenav>
 

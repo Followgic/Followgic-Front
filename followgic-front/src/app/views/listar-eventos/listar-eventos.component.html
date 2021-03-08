@@ -1,5 +1,12 @@
-<app-toolbar-filtros #ventanaLateral>
+<app-toolbar-filtros *ngIf="!listarMagos" #ventanaLateral>
     <br>
+    <div fxLayout="row" fxLayoutAlign="end">
+
+        <mat-slide-toggle fxFlex=10 fxFlex.xs=30 fxFlex.sm=30 [color]="'primary'" [(ngModel)]="listarMagos" [ngModelOptions]="{standalone: true}">
+            <div *ngIf="!listarMagos">Eventos</div>
+            <div *ngIf="listarMagos">Magos</div>
+         </mat-slide-toggle>
+        </div>
     <div fxLayout="row" fxLayoutAlign="center center">
         
         <app-buscador   [titulo]='"Buscar eventos"'  (search)="filtrarEventos($event)"></app-buscador>
@@ -10,7 +17,7 @@
 
 <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign.xs="space-around center" >
     <div class="content" fxFlex.xs=100 fxFlex.sm=30  fxFlex.md=28  fxFlex=28 fxFlex.xl=25  *ngFor="let evento of eventos |filtrarEvento: filtro_valor">
-        <app-tarjeta-grande [evento]="evento" [miId]="miId" (refrescarPagina)="refrescarPagina($event)"></app-tarjeta-grande>
+        <app-tarjeta-grande [evento]="evento" [miId]="miId" (abriPopUp)="openDialog($event)" (abriPopUpCancelar)="openDialogCancelar($event)" ></app-tarjeta-grande>
         <br> <br>
     </div>
 </div>
@@ -20,5 +27,7 @@
 <br>
 
 </app-toolbar-filtros>
+
+<app-listar-magos *ngIf="listarMagos"></app-listar-magos>
 
 

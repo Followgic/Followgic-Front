@@ -1,0 +1,22 @@
+<div fxLayout="column" >
+    <div class="titulo">
+    <h1 style="margin-bottom: 5px;">Amigos</h1>
+    <mat-divider></mat-divider>
+</div>
+<mat-dialog-content>
+ 
+    <div *ngIf="!data || data.amigos.length == 0">
+        <h3>No tienes Amigos a los que invitar </h3>
+    </div>
+
+    <div *ngFor="let amigo of data.amigos">
+        <app-tarjeta-peticion (recargar)="cerrarDialog($event)"  [idEvento]="data.idEvento"[mago]="amigo" ></app-tarjeta-peticion>
+        <br>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions  fxLayout="row" fxLayoutAlign="center">
+    
+    <button color="primary" mat-raised-button [mat-dialog-close]="'cancelar'" cdkFocusInitial>Salir</button>
+  </mat-dialog-actions>
+ 
+</div>

@@ -1,17 +1,18 @@
-<mat-tab-group   mat-align-tabs="center"(selectedTabChange)="restearBusqueda()" >
-    <mat-tab label="Mensajes" >
+<mat-tab-group class="tabSecundario" mat-align-tabs="center" (selectedTabChange)="restearBusqueda()">
+    <mat-tab label="Mensajes">
         <div fxLayout="column" fxLayoutAlign="space-evenly center">
 
-            <app-buscador #buscadorMensaje (search)="filtrarMensaje($event)" class="buscador"  [titulo]='"Buscar amigos"'></app-buscador>
-            
+            <app-buscador #buscadorMensaje (search)="filtrarMensaje($event)" class="buscador"
+                [titulo]='"Buscar amigos"'></app-buscador>
+
             <div *ngIf="mensajesRecibidos.length==0">
                 <h3>No tienes ninguna conversación</h3>
-                </div>
-            
+            </div>
+
 
             <div *ngFor="let mensaje of mensajesRecibidos|filtrarMensaje: filtro_valor ">
 
-                <br>
+
                 <app-tarjeta-mensaje (click)='getAmigo(mensaje)' [mensaje]="mensaje"></app-tarjeta-mensaje>
                 <br>
             </div>
@@ -22,17 +23,45 @@
 
     <mat-tab label="Amigos">
         <div fxLayout="column" fxLayoutAlign="space-evenly center">
-           
-            <app-buscador #buscadorNombre (search)="filtrarMagos($event)"  class="buscador"  [titulo]='"Buscar amigos"'></app-buscador>
+
+            <app-buscador #buscadorNombre (search)="filtrarMagos($event)" class="buscador" [titulo]='"Buscar amigos"'>
+            </app-buscador>
             <div *ngIf="amigos.length==0">
                 <h3>No tienes ningún amigo</h3>
-                </div>
-    
+            </div>
+
 
             <div *ngFor="let amigo of amigos |filtrarString: filtro_valor ">
 
+
+                <app-tarjeta-peticion (click)='cargarConversacion(amigo)' [mago]="amigo"></app-tarjeta-peticion>
                 <br>
-                <app-tarjeta-peticion  (click)='cargarConversacion(amigo)' [mago]="amigo"></app-tarjeta-peticion>
+            </div>
+
+
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Eventos">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+
+            <app-buscador #buscadorEvento (search)="filtrarMagos($event)" class="buscador" [titulo]='"Buscar eventos"'>
+            </app-buscador>
+            <div *ngIf="eventos.length==0">
+                <h3>No estas inscrito en ningún evento</h3>
+            </div>
+            <div *ngIf="eventosSilenciados">
+                <h3 *ngIf="eventosSilenciados.length>1">Tienes {{eventosSilenciados.length}} eventos silenciados</h3>
+                <h3 *ngIf="eventosSilenciados.length == 1">Tienes {{eventosSilenciados.length}} evento silenciado</h3>
+            </div>
+
+
+
+            <div style="width: 325px;" *ngFor="let evento of eventos|filtrarEvento: filtro_valor  ">
+
+                <app-tarjeta-chica (click)='transformarEvento(evento)'
+                    (eventoSilenciado)="mostrarMensajeEventoSilenciado($event)" [evento]="evento" [mensajeria]="true">
+                </app-tarjeta-chica>
                 <br>
             </div>
 

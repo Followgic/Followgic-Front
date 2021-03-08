@@ -1,4 +1,4 @@
-<mat-card *ngIf="evento"class="tarjeta"  fxLayout="row" (click)="verEvento(evento.id)" >
+<mat-card *ngIf="evento && mensaje "class="tarjeta"  fxLayout="row"  >
     <img fxFlex=30 src={{evento.foto}} alt="Foto evento">
     <div fxFlex=70 fxLayout="column" fxLayoutAlign="space-between">
         <div fxFlex=40 fxLayout="row" fxLayoutAlign="center"> 
@@ -6,9 +6,13 @@
             <p style="margin-bottom: 8px; font-size:17px ;">{{evento.titulo}}</p>
         </strong>
     </div>
-        <div  fxFlex=40 class="aforo" fxLayout="row" fxLayoutAlign="center" >
+        <div *ngIf="!mensajeria" fxFlex=40 class="aforo" fxLayout="row" fxLayoutAlign="center" >
             <mat-icon [ngStyle]="{'color':magosInscritos == evento.aforo?'red':'green'}">people</mat-icon>
             <p>{{magosInscritos}}/{{evento.aforo}}</p>
+        </div>
+        <div *ngIf="mensajeria" fxFlex=40 class="aforo" fxLayout="row" fxLayoutAlign="center" >
+         
+            <p *ngIf="mensaje">{{mensaje.cuerpo}}</p>
         </div>
         <div fxFlex=10 fxLayout="row" fxLayoutAlign="end">
             <p style=" font-size:11px ;"> {{evento.fecha_evento}}</p>
@@ -17,3 +21,4 @@
 
 <!-- titulo de prueba... -->
 </mat-card>
+

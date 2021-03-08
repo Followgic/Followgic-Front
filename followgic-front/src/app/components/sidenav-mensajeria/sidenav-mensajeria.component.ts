@@ -50,4 +50,8 @@ export class SidenavMensajeriaComponent implements OnInit {
     this.mensajesAmigos.getMensajesRecibidos() 
   }
 
+  recargarMensajesEventos(){
+    this.mensajesAmigos.listarEventosSubscritos() 
+  }
+
 }

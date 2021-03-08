@@ -6,7 +6,6 @@
 <mat-dialog-content>
  
     <div *ngIf="!data || data.magosInscritos.length == 0">
-        <br>
         <h3>No hay magos inscritos</h3>
     </div>
 
@@ -15,4 +14,9 @@
         <br>
     </div>
 </mat-dialog-content>
+<mat-dialog-actions  fxLayout="row" fxLayoutAlign="center">
+    
+    <button color="primary" mat-raised-button [mat-dialog-close]="'cancelar'" cdkFocusInitial>Salir</button>
+  </mat-dialog-actions>
+ 
 </div>

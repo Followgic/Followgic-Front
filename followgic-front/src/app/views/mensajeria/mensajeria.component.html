@@ -1,5 +1,5 @@
 <app-sidenav-mensajeria #ventanaLateral>
-    <div *ngIf="!abrirConversacion"fxLayout="column" class="container">
+    <div *ngIf="!abrirConversacion && !abrirConversacionEvento"fxLayout="column" class="container">
         <div fxFlex=40  fxLayout="row">
             <button (click)="abrirVentana()" class="boton" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
                 <mat-icon class="icono">more_vert</mat-icon>
@@ -9,7 +9,7 @@
             <img  src="../../../assets/img/logo.png" width="260" height="100">
         </div>
     </div>
-    <div *ngIf="abrirConversacion" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+    <div *ngIf="abrirConversacion && !abrirConversacionEvento" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
         <mat-card class="principal" fxLayout="column" fxLayoutAlign="start">
             <mat-card class="cardPerfil" fxFlex=13 fxFlex.xs=15 fxLayout="row">
                 <div>
@@ -73,6 +73,80 @@
                         <input formControlName="cuerpo" autocomplete="off" matInput placeholder="Escribe tu mensaje">
                     </mat-form-field>
                     <button class="enviar" (click)='enviarMensaje(mago.pk)' mat-icon-button color="primary"
+                        aria-label="Enviar mensaje">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </form>
+
+            </mat-card>
+        </mat-card>
+
+    </div>
+
+    <div *ngIf="abrirConversacionEvento && !abrirConversacion" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+        <mat-card class="principal" fxLayout="column" fxLayoutAlign="start">
+            <mat-card class="cardPerfil" fxFlex=13 fxFlex.xs=15 fxLayout="row">
+                <div>
+                    <button mat-icon-button (click)="abrirVentana()">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+                <mat-card-header>
+                    <img mat-card-avatar class="imagen" src={{evento.foto}}>
+                    <mat-card-title>{{evento.titulo}}</mat-card-title>
+                </mat-card-header>
+
+            </mat-card>
+            
+            <mat-card class="conversacion" fxFlex=71  fxFlex.xs=65 >
+                <mat-card-content #scrollMe (scroll)="onScroll()" fxFlex=100 class="mensajes">
+                    
+                    <div *ngFor=" let mensaje of mensajes">
+                        <br>
+                        <div *ngIf="mensaje.remitente.pk!=miId" fxLayout="row" fxLayoutAlign="start">
+                            <mat-card class="mensajeDestinatarioEvento" fxLayout="column">
+                                <p style="text-align: left; margin:0px; margin-bottom: 2px;"><b>{{mensaje.remitente.nombre_artistico}}</b></p>
+                                <p> {{mensaje.cuerpo}}</p>
+                                <div fxLayout="row" fxLayoutAlign="end">
+                                    <p class="fecha">{{mensaje.fecha}}</p>
+                                </div>
+
+                            </mat-card>
+                        </div>
+                        
+
+                        <div *ngIf="mensaje.remitente.pk==miId" fxLayout="row" fxLayoutAlign="end">
+                            <mat-card [matMenuTriggerFor]="menu" class="mensajeReceptor" fxLayout="column">
+                                <div fxLayout="row">
+                                    <p>{{mensaje.cuerpo}} </p>
+                                    <img *ngIf="mensaje.estado==0" class="varita"
+                                        src="../../../assets/img/varita-magica.png" alt="">
+                                    <img *ngIf="mensaje.estado==1" class="varita"
+                                        src="../../../assets/img/varita-magica-color.png" alt="">
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="end">
+                                    <p class="fecha">{{mensaje.fecha}}</p>
+                                </div>
+
+                            </mat-card>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="eliminarMensajeEvento(mensaje.pk)">Eliminar
+                                    Mensaje</button>
+                            </mat-menu>
+
+                        </div>
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+            
+            <mat-card class="cardEnviar" fxFlex=16 fxFlex.xs=20 fxFlex.xl=14>
+                <form [formGroup]="mensajeForm" fxLayout="row">
+                    <mat-form-field class="escribir" appearance="outline">
+                        <mat-label>Escribir mensaje</mat-label>
+                        <input formControlName="cuerpo" autocomplete="off" matInput placeholder="Escribe tu mensaje">
+                    </mat-form-field>
+                    <button class="enviar" (click)='enviarMensajeEvento(evento.id)' mat-icon-button color="primary"
                         aria-label="Enviar mensaje">
                         <mat-icon>send</mat-icon>
                     </button>

@@ -68,7 +68,8 @@ export class PerfilComponent implements OnInit {
     const dialogRef = this.dialog.open(EditarPerfilComponent, {
       height: '450px',
       width: '1000px',
-      autoFocus: false 
+      autoFocus: false ,
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -84,7 +85,8 @@ export class PerfilComponent implements OnInit {
       height: '460px',
       width: '550px',
       data:{ modalidades:modalidades, misModalidades:this.misModalidades, mago:this.perfilForm.value},
-      autoFocus: false 
+      autoFocus: false ,
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -223,6 +225,12 @@ export class PerfilComponent implements OnInit {
     this.eventoService.getMisEventos().subscribe( res => {
       this.misEventos = res
     })
+  }
+
+  
+  verEvento(idEvento){
+    this.eventoService.idEvento$.emit(idEvento)
+        this.router.navigate(['/ver-evento']);
   }
 
 }

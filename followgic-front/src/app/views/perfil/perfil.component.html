@@ -102,7 +102,7 @@
                     <mat-card-content class="contenidoEvento">
 
                         <div style="margin-top: 3px; margin-bottom:2px ;"  *ngFor="let evento of misEventos">
-                            <app-tarjeta-chica  [evento]="evento"></app-tarjeta-chica>
+                            <app-tarjeta-chica  (click)="verEvento(evento.id)" [evento]="evento"></app-tarjeta-chica>
                            
                         </div>
                     </mat-card-content>

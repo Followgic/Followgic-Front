@@ -18,6 +18,13 @@
                 <app-tarjeta-peticion (recargar)="recargarpagina($event)" [peticion]="peticion"></app-tarjeta-peticion>
                 <br>
             </div>
+            
+            <div *ngFor="let invitacion of invitacionesEventos">
+
+                <br>
+                <app-tarjeta-invitacion (recargar)="recargarpagina($event)" [invitacion]="invitacion"></app-tarjeta-invitacion>
+                <br>
+            </div>
         </div>
 
 

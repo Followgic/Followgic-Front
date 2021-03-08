@@ -12,6 +12,8 @@ export class ToolbarFiltrosComponent implements OnInit,OnDestroy  {
   mobileQuery: MediaQueryList;
   @Input()
   modalidades: any;
+  @Input()
+  filtros:boolean=true;
   
   @Output()
   modalidadesEmitter = new EventEmitter();

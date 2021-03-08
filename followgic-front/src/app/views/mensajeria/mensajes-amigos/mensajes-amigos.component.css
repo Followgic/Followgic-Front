@@ -6,3 +6,18 @@
     display: none;
 }
 
+
+.tabSecundario ::ng-deep.mat-tab-label{
+    min-width: 0!important;
+    padding-left: 10!important;
+    padding-right: 10!important;
+    margin-top: 0px!important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+
+   }
+
+   ::ng-deep.mat-tab-link {
+  opacity:0 !important; /* obvious color for demo */
+}
+

@@ -19,6 +19,8 @@ export class EventoService {
   idEvento$ = new EventEmitter()
   idEvento:any
   recargarEventos$ = new EventEmitter()
+  mensajesEvento$ = new EventEmitter()
+  eventoMensaje$ = new EventEmitter()
   constructor(private http: HttpClient) { 
 
     this.idEvento$.subscribe(res => {
@@ -49,6 +51,12 @@ export class EventoService {
     return this.http.put<any>(`${this.URL}/eventos/editarEvento/${idEvento}/`, evento,{ headers: this.httpHeadersToken });
   }
 
+  eliminarEvento(idEvento){
+    return this.http.delete<any>(`${this.URL}/eventos/eliminarEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+
   guardarImagen(imagen,idEvento){
     return this.http.post<any>(`${this.URL}/eventos/setImagenverEvento/${idEvento}/`, imagen);
   }
@@ -70,6 +78,65 @@ export class EventoService {
     return this.http.get<any>(`${this.URL}/eventos/eliminarAsistenteEvento/${idEvento}/${idMago}/`,{ headers: this.httpHeadersToken });
 
   }
+
+  habilitarMensajesEvento(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/habilitarMensajesEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+  
+  }
+
+  silenciarMensajesEvento(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/silenciarEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  enviarComentario(idEvento,comentario){
+    return this.http.post<any>(`${this.URL}/eventos/enviarComentario/${idEvento}/`,comentario,{ headers: this.httpHeadersToken });
+
+  }
+
+  verUltimoComentarioEvento(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/verUltimoComentarioEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  verComentariosEvento(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/verComentariosEvento/${idEvento}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  eliminarComentario(idEvento){
+    return this.http.delete<any>(`${this.URL}/eventos/eliminarComentario/${idEvento}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  verMisInvitaciones(){
+    return this.http.get<any>(`${this.URL}/eventos/verMisInvitaciones/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  aceptarInvitacion(idInvitacion){
+    return this.http.post<any>(`${this.URL}/eventos/aceptarCodigo/${idInvitacion}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  rechazarInvitacion(idInvitacion){
+    return this.http.delete<any>(`${this.URL}/eventos/rechazarInvitacion/${idInvitacion}/`,{ headers: this.httpHeadersToken });
+
+  }
+
+  generarInvitacion(idEvento,idInvitado){
+    return this.http.get<any>(`${this.URL}/eventos/generarCodigo/${idEvento}|${idInvitado}/`,{ headers: this.httpHeadersToken });
+
+
+  }
+
+  listarEventosSubscritos(){
+    return this.http.get<any>(`${this.URL}/eventos/listarEventosSubscritos/`,{ headers: this.httpHeadersToken });
+  }
+
+
+
+
 
 
 

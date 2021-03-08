@@ -51,6 +51,14 @@ import { TarjetaGrandeComponent } from './components/tarjetas-eventos/tarjeta-gr
 import { FiltrarEventoPipe } from './pipes/filtrar-evento.pipe';
 import { ListarAsistentesComponent } from './views/ver-evento/listar-asistentes/listar-asistentes.component';
 import { AvisoEliminarAsistenteComponent } from './views/ver-evento/listar-asistentes/aviso-eliminar-asistente/aviso-eliminar-asistente.component';
+import { AvisoInscripcionComponent } from './views/listar-eventos/aviso-inscripcion/aviso-inscripcion.component';
+import { AvisoCancelarInscripcionComponent } from './views/listar-eventos/aviso-cancelar-inscripcion/aviso-cancelar-inscripcion.component';
+import { AvisoSilenciarMensajesComponent } from './views/ver-evento/aviso-silenciar-mensajes/aviso-silenciar-mensajes.component';
+import { AvisoHabilitarMensajesComponent } from './views/ver-evento/aviso-habilitar-mensajes/aviso-habilitar-mensajes.component';
+import { TarjetaInvitacionComponent } from './components/tarjetas-eventos/tarjeta-invitacion/tarjeta-invitacion.component';
+import { ListaAmigosInvitacionComponent } from './views/ver-evento/lista-amigos-invitacion/lista-amigos-invitacion.component';
+import { ListaEventosInscritosComponent } from './views/lista-eventos-inscritos/lista-eventos-inscritos.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
 
 
 
@@ -102,6 +110,14 @@ import { AvisoEliminarAsistenteComponent } from './views/ver-evento/listar-asist
     FiltrarEventoPipe,
     ListarAsistentesComponent,
     AvisoEliminarAsistenteComponent,
+    AvisoInscripcionComponent,
+    AvisoCancelarInscripcionComponent,
+    AvisoSilenciarMensajesComponent,
+    AvisoHabilitarMensajesComponent,
+    TarjetaInvitacionComponent,
+    ListaAmigosInvitacionComponent,
+    ListaEventosInscritosComponent,
+    CalendarioComponent,
   
   
   

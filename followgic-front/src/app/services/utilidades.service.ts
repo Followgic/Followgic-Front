@@ -23,6 +23,14 @@ export class UtilidadesService {
     return date.getFullYear() + "-" + this.parse0(mes) + "-" + this.parse0(dia) 
   }
 
+  getHoraStr(date) {
+    if (!date) date = new Date()
+    let hora = date.getHours() - 1
+    let minutos = date.getMinutes()
+    let segundos = date.getSeconds()
+    return this.parse0(hora) + ":" + this.parse0(minutos)
+  }
+
   parse0(number){
     return number < 10 ? '0' + number : number
   }

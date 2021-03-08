@@ -92,4 +92,15 @@ esCreador:boolean =false
    })
   }
 
+  
+  enviarInvitacion(idEvento,idInvitado){
+    this.eventoService.generarInvitacion(idEvento,idInvitado).subscribe(res => {
+      console.log(res)
+      this.recargar.emit(this.idEvento)
+    })
+  }
+
+
+  
+
 }

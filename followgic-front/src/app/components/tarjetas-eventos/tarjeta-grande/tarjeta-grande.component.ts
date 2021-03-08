@@ -16,7 +16,10 @@ export class TarjetaGrandeComponent implements OnInit {
   @Input()
   miId:any
   @Output()
-  refrescarPagina = new EventEmitter();
+  abriPopUp = new EventEmitter();
+
+  @Output()
+  abriPopUpCancelar = new EventEmitter();
   
   magosInscritos:any;
   modalidades:any;
@@ -57,19 +60,12 @@ export class TarjetaGrandeComponent implements OnInit {
 
   
 
-  inscribirEnEvento(idEvento){
-    this.eventoService.inscribirseEvento(idEvento).subscribe(res=> {
-      console.log(res)
-      this.refrescarPagina.emit(true)
-    })
+  abrirAvisoInscripcion(evento){
+    this.abriPopUp.emit(evento)
   }
 
-  desinscribirse(idEvento){
-    this.eventoService.desuscribirseEvento(idEvento).subscribe(res => {
-      console.log(res)
-      this.refrescarPagina.emit(true)
-    })
+  abrirAvisoCancelarInscripcion(evento){
+    this.abriPopUpCancelar.emit(evento)
+
   }
-
-
 }

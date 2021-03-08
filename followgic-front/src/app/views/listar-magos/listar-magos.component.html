@@ -1,14 +1,15 @@
-<br>
-<div fxLayout="row" fxLayoutAlign="end">
 
-<mat-slide-toggle fxFlex=10 fxFlex.xs=30 fxFlex.sm=30 [color]="'primary'" [(ngModel)]="listarMagos" [ngModelOptions]="{standalone: true}">
-    <div *ngIf="!listarMagos">Eventos</div>
-    <div *ngIf="listarMagos">Magos</div>
- </mat-slide-toggle>
-</div>
+
 
 <app-toolbar-filtros *ngIf="listarMagos" #ventanaLateral>
 <br>
+<div fxLayout="row" fxLayoutAlign="end">
+
+    <mat-slide-toggle fxFlex=10 fxFlex.xs=30 fxFlex.sm=30 [color]="'primary'" [(ngModel)]="listarMagos" [ngModelOptions]="{standalone: true}">
+        <div *ngIf="!listarMagos">Eventos</div>
+        <div *ngIf="listarMagos">Magos</div>
+     </mat-slide-toggle>
+    </div>
 <div fxLayout="row" fxLayoutAlign="center center">
     
     <app-buscador   [titulo]='"Buscar magos"'  (search)="filtrarMagos($event)"></app-buscador>
@@ -24,20 +25,6 @@
 <div class="vacio" *ngIf="magos.length==0">
 
 </div>
-
-
-
-
-
-
-
-
-
-<!-- <div fxLayout="row wrap" fxLayout.xs="column">
-    <div class="carta" fxFlex=22 fxFlex.md=28 fxFlex.sm=43 fxFlex.xs=100 *ngFor="let mago of magos |filtrarString: filtro_valor">
-        <app-carta [usuario]="mago" [amigos]="amigos" [peticionesPendientes]="pendientes" (abrirPopUp)="openDialog($event)" (refrecarPagina)="refrescarPagina($event)"></app-carta>
-    </div>
-</div> -->
 <br>
 
 </app-toolbar-filtros>
