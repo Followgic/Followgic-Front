@@ -1,0 +1,33 @@
+.titulo{
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 0px;
+}
+
+::-webkit-scrollbar {
+ 
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+  
+       
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff7514;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+/* Cambiamos el fondo cuando esté en active o hover */
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+

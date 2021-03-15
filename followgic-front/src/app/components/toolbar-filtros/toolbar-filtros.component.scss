@@ -1,3 +1,5 @@
+@import "~@angular/material/theming";
+@import '../../../custom-theme.scss';
 mat-sidenav {
     width: 400px;
   }
@@ -31,3 +33,4 @@ button{
 .cerrar{
   margin-top:5px !important;
 }
+

@@ -40,4 +40,18 @@ export class UtilidadesService {
     return hora
 
   }
+
+  
+  formatearDatos(fecha) {
+
+    let fechaActual = new Date()
+
+    if (fecha.getDate() < fechaActual.getDate()) {
+      fecha = this.getFechaStr(fecha)
+    } else {
+      fecha = this.getHoraStr(fecha)
+    }
+    return fecha
+
+  }
 }

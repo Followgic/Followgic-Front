@@ -6,7 +6,7 @@
         </ng-template>
         <div fxLayout="column" fxLayoutAlign="space-between center">
 
-            <div *ngIf="noNotificacion">
+            <div *ngIf=" peticionesRecibidas.length==0 &&  invitacionesEventos.length == 0">
                 <br>
                 <h3>{{noNotificacion}}</h3>
             </div>
@@ -22,7 +22,7 @@
             <div *ngFor="let invitacion of invitacionesEventos">
 
                 <br>
-                <app-tarjeta-invitacion (recargar)="recargarpagina($event)" [invitacion]="invitacion"></app-tarjeta-invitacion>
+                <app-tarjeta-invitacion (recargar)="recargarPaginaInvitacion($event)" [invitacion]="invitacion"></app-tarjeta-invitacion>
                 <br>
             </div>
         </div>

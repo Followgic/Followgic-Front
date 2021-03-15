@@ -25,6 +25,7 @@ export class AvisoInscripcionComponent implements OnInit {
 
   inscribirEnEvento(idEvento){
     this.eventoService.inscribirseEvento(idEvento).subscribe(res=> {
+    this.eventoService.recargarUltimoComentarioEvento$.emit()
     this.dialogRef.close();
     this.dialogRef2.close();
     })

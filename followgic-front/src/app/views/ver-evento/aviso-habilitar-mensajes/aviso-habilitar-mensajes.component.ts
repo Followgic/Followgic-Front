@@ -18,7 +18,7 @@ export class AvisoHabilitarMensajesComponent implements OnInit {
  
   habilitarMensajes(idEvento){
     this.eventoService.habilitarMensajesEvento(idEvento).subscribe(res=>{
-      console.log(res)
+      this.eventoService.recargarUltimoComentarioEvento$.emit()
       this.dialogRef.close();
     })
   }

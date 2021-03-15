@@ -10,7 +10,7 @@
     </div>
 
     <div *ngFor="let amigo of data.amigos">
-        <app-tarjeta-peticion (recargar)="cerrarDialog($event)"  [idEvento]="data.idEvento"[mago]="amigo" ></app-tarjeta-peticion>
+        <app-tarjeta-peticion (recargar)="cerrarDialog($event)"  [idEvento]="data.idEvento" [invitacion]='true' [mago]="amigo" ></app-tarjeta-peticion>
         <br>
     </div>
 </mat-dialog-content>

@@ -17,7 +17,7 @@ export class AvisoSilenciarMensajesComponent implements OnInit {
 
   silenciarMensajes(idEvento){
     this.eventoService.silenciarMensajesEvento(idEvento).subscribe(res=> {
-      console.log(res)
+      this.eventoService.recargarUltimoComentarioEvento$.emit()
       this.dialogRef.close();
     })
   }

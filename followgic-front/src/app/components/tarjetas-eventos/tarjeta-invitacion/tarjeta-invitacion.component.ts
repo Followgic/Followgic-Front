@@ -31,6 +31,7 @@ export class TarjetaInvitacionComponent implements OnInit {
 
   aceptarInvitacion(idInvitacion){
     this.eventoService.aceptarInvitacion(idInvitacion).subscribe(res =>{
+      console.log(res)
     this.recargar.emit(idInvitacion)
    
     
@@ -39,6 +40,7 @@ export class TarjetaInvitacionComponent implements OnInit {
 
   rechazarInvitacion(idInvitacion){
     this.eventoService.rechazarInvitacion(idInvitacion).subscribe(res =>{
+      console.log(res)
     this.recargar.emit(idInvitacion)
     
     })

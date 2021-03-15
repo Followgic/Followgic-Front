@@ -1,3 +1,5 @@
+@import "~@angular/material/theming";
+@import '../../../../custom-theme.scss';
 .tarjeta{
     width: 350px;
     height: 450px;
@@ -9,3 +11,10 @@
     background-color: rgb(209, 209, 209);
     color: grey;
 }
+
+
+
+
+ 
+    
+

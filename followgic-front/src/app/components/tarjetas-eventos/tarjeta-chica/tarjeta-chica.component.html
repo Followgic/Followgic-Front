@@ -1,4 +1,5 @@
-<mat-card *ngIf="evento && mensaje "class="tarjeta"  fxLayout="row"  >
+<mat-card *ngIf="evento && mensaje "class="tarjeta"  fxLayout="row" 
+[matBadge]="noLeidos" [matBadgeHidden]="invisible" matBadgePosition="above after" >
     <img fxFlex=30 src={{evento.foto}} alt="Foto evento">
     <div fxFlex=70 fxLayout="column" fxLayoutAlign="space-between">
         <div fxFlex=40 fxLayout="row" fxLayoutAlign="center"> 
@@ -11,7 +12,8 @@
             <p>{{magosInscritos}}/{{evento.aforo}}</p>
         </div>
         <div *ngIf="mensajeria" fxFlex=40 class="aforo" fxLayout="row" fxLayoutAlign="center" >
-         
+            <p *ngIf="mensaje && mensaje.remitente.pk!= miId"><b>{{mensaje.remitente.nombre_artistico}}: </b> </p>
+            <p *ngIf="mensaje && mensaje.remitente.pk== miId"><b>Yo: </b> </p>
             <p *ngIf="mensaje">{{mensaje.cuerpo}}</p>
         </div>
         <div fxFlex=10 fxLayout="row" fxLayoutAlign="end">

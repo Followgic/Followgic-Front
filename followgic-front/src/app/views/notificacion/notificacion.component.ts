@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventoService } from 'src/app/services/evento.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { PeticionService } from 'src/app/services/peticion.service';
+import { UtilidadesService } from 'src/app/services/utilidades.service';
 
 @Component({
   selector: 'app-notificacion',
@@ -15,8 +16,9 @@ noMensaje:any;
 mensajesNoLeidos:any =[];
 mensajes:any=[]
 invitacionesEventos:any=[]
-  constructor(private peticionService: PeticionService,private eventoService: EventoService,private mensajeService: MensajeService) {
+  constructor(private peticionService: PeticionService,private eventoService: EventoService,private mensajeService: MensajeService, private utilidadesService:UtilidadesService) {
    this.getPeticionesRecibidas() 
+   this.getInvitacionesEventos()
     this.getMensajesNoLeidos()
 
     this.peticionService.peticionesRecibidas$.subscribe(res => {
@@ -34,6 +36,14 @@ invitacionesEventos:any=[]
       this.mensajesNoLeidos=res
 
 
+
+    })
+    
+    this.eventoService.recargarInvitacion$.subscribe(res => {
+      this.invitacionesEventos=res
+      
+
+    console.log(this.invitacionesEventos)
 
     })
   
@@ -59,7 +69,13 @@ invitacionesEventos:any=[]
 
   getInvitacionesEventos(){
     this.eventoService.verMisInvitaciones().subscribe(res =>{
-      this.invitacionesEventos = res
+      this.invitacionesEventos = res.map(invitacion => {
+        return {
+          pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto:'http://localhost:8000'+ invitacion.evento.foto
+        }
+      })
+      console.log(this.invitacionesEventos)
+
     })
   }
 

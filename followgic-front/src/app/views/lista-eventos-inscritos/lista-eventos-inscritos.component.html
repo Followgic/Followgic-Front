@@ -1,15 +1,27 @@
-<app-toolbar-filtros [filtros]="false"  #ventanaLateral>
+<app-toolbar-filtros [rangoCalendario]="false" [filtros]="false" #ventanaLateral>
     <br>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        
-        <app-buscador   [titulo]='"Buscar eventos"'  (search)="filtrarEventos($event)"></app-buscador>
-        <button class="boton" mat-raised-button type="submit"  (click)="abrirFiltros()" color="primary">Filtros</button>
-     
+    <div fxLayout="row" fxLayoutAlign="center" *ngIf="noEventosInscrito">
+        <h1>No estás inscrito en ningún evento</h1>
     </div>
-    <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign.xs="space-around center" >
-    <div class="content" fxFlex.xs=100 fxFlex.sm=30  fxFlex.md=28  fxFlex=28 fxFlex.xl=25  *ngFor="let evento of eventos|filtrarEvento: filtro_valor">
-        <app-tarjeta-grande [evento]="evento" [miId]="miId" (abriPopUpCancelar)="openDialogCancelar($event)" ></app-tarjeta-grande>
-        <br> <br>
+    <div  *ngIf="!noEventosInscrito">
+        <div  fxLayout="row" fxLayoutAlign="center center">
+
+            <app-buscador [titulo]='"Buscar eventos"' (search)="filtrarEventos($event)"></app-buscador>
+            <button class="boton" mat-raised-button type="submit" (click)="abrirFiltros()"
+                color="primary">Calendario</button>
+
+        </div>
+
+        <div  *ngIf="noEventosDia"  fxLayout="row" fxLayoutAlign="center" >
+            <h1>No tienes ningún evento para el día seleccionado</h1>
+        </div>
+        <div   *ngIf="!noEventosDia" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="space-around center">
+            <div class="content" fxFlex.xs=100 fxFlex.sm=30 fxFlex.md=28 fxFlex=28 fxFlex.xl=25
+                *ngFor="let evento of eventos|filtrarEvento: filtro_valor">
+                <app-tarjeta-grande [evento]="evento" [miId]="miId" (abriPopUpCancelar)="openDialogCancelar($event)">
+                </app-tarjeta-grande>
+
+            </div>
+        </div>
     </div>
-</div>
 </app-toolbar-filtros>

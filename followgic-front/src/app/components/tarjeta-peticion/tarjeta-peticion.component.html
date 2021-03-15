@@ -8,5 +8,7 @@
       <button *ngIf='peticion'mat-button (click)="aceptarPeticion(peticion.id)">Aceptar</button>
       <button *ngIf='peticion' mat-button (click)="rechazarPeticion(peticion.id)">Rechazar</button>
       <button *ngIf='esCreador' mat-button (click)="openDialog(mago)">Eliminar</button>
+      <button *ngIf='invitacion' mat-button (click)="enviarInvitacion(mago.pk)">Invitar</button>
+      
     </mat-card-actions>
   </mat-card>

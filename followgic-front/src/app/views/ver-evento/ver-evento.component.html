@@ -17,12 +17,12 @@
             <mat-icon (click)="openDialogAsistentes()" [ngStyle]="{'color':magosInscritos.length == evento.aforo?'red':'green'}"   >people</mat-icon>
             <p>{{magosInscritos.length}}/{{evento.aforo}}</p>
             </div>
-            <div *ngIf="idMia!= evento.creador" >
+            <div *ngIf="idMia!= evento.creador && evento.asistentes.includes(idMia)" >
             <mat-icon class="mensajes" *ngIf="mensajesHabilitados" (click)="openDialogSilenciarMensajes(evento)">volume_up</mat-icon>
             <mat-icon  class="mensajes" *ngIf="!mensajesHabilitados" (click)="openDialogHabilitarMensajes(evento)">volume_off</mat-icon>
         </div>
-        <div *ngIf="idMia== evento.creador" >	
-            <mat-icon class="mensajes" *ngIf="mensajesHabilitados" (click)="openDialogSilenciarMensajes(evento)">share</mat-icon>
+        <div *ngIf="idMia== evento.creador && evento.privacidad==1 " >	
+            <mat-icon class="mensajes"  (click)="openDialogInvitaciones()">share</mat-icon>
         </div>
         </div>
         <div  fxFlex=7 fxLayout="row">

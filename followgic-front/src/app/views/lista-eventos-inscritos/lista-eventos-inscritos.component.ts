@@ -15,12 +15,31 @@ export class ListaEventosInscritosComponent implements OnInit {
   filtrarNombre:any=''
 filtrarModalidad:any[]=[]
 filtro_valor:any[]=['']
+noEventosDia:boolean=false
+noEventosInscrito:boolean=false
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor( public dialog: MatDialog, private eventoService: EventoService, private magoService:MagoService) { 
     this.magoService.getYo(res => {
       this.miId=res
       this.getEventosInscripcion()
     })
+
+    this.eventoService.eventosFiltrados$.subscribe(res => {
+    
+      this.eventos = res
+      if(this.eventos.length==0){
+        this.noEventosDia=true
+      }else{
+        this.noEventosDia=false
+
+      }
+    })
+    this.eventoService.recargarEventos$.subscribe(res => {
+      this.noEventosDia=false
+      this.getEventosInscripcion()
+
+    })
+    
     
    }
 
@@ -55,6 +74,14 @@ filtro_valor:any[]=['']
     this.eventoService.listarEventosSubscritos().subscribe(res=>{
       console.log(res)
       this.eventos = res
+      if(this.eventos.length==0){
+      this.noEventosInscrito = true
+      }else{
+        this.noEventosInscrito = false
+
+      }
+
+      this.eventoService.eventosCalendario$.emit(this.eventos)
     })
   }
 

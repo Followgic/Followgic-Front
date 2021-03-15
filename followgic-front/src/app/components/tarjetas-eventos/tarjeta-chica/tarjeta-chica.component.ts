@@ -8,7 +8,8 @@ import { UtilidadesService } from 'src/app/services/utilidades.service';
 @Component({
   selector: 'app-tarjeta-chica',
   templateUrl: './tarjeta-chica.component.html',
-  styleUrls: ['./tarjeta-chica.component.scss']
+  styleUrls: ['./tarjeta-chica.component.scss'],
+  
 })
 export class TarjetaChicaComponent implements OnInit {
   @Input()
@@ -24,6 +25,9 @@ export class TarjetaChicaComponent implements OnInit {
   magosInscritos: any;
   mensaje: any;
   miId: any;
+  invisible:boolean=false;
+  noLeidos:any;
+  
   constructor(private eventoService: EventoService, private magoService: MagoService, private router: Router, private modalidadesService: ModalidadesService, private utilidadesService: UtilidadesService) {
     if (!this.miId) {
       this.magoService.getYo(res => this.miId = res)
@@ -36,7 +40,7 @@ export class TarjetaChicaComponent implements OnInit {
       this.magoService.getYo(res => {
 
         this.miId = res
-        this.transformarEvento(() => this.verUltimoComentarioEvento())
+        this.transformarEvento(() => {this.verUltimoComentarioEvento(), this.comentariosNoLeidos()})
         this.getMagosInscritosPorEventoId(this.evento.id)
       })
 
@@ -75,13 +79,22 @@ export class TarjetaChicaComponent implements OnInit {
       if (res) {
         this.mensaje = res
 
-        if (this.mensaje.cuerpo.length > 26) {
-          this.mensaje.cuerpo = this.mensaje.cuerpo.substr(0, 26) + '...'
+        if (this.mensaje.cuerpo.length > 18) {
+          this.mensaje.cuerpo = this.mensaje.cuerpo.substr(0, 18) + '...'
 
         }
       }
     })
 
+  }
+
+  comentariosNoLeidos(){
+    this.eventoService.comentariosNoLeidos(this.evento.id).subscribe(res => {
+      if(res){
+      this.noLeidos = res.mensajes
+      this.invisible=true
+      }
+    })
   }
 
 

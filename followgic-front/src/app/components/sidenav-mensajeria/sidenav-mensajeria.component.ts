@@ -42,6 +42,16 @@ export class SidenavMensajeriaComponent implements OnInit {
   ventanaLateral(){
     this.snav.toggle()
   }
+
+  
+  abrirVentana(){
+    this.snav.open()
+  }
+
+    
+  cerrarVentana(){
+    this.snav.close()
+  }
   enviarModalidades(modalidadesFiltros){
   this.modalidadesEmitter.emit(modalidadesFiltros)
   }

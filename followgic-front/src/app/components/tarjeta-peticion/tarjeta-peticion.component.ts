@@ -24,6 +24,9 @@ amigo:any;
 mago:any 
 
 @Input()
+invitacion:any;
+
+@Input()
 idEvento:any
 
 @Input()
@@ -93,8 +96,8 @@ esCreador:boolean =false
   }
 
   
-  enviarInvitacion(idEvento,idInvitado){
-    this.eventoService.generarInvitacion(idEvento,idInvitado).subscribe(res => {
+  enviarInvitacion(idInvitado){
+    this.eventoService.generarInvitacion(this.idEvento,idInvitado).subscribe(res => {
       console.log(res)
       this.recargar.emit(this.idEvento)
     })

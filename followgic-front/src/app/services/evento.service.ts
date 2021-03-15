@@ -19,8 +19,15 @@ export class EventoService {
   idEvento$ = new EventEmitter()
   idEvento:any
   recargarEventos$ = new EventEmitter()
+  eventosFiltrados$ = new EventEmitter()
   mensajesEvento$ = new EventEmitter()
   eventoMensaje$ = new EventEmitter()
+  eventosCalendario$ = new EventEmitter()
+  recargarUltimoComentarioEvento$ = new EventEmitter()
+  recargarInvitacion$ = new EventEmitter()
+  recargaEvento$  = new EventEmitter()
+
+
   constructor(private http: HttpClient) { 
 
     this.idEvento$.subscribe(res => {
@@ -115,7 +122,7 @@ export class EventoService {
   }
 
   aceptarInvitacion(idInvitacion){
-    return this.http.post<any>(`${this.URL}/eventos/aceptarCodigo/${idInvitacion}/`,{ headers: this.httpHeadersToken });
+    return this.http.post<any>(`${this.URL}/eventos/aceptarInvitacion/${idInvitacion}/`,{ headers: this.httpHeadersToken });
 
   }
 
@@ -133,6 +140,17 @@ export class EventoService {
   listarEventosSubscritos(){
     return this.http.get<any>(`${this.URL}/eventos/listarEventosSubscritos/`,{ headers: this.httpHeadersToken });
   }
+
+  
+  usuariosParaInvitar(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/usuariosParaInvitar/${idEvento}/`,{ headers: this.httpHeadersToken });
+  }
+
+  comentariosNoLeidos(idEvento){
+    return this.http.get<any>(`${this.URL}/eventos/comentariosNoLeidos/${idEvento}/`,{ headers: this.httpHeadersToken });
+  }
+
+
 
 
 

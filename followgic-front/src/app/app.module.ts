@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -59,9 +59,49 @@ import { TarjetaInvitacionComponent } from './components/tarjetas-eventos/tarjet
 import { ListaAmigosInvitacionComponent } from './views/ver-evento/lista-amigos-invitacion/lista-amigos-invitacion.component';
 import { ListaEventosInscritosComponent } from './views/lista-eventos-inscritos/lista-eventos-inscritos.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerIntl } from '@coachcare/datepicker';
+import { DatapickerEspService } from './services/datapicker-esp.service';
+
+
+import * as moment from 'moment';
+// moment.es.ts created previously
+import './services/moment.es.service'; 
+moment.locale('es');
 
 
 
+
+const MY_DATE_FORMATS = {
+  parse: {
+      dateInput: { day: 'numeric', month: 'numeric', year: 'numeric' }
+  },
+  display: {
+      dateInput: 'input',
+      monthYearLabel: 'mes',
+      dateA11yLabel: { year: 'numeric', month: 'short', day: 'numeric' },
+      monthYearA11yLabel: { year: 'numeric', month: 'short' },
+  }
+};
+
+export class AppDateAdapter extends NativeDateAdapter {
+
+  format(date: Date, displayFormat: Object): string {
+      if (displayFormat === 'input') {
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+          return `${day}/${month}/${year}`;
+      } else if( displayFormat==='mes') {
+         const formato = date.toDateString().split(" ")
+         return formato[1] +" "+ formato[3]
+         
+      }else{
+        return date.toDateString();
+
+      }
+  }
+}
 
 
 
@@ -138,7 +178,9 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
   providers: [{provide: HTTP_INTERCEPTORS, useClass: MagoService, multi: true },{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
     useValue: { color:  'primary'},
-}],
+    
+},{provide: DateAdapter, useClass: AppDateAdapter},{provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}, { provide: LOCALE_ID, useValue: 'es' },
+{ provide: MatDatepickerIntl, useClass: DatapickerEspService }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

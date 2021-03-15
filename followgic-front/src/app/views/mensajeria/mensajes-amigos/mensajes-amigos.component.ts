@@ -42,6 +42,11 @@ export class MensajesAmigosComponent implements OnInit {
       + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
     })
 
+    this.eventoService.recargarUltimoComentarioEvento$.subscribe(res=>{
+      this.eventosSilenciados=[]
+      this.listarEventosSubscritos()
+    })
+
     this.mensajeService.recargarConversaciones$.subscribe(res=>{
       this.mensajesRecibidos = []
       res.forEach(mensaje => {

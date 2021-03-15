@@ -13,14 +13,16 @@ import { PeticionService } from 'src/app/services/peticion.service';
 export class MensajeriaComponent implements OnInit, AfterViewChecked {
   mensajes: any[] = []
   mago: any = []
-  remitenteMensaje:any =[]
+  remitenteMensaje: any = []
   mensajeForm: FormGroup
   disableScrollDown = false
   ventana: boolean = false
   abrirConversacion: boolean = false
-  abrirConversacionEvento: boolean =false
-  evento:any
-  miId:any
+  abrirConversacionEvento: boolean = false
+  evento: any
+  miId: any
+  recargar: boolean = false
+
 
 
 
@@ -28,11 +30,11 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor(private magoService: MagoService, private mensajeService: MensajeService, private peticionService: PeticionService, private eventoService: EventoService) {
     this.mensajes = []
-   this.magoService.getYo(res => this.miId=res)
-   
+    this.magoService.getYo(res => this.miId = res)
+
     this.mensajeService.varita$.subscribe(res => {
-      this.abrirConversacion=res
-      this.abrirConversacionEvento=res
+      this.abrirConversacion = res
+      this.abrirConversacionEvento = res
     })
     this.mensajeForm = new FormGroup({
       cuerpo: new FormControl(""),
@@ -61,13 +63,16 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
 
 
+
   }
 
   ngOnInit() {
 
     this.eventoService.mensajesEvento$.subscribe(res => {
-
-      this.cargarConversacionEvento(res)
+      if (this.evento) {
+        this.recargar=true
+        this.cargarConversacionEvento(res)
+      }
 
     })
 
@@ -121,13 +126,13 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   }
 
-/*    getMago(mensaje){
-   this.magoService.getPerfilAmigo(mensaje.remitente).subscribe(res =>{
+  /*    getMago(mensaje){
+     this.magoService.getPerfilAmigo(mensaje.remitente).subscribe(res =>{
+       
+     mensaje.nombre_artistico= res.nombre_artistico
      
-   mensaje.nombre_artistico= res.nombre_artistico
-   
-   })
- }   */
+     })
+   }   */
   cargarConversacion(idMago, eliminar?) {
     this.mensajeService.getConversacionPorMago(idMago).subscribe(res => {
       this.mensajes = res
@@ -147,20 +152,29 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
     })
   }
-  cargarConversacionEvento( mensajes){
+  cargarConversacionEvento(mensajes) {
+    this.mensajes = mensajes
+    /* if (this.abrirConversacionEvento == false) {
+      this.abrirVentana()
+    }
+ */
+    if (!this.recargar){
+      this.ventanaLateral.cerrarVentana()
+    }
     this.abrirConversacion = false
     this.abrirConversacionEvento = true
-    this.mensajes = mensajes
-    this.abrirVentana()
+
+
+
     this.disableScrollDown = false
   }
 
-  recargarMensajesEventos(eliminar?){
+  recargarMensajesEventos(eliminar?) {
     this.eventoService.verComentariosEvento(this.evento.id).subscribe(res => {
       console.log(res)
       this.mensajes = res.map(mensaje => {
         return {
-          id: mensaje.id, cuerpo: mensaje.cuerpo, fecha: this.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente 
+          id: mensaje.id, cuerpo: mensaje.cuerpo, fecha: this.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente
         }
       })
 
@@ -179,18 +193,18 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
     })
   }
 
-  enviarMensajeEvento(idEvento){
-    if(this.mensajeForm.value.destinatario){
+  enviarMensajeEvento(idEvento) {
+    if (this.mensajeForm.value.destinatario) {
       delete this.mensajeForm.value.destinatario
     }
-  this.eventoService.enviarComentario(idEvento, this.mensajeForm.value).subscribe(res => {
-    this.recargarMensajesEventos()
-    this.ventanaLateral.recargarMensajesEventos()
-    this.mensajeForm.reset()
-  })
+    this.eventoService.enviarComentario(idEvento, this.mensajeForm.value).subscribe(res => {
+      this.recargarMensajesEventos()
+      this.ventanaLateral.recargarMensajesEventos()
+      this.mensajeForm.reset()
+    })
 
   }
-  
+
 
   eliminarMensaje(idMensaje, idMago) {
     this.mensajeService.eliminarMensaje(idMensaje).subscribe(res => {
@@ -200,7 +214,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
     })
   }
 
-  eliminarMensajeEvento(idMensaje){
+  eliminarMensajeEvento(idMensaje) {
     this.eventoService.eliminarComentario(idMensaje).subscribe(res => {
       console.log(res)
       let eliminar = true
@@ -209,7 +223,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   }
 
 
-  
+
 
   formatearDatos(fecha) {
 

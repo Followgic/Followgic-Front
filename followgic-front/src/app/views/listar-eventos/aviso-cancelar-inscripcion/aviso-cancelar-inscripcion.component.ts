@@ -12,8 +12,8 @@ import { ListarEventosComponent } from '../listar-eventos.component';
 })
 export class AvisoCancelarInscripcionComponent implements OnInit {
 
-  constructor(private eventoService: EventoService,public dialogRef: MatDialogRef<ListarEventosComponent>,public dialogRef2: MatDialogRef<VerEventoComponent>,
-    public dialogRef3: MatDialogRef<ListaEventosInscritosComponent>, @Inject(MAT_DIALOG_DATA) public data: {evento:any}) { }
+  constructor(private eventoService: EventoService, public dialogRef: MatDialogRef<ListarEventosComponent>, public dialogRef2: MatDialogRef<VerEventoComponent>,
+    public dialogRef3: MatDialogRef<ListaEventosInscritosComponent>, @Inject(MAT_DIALOG_DATA) public data: { evento: any }) { }
 
   ngOnInit(): void {
   }
@@ -24,11 +24,13 @@ export class AvisoCancelarInscripcionComponent implements OnInit {
     this.dialogRef3.close(cancelar);
   }
 
-  desuscribirseEnEvento(idEvento){
-    this.eventoService.desuscribirseEvento(idEvento).subscribe(res=> {
-    this.dialogRef.close();
-    this.dialogRef2.close();
-    this.dialogRef3.close();
+  desuscribirseEnEvento(idEvento) {
+    this.eventoService.desuscribirseEvento(idEvento).subscribe(res => {
+
+      this.eventoService.recargarUltimoComentarioEvento$.emit()
+      this.dialogRef.close();
+      this.dialogRef2.close();
+      this.dialogRef3.close();
     })
   }
 

@@ -1,4 +1,9 @@
-<mat-calendar [dateClass]="dateClass"  class="example-full-width"    [(selected)]="fechaActual">
+
+<mat-calendar *ngIf="pintado" [dateClass]="dateClass" [selected]="selectedDate" (selectedChange)="onSelect($event)" class="calendarioMostrar"  >
     <mat-calendar-header  ></mat-calendar-header>
  </mat-calendar>
+<br>
+<div fxLayout="row" fxLayoutAlign="center">
+ <button  mat-raised-button  (click)="cargarTodos()" class="mat-primary">Mostrar todos</button>
+</div>
 

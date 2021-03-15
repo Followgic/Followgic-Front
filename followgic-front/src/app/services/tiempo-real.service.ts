@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { EventoService } from './evento.service';
 import { LoginService } from './login.service';
 import { MagoService } from './mago.service';
 import { MensajeService } from './mensaje.service';
 import { PeticionService } from './peticion.service';
+import { UtilidadesService } from './utilidades.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ export class TiempoRealService {
   notificationPeticion: any[] = [];
   notificationMensajes: any[] = [];
   varita: boolean = false
-  constructor(private loginService: LoginService, private peticionService: PeticionService, private magoService: MagoService, private mensajeService: MensajeService) { }
+  constructor(private loginService: LoginService, private peticionService: PeticionService, private magoService: MagoService, private mensajeService: MensajeService,
+    private eventoService:EventoService, private utilidadesService:UtilidadesService ) { }
 
 
 recargarTiempoReal() {
@@ -88,12 +91,47 @@ recargarTiempoReal() {
         this.mensajeService.getMensajes().subscribe(res => {
           //Se recargan las conversaciones entrantes
           this.mensajeService.recargarConversaciones$.emit(res)
-        })
+        })    
 
-     
+       } else if (mensaje[0] == "Comentario" && mensaje[1] == "remitente") {
+          this.eventoService.verComentariosEvento(mensaje[2]).subscribe(res => {
+            //Se recargan las conversaciones entrantes
+           
+             let mensajes = res.map(mensaje => {
+              return {
+                pk: mensaje.pk, cuerpo: mensaje.cuerpo, fecha: this.utilidadesService.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente
+              }
+            })
+            this.eventoService.mensajesEvento$.emit(mensajes)
+          })
+           
+            this.eventoService.recargarUltimoComentarioEvento$.emit()
       
+  
+  
+        } else  if (mensaje[0] == "Invitacion" && mensaje[1] == "remitente") {
+        
+          this.eventoService.verMisInvitaciones().subscribe(res => {
 
-      }
+            let invitacionesEventos = res.map(invitacion => {
+              return {
+                pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto:'http://localhost:8000'+invitacion.evento.foto
+              }
+            })
+            this.eventoService.recargarInvitacion$.emit(invitacionesEventos)
+          })
+    
+     
+        } else  if (mensaje[0] == "Invitacion"  && (mensaje[1] == "aceptada" || mensaje[1] == "rechazada" )) {
+        
+         
+            this.eventoService.recargaEvento$.emit(mensaje[2])
+
+    
+     
+        }
+
+      
     });
 
 

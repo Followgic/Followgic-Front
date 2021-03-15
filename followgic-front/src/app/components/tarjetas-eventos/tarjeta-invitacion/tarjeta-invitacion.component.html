@@ -1,12 +1,12 @@
 <mat-card *ngIf="invitacion" >
     <mat-card-header>
        <img mat-card-avatar class="imagen" src={{invitacion.foto}}>
-      <mat-card-title>{{invitacion.nombre}}</mat-card-title>
-      <mat-card-subtitle>{{invitacion.nombre_artistico}}</mat-card-subtitle>
+      <mat-card-title>{{invitacion.evento.titulo}}</mat-card-title>
+
     </mat-card-header>
     <mat-card-actions >
-      <button *ngIf='invitacion'mat-button (click)="aceptarInvitacion(invitacion.id)">Aceptar</button>
-      <button *ngIf='invitacion' mat-button (click)="rechazarInvitacion(invitacion.id)">Rechazar</button>
+      <button *ngIf='invitacion'mat-button (click)="aceptarInvitacion(invitacion.pk)">Aceptar</button>
+      <button *ngIf='invitacion' mat-button (click)="rechazarInvitacion(invitacion.pk)">Rechazar</button>
     </mat-card-actions>
   </mat-card>
 

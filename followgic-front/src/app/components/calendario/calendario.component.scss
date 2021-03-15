@@ -1,0 +1,18 @@
+@import "~@angular/material/theming";
+@import '../../../custom-theme.scss';
+
+.example-custom-date-class .mat-calendar-body-cell-content{
+
+    background-color: mat-color($followgic-front-primary)!important;
+    color:white;
+    border-radius: 100%;
+  }
+
+  .calendarioMostrar{
+    .mat-calendar-body-selected {
+      background-color: transparent;
+      color:black;
+  
+    }
+
+  }
