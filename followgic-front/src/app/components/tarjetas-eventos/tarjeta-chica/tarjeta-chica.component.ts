@@ -25,13 +25,14 @@ export class TarjetaChicaComponent implements OnInit {
   magosInscritos: any;
   mensaje: any;
   miId: any;
-  invisible:boolean=false;
+  invisible:boolean=true;
   noLeidos:any;
   
   constructor(private eventoService: EventoService, private magoService: MagoService, private router: Router, private modalidadesService: ModalidadesService, private utilidadesService: UtilidadesService) {
     if (!this.miId) {
       this.magoService.getYo(res => this.miId = res)
     }
+    
 
   }
 
@@ -90,9 +91,9 @@ export class TarjetaChicaComponent implements OnInit {
 
   comentariosNoLeidos(){
     this.eventoService.comentariosNoLeidos(this.evento.id).subscribe(res => {
-      if(res){
+      if(res.mensajes != 0){
       this.noLeidos = res.mensajes
-      this.invisible=true
+      this.invisible=false
       }
     })
   }

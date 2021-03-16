@@ -115,7 +115,7 @@ export class MensajesAmigosComponent implements OnInit {
 
   cargarConversacion(amigo){
     this.magoService.amigo$.emit(amigo)
-    this.mensajeService.varita$.emit(true)
+    this.mensajeService.varita$.emit({idUsuario:amigo.pk,dentro:true})
   }
 
   getAmigo(mensaje){
@@ -134,7 +134,7 @@ export class MensajesAmigosComponent implements OnInit {
       this.cargarConversacion(amigo)
     })
 
-    this.mensajeService.varita$.emit(true)
+    this.mensajeService.varita$.emit({idUsuario:pkAmigo,dentro:true})
   }
 
   filtrarMagos(nombre:String){
@@ -194,7 +194,7 @@ export class MensajesAmigosComponent implements OnInit {
     })
   }
 
-  verComentariosEvento(){
+  verComentariosEvento(cb?){
     this.eventoService.verComentariosEvento(this.evento.id).subscribe(res => {
       console.log(res)
       this.mensajesEvento = res.map(mensaje => {
@@ -203,9 +203,11 @@ export class MensajesAmigosComponent implements OnInit {
         }
       })
      
-
-      this.eventoService.mensajesEvento$.emit(this.mensajesEvento)
       this.eventoService.eventoMensaje$.emit(this.evento)
+      this.eventoService.mensajesEvento$.emit(this.mensajesEvento)
+     if(cb){
+       cb()
+     }
 
     })
   }
@@ -222,8 +224,9 @@ export class MensajesAmigosComponent implements OnInit {
       }
     
 
+    this.eventoService.vistaComentario$.emit({idEvento:evento.id, dentro:true})
+    this.verComentariosEvento(()=> this.listarEventosSubscritos())
 
-    this.verComentariosEvento()
    
   }
 

@@ -16,7 +16,6 @@ export class AppComponent {
   title = 'followgic-front';
   notificationPeticion: any[] = [];
   notificationMensajes: any[] = [];
-  varita: boolean = false
   @ViewChild('toolbar', { static: false }) toolbar;
   constructor(private loginService: LoginService, private peticionService: PeticionService, private magoService: MagoService, private tiempoRealService: TiempoRealService, private mensajeService: MensajeService) {
     this.tiempoRealService.recargarTiempoReal()

@@ -25,20 +25,20 @@ export class MensajeService {
   recargarConversaciones$ = new EventEmitter()
   recargarMenssajesNoLeidos$= new EventEmitter()
   mensajesNoLeidosPorMago$ = new EventEmitter()
-  //Varita = true si el usuario esta dentro de la vista
+  //Varita = {idUsuario: number, dentro:boolean} // json donde se guarda el id de la conversacion que esta abierta y un booleano que indica si esta abierta o no una conversación 
   varita$ =  new EventEmitter()
   constructor(private http: HttpClient, private loginService:LoginService, private wsService: WebsocketService) { 
   }
-
+//Ver ultimos mensajes con cada amigo , refresca todas las conversaciones que tiene abiertas un usuario
   getMensajes(){
     return this.http.get<any>(`${this.URL}/mensajes/mensajes/`, { headers: this.httpHeadersToken });
   }
-
+//Las bolitas de las notificaciones de mensajes
   getMensajesNoLeidos(){
     return this.http.get<any>(`${this.URL}/mensajes/nuevosMensajes/`,{ headers: this.httpHeadersToken });
 
   }
-
+//
   getMensajesNoLeidosPorMago(idMago){
     return this.http.get<any>(`${this.URL}/mensajes/mensajesSinLeerPorMago/${idMago}/`,{ headers: this.httpHeadersToken });
 

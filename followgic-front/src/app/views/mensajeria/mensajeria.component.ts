@@ -23,6 +23,10 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   miId: any
   recargar: boolean = false
 
+  // 0 => vista principal  , 1=> vista mensajes , 2=> vista comentario
+  vista: any = 0
+
+
 
 
 
@@ -70,7 +74,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
     this.eventoService.mensajesEvento$.subscribe(res => {
       if (this.evento) {
-        this.recargar=true
+       
         this.cargarConversacionEvento(res)
       }
 
@@ -126,6 +130,15 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   }
 
+  resetearEvento(){
+    if(this.vista==2){
+      this.evento=null
+      this.vista = 0
+      this.eventoService.vistaComentario$.emit({idEvento:null, dentro:false})
+    }
+    this.abrirVentana()
+  }
+
   /*    getMago(mensaje){
      this.magoService.getPerfilAmigo(mensaje.remitente).subscribe(res =>{
        
@@ -136,8 +149,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   cargarConversacion(idMago, eliminar?) {
     this.mensajeService.getConversacionPorMago(idMago).subscribe(res => {
       this.mensajes = res
-      this.abrirConversacionEvento = false
-      this.abrirConversacion = true
+      this.vista=1
       this.mensajes = res.map(mensaje => {
         return {
           pk: mensaje.pk, cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
@@ -161,10 +173,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
     if (!this.recargar){
       this.ventanaLateral.cerrarVentana()
     }
-    this.abrirConversacion = false
-    this.abrirConversacionEvento = true
-
-
+     this.vista=2
 
     this.disableScrollDown = false
   }

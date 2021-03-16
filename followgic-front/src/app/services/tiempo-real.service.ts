@@ -12,7 +12,9 @@ import { UtilidadesService } from './utilidades.service';
 export class TiempoRealService {
   notificationPeticion: any[] = [];
   notificationMensajes: any[] = [];
-  varita: boolean = false
+  varita = {idUsuario:null,dentro:false}
+
+  vistaComentario= {idEvento:null, dentro:false}
   constructor(private loginService: LoginService, private peticionService: PeticionService, private magoService: MagoService, private mensajeService: MensajeService,
     private eventoService:EventoService, private utilidadesService:UtilidadesService ) { }
 
@@ -21,6 +23,9 @@ recargarTiempoReal() {
 
   this.mensajeService.varita$.subscribe(res => {
     this.varita = res
+  })
+  this.eventoService.vistaComentario$.subscribe(res => {
+    this.vistaComentario = res
   })
 
   if (this.loginService.logueado()) {
@@ -51,7 +56,7 @@ recargarTiempoReal() {
         })
 
         console.log(this.notificationPeticion)
-      } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" && this.varita) {
+      } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" && this.varita.dentro==true && this.varita.idUsuario==mensaje[2]) {
         this.mensajeService.getConversacionPorMago(mensaje[2]).subscribe(res => {
           this.mensajeService.recargarMensaje$.emit(res)
 
@@ -93,7 +98,7 @@ recargarTiempoReal() {
           this.mensajeService.recargarConversaciones$.emit(res)
         })    
 
-       } else if (mensaje[0] == "Comentario" && mensaje[1] == "remitente") {
+       } else if (mensaje[0] == "Comentario" && mensaje[1] == "remitente"  && this.vistaComentario.dentro==true && this.vistaComentario.idEvento==mensaje[2]) {
           this.eventoService.verComentariosEvento(mensaje[2]).subscribe(res => {
             //Se recargan las conversaciones entrantes
            
@@ -104,10 +109,16 @@ recargarTiempoReal() {
             })
             this.eventoService.mensajesEvento$.emit(mensajes)
           })
+        
            
             this.eventoService.recargarUltimoComentarioEvento$.emit()
       
-  
+          } else if (mensaje[0] == "Comentario" && mensaje[1] == "remitente" ) {
+    
+             
+              this.eventoService.recargarUltimoComentarioEvento$.emit()
+        
+    
   
         } else  if (mensaje[0] == "Invitacion" && mensaje[1] == "remitente") {
         

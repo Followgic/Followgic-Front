@@ -26,6 +26,9 @@ export class EventoService {
   recargarUltimoComentarioEvento$ = new EventEmitter()
   recargarInvitacion$ = new EventEmitter()
   recargaEvento$  = new EventEmitter()
+  //true si el usuario esta dentro de la conversacion 
+  //VistaComentario = {idEvento: number, dentro:boolean} // json donde se guarda el id (del evento) de la conversacion que esta abierta y un booleano que indica si esta abierta o no una conversación 
+  vistaComentario$  = new EventEmitter()
 
 
   constructor(private http: HttpClient) { 
