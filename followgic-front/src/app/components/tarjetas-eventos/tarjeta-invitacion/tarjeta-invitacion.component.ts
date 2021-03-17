@@ -33,6 +33,7 @@ export class TarjetaInvitacionComponent implements OnInit {
     this.eventoService.aceptarInvitacion(idInvitacion).subscribe(res =>{
       console.log(res)
     this.recargar.emit(idInvitacion)
+    this.eventoService.recargarUltimoComentarioEvento$.emit()
    
     
     })

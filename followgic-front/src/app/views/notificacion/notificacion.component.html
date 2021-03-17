@@ -1,8 +1,8 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab>
         <ng-template mat-tab-label>
-          <span *ngIf="peticionesRecibidas.length!=0" [matBadge]="peticionesRecibidas.length" matBadgeOverlap="false">Peticiones</span>
-          <span *ngIf="peticionesRecibidas.length==0" >Peticiones</span>
+          <span *ngIf="peticionesRecibidas.length!=0 || invitacionesEventos.length!=0"[matBadge]="peticionesRecibidas.length + invitacionesEventos.length" matBadgeOverlap="false">Peticiones</span>
+          <span *ngIf="peticionesRecibidas.length==0 && invitacionesEventos.length==0" >Peticiones</span>
         </ng-template>
         <div fxLayout="column" fxLayoutAlign="space-between center">
 
@@ -31,8 +31,8 @@
     </mat-tab>
     <mat-tab>
     <ng-template mat-tab-label>
-        <span *ngIf="mensajesNoLeidos.length!=0" [matBadge]="mensajesNoLeidos.length" matBadgeOverlap="false">Chat</span>
-        <span *ngIf="mensajesNoLeidos.length==0" >Chat</span>
+        <span *ngIf="mensajesNoLeidos.length!=0 || comentariosNoLeidos>0" [matBadge]="mensajesNoLeidos.length + comentariosNoLeidos" matBadgeOverlap="false">Chat</span>
+        <span *ngIf="mensajesNoLeidos.length==0 && comentariosNoLeidos==0" >Chat</span>
       </ng-template>
        
 

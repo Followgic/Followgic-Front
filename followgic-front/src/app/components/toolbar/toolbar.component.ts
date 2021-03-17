@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AvisoPreguntasComponent } from 'src/app/views/registro/aviso-preguntas/aviso-preguntas.component';
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { PeticionService } from 'src/app/services/peticion.service';
+import { EventoService } from 'src/app/services/evento.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,6 +18,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   peticionesRecibidas: any = 0;
   mensajesRecibidos: any = 0;
+  comentariosNoLeidos = 0
+  invitacionesRecibidas=0;
 
 
   private _mobileQueryListener: () => void;
@@ -26,7 +29,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
 
   abrirNotificaciones = new EventEmitter();
-  constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public loginService: LoginService, public peticionService: PeticionService, public mensajeService: MensajeService, private router: Router) {
+  constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+     public loginService: LoginService, public peticionService: PeticionService, public mensajeService: MensajeService, private eventoService: EventoService, private router: Router) {
     this.getPeticionesRecibidas()
     this.getConversancion()
     this.mobileQuery = media.matchMedia('(max-width: 100px)');
@@ -36,10 +40,22 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.peticionService.peticionesRecibidas$.subscribe(res => {
       this.peticionesRecibidas = res.length
     })
+    this.eventoService.recargarInvitaciones$.subscribe(res => {
+      this.invitacionesRecibidas = res
+    })
 
 
     this.mensajeService.recargarMenssajesNoLeidos$.subscribe(res => {
       this.mensajesRecibidos = res.length
+    })
+
+    this.eventoService.comentariosSinLeer$.subscribe(res => {
+      if(res==0){
+        this.comentariosNoLeidos=0  
+      }else{
+      this.comentariosNoLeidos= this.comentariosNoLeidos + 1
+
+      }
     })
   }
 

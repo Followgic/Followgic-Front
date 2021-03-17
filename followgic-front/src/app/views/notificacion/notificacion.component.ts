@@ -16,6 +16,7 @@ noMensaje:any;
 mensajesNoLeidos:any =[];
 mensajes:any=[]
 invitacionesEventos:any=[]
+comentariosNoLeidos=0
   constructor(private peticionService: PeticionService,private eventoService: EventoService,private mensajeService: MensajeService, private utilidadesService:UtilidadesService) {
    this.getPeticionesRecibidas() 
    this.getInvitacionesEventos()
@@ -38,13 +39,27 @@ invitacionesEventos:any=[]
 
 
     })
+
+    
+
+  
     
     this.eventoService.recargarInvitacion$.subscribe(res => {
       this.invitacionesEventos=res
+      this.eventoService.recargarInvitaciones$.emit(res.length)
       
 
     console.log(this.invitacionesEventos)
 
+    })
+
+    this.eventoService.comentariosSinLeer$.subscribe(res => {
+      if(res==0){
+        this.comentariosNoLeidos=0  
+      }else{
+      this.comentariosNoLeidos= this.comentariosNoLeidos + 1
+
+      }
     })
   
    }
@@ -69,6 +84,7 @@ invitacionesEventos:any=[]
 
   getInvitacionesEventos(){
     this.eventoService.verMisInvitaciones().subscribe(res =>{
+      this.eventoService.recargarInvitaciones$.emit(res.length)
       this.invitacionesEventos = res.map(invitacion => {
         return {
           pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto:'http://localhost:8000'+ invitacion.evento.foto

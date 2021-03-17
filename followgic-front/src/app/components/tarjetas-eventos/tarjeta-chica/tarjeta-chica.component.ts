@@ -39,7 +39,8 @@ export class TarjetaChicaComponent implements OnInit {
   ngOnInit(): void {
     if (this.evento) {
       this.magoService.getYo(res => {
-
+      this.eventoService.comentariosSinLeer$.emit(0)
+      
         this.miId = res
         this.transformarEvento(() => {this.verUltimoComentarioEvento(), this.comentariosNoLeidos()})
         this.getMagosInscritosPorEventoId(this.evento.id)
@@ -94,6 +95,8 @@ export class TarjetaChicaComponent implements OnInit {
       if(res.mensajes != 0){
       this.noLeidos = res.mensajes
       this.invisible=false
+    
+      this.eventoService.comentariosSinLeer$.emit()
       }
     })
   }

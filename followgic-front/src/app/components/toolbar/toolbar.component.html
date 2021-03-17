@@ -33,7 +33,7 @@
       </mat-menu>
     
       
-      <button *ngIf="loginService.logueado()" mat-icon-button     [matBadge]="peticionesRecibidas + mensajesRecibidos" [matBadgeHidden]="peticionesRecibidas + mensajesRecibidos == 0" matBadgePosition="after"   (click)="cargarNotificaciones()"><mat-icon mat-icon class="notificaciones" > notifications</mat-icon></button>
+      <button *ngIf="loginService.logueado()" mat-icon-button     [matBadge]="peticionesRecibidas + mensajesRecibidos + comentariosNoLeidos + invitacionesRecibidas" [matBadgeHidden]="peticionesRecibidas + mensajesRecibidos +comentariosNoLeidos + invitacionesRecibidas == 0" matBadgePosition="after"   (click)="cargarNotificaciones()"><mat-icon mat-icon class="notificaciones" > notifications</mat-icon></button>
    
     
       

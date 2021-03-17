@@ -1,5 +1,9 @@
 <mat-tab-group class="tabSecundario" mat-align-tabs="center" (selectedTabChange)="restearBusqueda()">
-    <mat-tab label="Mensajes">
+    <mat-tab >
+        <ng-template mat-tab-label>
+            <span *ngIf="mensajesNoLeidos.length!=0" matBadge="&#8288;" matBadgeSize="small" matBadgeOverlap="false">Mensajes</span>
+            <span *ngIf="mensajesNoLeidos.length==0" >Mensajes</span>
+          </ng-template>
         <div fxLayout="column" fxLayoutAlign="space-evenly center">
 
             <app-buscador #buscadorMensaje (search)="filtrarMensaje($event)" class="buscador"
@@ -42,7 +46,11 @@
         </div>
     </mat-tab>
 
-    <mat-tab label="Eventos">
+    <mat-tab >
+        <ng-template mat-tab-label>
+            <span *ngIf="comentariosNoLeidos!=0" matBadge="&#8288;"  matBadgeSize="small" matBadgeOverlap="false">Eventos</span>
+            <span *ngIf="comentariosNoLeidos==0" >Eventos</span>
+          </ng-template>
         <div fxLayout="column" fxLayoutAlign="space-evenly center">
 
             <app-buscador #buscadorEvento (search)="filtrarMagos($event)" class="buscador" [titulo]='"Buscar eventos"'>
