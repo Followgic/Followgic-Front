@@ -112,4 +112,9 @@ export class BuscadorEtiquetasComponent implements OnInit {
 
   }
 
+  limpiarBuscador(){
+    this.modalidadesFiltradas = []
+    this.modalidadesService.modalidadesControl$.emit([])
+  }
+
 }

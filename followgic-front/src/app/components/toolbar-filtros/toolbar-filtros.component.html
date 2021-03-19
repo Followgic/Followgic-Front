@@ -7,24 +7,45 @@
     <div fxLayout="row" fxLayoutAlign="end">
       <mat-icon class="cerrar" (click)="ventanaLateral()" aria-hidden="false" aria-label="Cerrar">cancel</mat-icon>
     </div>
-    <app-filtros *ngIf="filtros"></app-filtros>
-    <app-calendario *ngIf="calendario"></app-calendario>
-  
-    <!--   <mat-calendar *ngIf="rangoCalendario" [selected]="rango" (selectedChange)="this.onChange($event)"></mat-calendar> -->
+
     <div fxLayout="row" fxLayoutAlign="center">
-      <mat-form-field  *ngIf="rangoCalendario"  appearance="fill">
+      <h2 *ngIf="titulo">Añade filtros </h2>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center">
+      <mat-radio-group *ngIf="selectEventos" [(ngModel)]="tipo" (change)="filtrarEventos($event)">
+        <mat-radio-button class="radioButton" *ngFor="let tipo of tipoEventos" [value]="tipo.valor">
+          {{tipo.nombre}}
+        </mat-radio-button>
+
+      </mat-radio-group>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center">
+      <app-buscador-etiquetas *ngIf="filtros" #buscadorEtiquetas></app-buscador-etiquetas>
+    </div>
+    <app-calendario *ngIf="calendario"></app-calendario>
+
+    <div fxLayout="row" fxLayoutAlign="center">
+      <mat-form-field *ngIf="rangoCalendario" appearance="fill">
         <mat-label>Elige rango de fechas</mat-label>
         <mat-date-range-input [formGroup]="rango" [rangePicker]="picker">
-          <input matStartDate formControlName="fechaInicio" placeholder="Fecha Inicio"  >
-          <input matEndDate formControlName="fechaFin" placeholder="Fecha Fin" (dateInput)="filtrarEventosFecha('input', $event)" (dateChange)="filtrarEventosFecha('change', $event)">
+          <input matStartDate formControlName="fechaInicio" placeholder="Fecha Inicio">
+          <input matEndDate formControlName="fechaFin" placeholder="Fecha Fin" (dateInput)="filtrarEventos()"
+            (dateChange)="filtrarEventos()">
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
-      
-        <mat-error *ngIf="rango.controls.fechaInicio.hasError('matStartDateInvalid')">Fecha de comienzo Invalida</mat-error>
+
+        <mat-error *ngIf="rango.controls.fechaInicio.hasError('matStartDateInvalid')">Fecha de comienzo Invalida
+        </mat-error>
         <mat-error *ngIf="rango.controls.fechaFin.hasError('matEndDateInvalid')">Fecha de fin Invalida</mat-error>
       </mat-form-field>
-      </div>
+    </div>
+    
+    <div fxLayout="row" fxLayoutAlign="center">
+      <button *ngIf="btnLimpiarFiltros" mat-raised-button (click)="limpiarFiltros()" class="mat-primary">Limpiar Filtros</button>
+    </div>
 
   </mat-sidenav>
 

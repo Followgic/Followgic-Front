@@ -1,15 +1,9 @@
 
 
 
-<app-toolbar-filtros [calendario]="false" [rangoCalendario]="false" *ngIf="listarMagos" #ventanaLateral>
+<app-toolbar-filtros [calendario]="false"  [selectEventos]="false"[rangoCalendario]="false" *ngIf="listarMagos" #ventanaLateral>
 <br>
-<div fxLayout="row" fxLayoutAlign="end">
 
-    <mat-slide-toggle fxFlex=10 fxFlex.xs=30 fxFlex.sm=30 [color]="'primary'" [(ngModel)]="listarMagos" [ngModelOptions]="{standalone: true}">
-        <div *ngIf="!listarMagos">Eventos</div>
-        <div *ngIf="listarMagos">Magos</div>
-     </mat-slide-toggle>
-    </div>
 <div fxLayout="row" fxLayoutAlign="center center">
     
     <app-buscador   [titulo]='"Buscar magos"'  (search)="filtrarMagos($event)"></app-buscador>
@@ -29,4 +23,3 @@
 
 </app-toolbar-filtros>
 
-<app-listar-eventos *ngIf="!listarMagos"></app-listar-eventos>

@@ -21,7 +21,7 @@
       <button *ngIf="!loginService.logueado()" fxHide.xs mat-button (click)="openDialog()">Registrarte</button>
      
     
-      <button    *ngIf="loginService.logueado()" mat-button routerLink="/listar-magos" ><mat-icon  >search</mat-icon></button>
+      <button    *ngIf="loginService.logueado()" [matMenuTriggerFor]="menuBuscar" mat-button  ><mat-icon  >search</mat-icon></button>
       <button  class="buscarPerfil"  *ngIf="loginService.logueado()" mat-icon-button [matMenuTriggerFor]="menuPrincipal"><mat-icon class="perfil" >account_circle</mat-icon></button>
     
       <mat-menu  #menuPrincipal="matMenu">
@@ -31,6 +31,12 @@
         
         <button *ngIf="loginService.logueado()" mat-menu-item (click)="logout()">Cerrar sesión</button>
       </mat-menu>
+
+      <mat-menu  #menuBuscar="matMenu">
+        <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/listar-magos">Magos</button>
+        <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/listar-eventos">Eventos</button>
+      </mat-menu>
+    
     
       
       <button *ngIf="loginService.logueado()" mat-icon-button     [matBadge]="peticionesRecibidas + mensajesRecibidos + comentariosNoLeidos + invitacionesRecibidas" [matBadgeHidden]="peticionesRecibidas + mensajesRecibidos +comentariosNoLeidos + invitacionesRecibidas == 0" matBadgePosition="after"   (click)="cargarNotificaciones()"><mat-icon mat-icon class="notificaciones" > notifications</mat-icon></button>

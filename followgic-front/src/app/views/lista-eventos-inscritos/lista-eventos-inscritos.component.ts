@@ -8,6 +8,7 @@ import { AvisoCancelarInscripcionComponent } from '../listar-eventos/aviso-cance
   selector: 'app-lista-eventos-inscritos',
   templateUrl: './lista-eventos-inscritos.component.html',
   styleUrls: ['./lista-eventos-inscritos.component.css']
+
 })
 export class ListaEventosInscritosComponent implements OnInit {
   eventos:any=[]

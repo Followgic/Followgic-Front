@@ -8,8 +8,7 @@ import { UtilidadesService } from 'src/app/services/utilidades.service';
 @Component({
   selector: 'app-tarjeta-grande',
   templateUrl: './tarjeta-grande.component.html',
-  styleUrls: ['./tarjeta-grande.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./tarjeta-grande.component.scss']
 })
 export class TarjetaGrandeComponent implements OnInit {
   @Input()

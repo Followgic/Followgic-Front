@@ -7,8 +7,7 @@ import { UtilidadesService } from 'src/app/services/utilidades.service';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['./calendario.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./calendario.component.scss']
 })
 export class CalendarioComponent implements OnInit {
  
