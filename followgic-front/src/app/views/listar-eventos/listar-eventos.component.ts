@@ -20,6 +20,7 @@ filtrarModalidad:any[]=[]
 filtro_valor:any[]=['']
 listarMagos:boolean =false
 eventosCargados:boolean=false
+noEventos:boolean = false
 @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor(public dialog: MatDialog,private modalidadesService: ModalidadesService, private eventoService: EventoService, private magoService:MagoService) {
     this.magoService.getYo(res => {
@@ -90,6 +91,11 @@ eventosCargados:boolean=false
       console.log(res)
       this.eventos = res
       this.eventosCargados=true
+      if(this.eventos.length!=0){
+        this.noEventos = false
+      }else{
+        this.noEventos=true
+      }
     })
   }
 

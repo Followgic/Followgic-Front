@@ -1,51 +1,66 @@
 <div *ngIf="evento && cargadasModalidades" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
-	
+
     <div class="contenido" fxLayout="column" fxFlex=20>
-        <img src={{evento.foto}} alt="Foto evento" width="100%" >
+        <img src={{evento.foto}} alt="Foto evento" width="100%">
         <br>
         <mat-card>
-        <mat-calendar  [minDate]="minDate" [maxDate]="maxDate"  class="calendario"[(selected)]="evento.fecha_evento" disabled (selectedChange)="cambioDeDia($event)">
-       <mat-calendar-header  ></mat-calendar-header>
-    </mat-calendar>
-    <h1 *ngIf="mostrarHora" style="text-align: center;">{{evento.hora_evento}}</h1>
-</mat-card>
+            <mat-calendar [minDate]="minDate" [maxDate]="maxDate" class="calendario" [(selected)]="evento.fecha_evento"
+                disabled (selectedChange)="cambioDeDia($event)">
+                <mat-calendar-header></mat-calendar-header>
+            </mat-calendar>
+            <h1 *ngIf="mostrarHora" style="text-align: center;">{{evento.hora_evento}}</h1>
+        </mat-card>
     </div>
-    <mat-card class="contenido"  fxLayout="column"fxFlex=70>
-        <div fxFlex=8  fxLayout="row">
-        <h1>{{evento.titulo}}</h1>
-        <div class="aforo" fxLayout="row" >
-            <mat-icon (click)="openDialogAsistentes()" [ngStyle]="{'color':magosInscritos.length == evento.aforo?'red':'green'}"   >people</mat-icon>
-            <p>{{magosInscritos.length}}/{{evento.aforo}}</p>
+    <mat-card class="contenido" fxLayout="column" fxFlex=70>
+        <div fxFlex=8 fxLayout="row">
+            <h1>{{evento.titulo}}</h1>
+            <div class="aforo" fxLayout="row">
+                <mat-icon (click)="openDialogAsistentes()"
+                    [ngStyle]="{'color':magosInscritos.length == evento.aforo?'red':'green'}">people</mat-icon>
+                <p>{{magosInscritos.length}}/{{evento.aforo}}</p>
             </div>
-            <div *ngIf="idMia!= evento.creador && evento.asistentes.includes(idMia)" >
-            <mat-icon class="mensajes" *ngIf="mensajesHabilitados" (click)="openDialogSilenciarMensajes(evento)">volume_up</mat-icon>
-            <mat-icon  class="mensajes" *ngIf="!mensajesHabilitados" (click)="openDialogHabilitarMensajes(evento)">volume_off</mat-icon>
+            <div *ngIf="idMia!= evento.creador && evento.asistentes.includes(idMia)">
+                <mat-icon class="mensajes" *ngIf="mensajesHabilitados" (click)="openDialogSilenciarMensajes(evento)">
+                    volume_up</mat-icon>
+                <mat-icon class="mensajes" *ngIf="!mensajesHabilitados" (click)="openDialogHabilitarMensajes(evento)">
+                    volume_off</mat-icon>
+            </div>
+            <div *ngIf="idMia== evento.creador && evento.privacidad==1 ">
+                <mat-icon class="mensajes" (click)="openDialogInvitaciones()">share</mat-icon>
+            </div>
         </div>
-        <div *ngIf="idMia== evento.creador && evento.privacidad==1 " >	
-            <mat-icon class="mensajes"  (click)="openDialogInvitaciones()">share</mat-icon>
+        <div fxFlex=7 fxLayout="row">
+            <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="drop($event)">
+                <mat-chip color="primary" selected class="example-box" cdkDrag
+                    *ngFor="let modalidad of evento.modalidades">
+                    {{modalidad.nombre}}
+                </mat-chip>
+            </mat-chip-list>
         </div>
+        <br>
+        <div fxFlex=68 fxLayout="column">
+            <p fxFlex=98>{{evento.descripcion}}</p>
+            <div fxFlex=92 *ngIf="evento.link_conferencia">
+                <a href={{evento.link_conferencia}}>{{evento.link_conferencia}}</a>
+            </div>
         </div>
-        <div  fxFlex=7 fxLayout="row">
-        <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
-                            (cdkDropListDropped)="drop($event)">
-                            <mat-chip color="primary" selected class="example-box" cdkDrag
-                                *ngFor="let modalidad of evento.modalidades">
-                                {{modalidad.nombre}}
-                            </mat-chip>
-                        </mat-chip-list>
-                    </div>
-                    <br>
-        <div fxFlex=68 fxLayout="column" >
-        <p fxFlex=98>{{evento.descripcion}}</p>
-        <div fxFlex=92 *ngIf="evento.link_conferencia">
-        <a href={{evento.link_conferencia}}>{{evento.link_conferencia}}</a>
+        <div fxFlex=20 fxLayout="column" fxLayoutAlign="end">
+            <div fxLayout=row fxLayoutAlign="space-evenly">
+                <button *ngIf="idMia== evento.creador" mat-raised-button (click)="openDialog(evento.id)"
+                    class="mat-primary botones">Editar Evento</button>
+                <button *ngIf="idMia== evento.creador" mat-raised-button (click)="openDialogEliminar(evento.id)"
+                    color="warn">Eliminar Evento</button>
+            </div>
+            <div fxLayout=row fxLayoutAlign="center">
+                <button
+                    *ngIf="idMia!= evento.creador && !evento.asistentes.includes(idMia) && evento.aforo > magosInscritos.length"
+                    mat-raised-button (click)="openDialogInscripcion(evento)"
+                    class="mat-primary botones">Inscribirme</button>
+                <button *ngIf="evento.asistentes.includes(idMia) && evento.creador!=idMia " mat-raised-button
+                    type="submit" (click)="openDialogCancelar(evento)" color="primary">Cancelar Inscripción</button>
+            </div>
         </div>
-    </div>
-        <div  fxFlex=20 fxLayout="column"fxLayoutAlign="end center" >
-        <button *ngIf="idMia== evento.creador"  mat-raised-button (click)="openDialog(evento.id)" class="mat-primary botones">Editar Evento</button>
-        <button *ngIf="idMia!= evento.creador && !evento.asistentes.includes(idMia) && evento.aforo > magosInscritos.length"  mat-raised-button  (click)="openDialogInscripcion(evento)" class="mat-primary botones">Inscribirme</button>
-        <button *ngIf="evento.asistentes.includes(idMia) && evento.creador!=idMia "  mat-raised-button type="submit" (click)="openDialogCancelar(evento)"  color="primary">Cancelar Inscripción</button>
-    </div>
 
 
     </mat-card>

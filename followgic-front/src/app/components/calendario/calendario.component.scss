@@ -1,11 +1,11 @@
 @import "~@angular/material/theming";
 @import '../../../custom-theme.scss';
 
-::ng-deep .example-custom-date-class .mat-calendar-body-cell-content{
+::ng-deep .calendarioMostrar .example-custom-date-class .mat-calendar-body-cell-content{
 
     background-color: mat-color($followgic-front-warn)!important;
     color:white;
-    border-radius: 100%;
+   
   }
 
  

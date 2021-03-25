@@ -2,26 +2,28 @@
     <br>
 
     <div fxLayout="row" fxLayoutAlign="center center">
-        
-        <app-buscador   [titulo]='"Buscar eventos"'  (search)="filtrarEventos($event)"></app-buscador>
-        <button class="boton" mat-raised-button type="submit"  (click)="abrirFiltros()" color="primary">Filtros</button>
-     
+
+        <app-buscador [titulo]='"Buscar eventos"' (search)="filtrarEventos($event)"></app-buscador>
+        <button class="boton" mat-raised-button type="submit" (click)="abrirFiltros()" color="primary">Filtros</button>
+
     </div>
-<div >
 
-<div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign.xs="space-around center" >
-    <div class="content" fxFlex.xs=100 fxFlex.sm=30  fxFlex.md=28  fxFlex=28 fxFlex.xl=25  *ngFor="let evento of eventos |filtrarEvento: filtro_valor">
-        <app-tarjeta-grande [evento]="evento" [miId]="miId" (abriPopUp)="openDialog($event)" (abriPopUpCancelar)="openDialogCancelar($event)" ></app-tarjeta-grande>
-        <br> <br>
+    <div fxLayout="row" fxLayoutAlign="center" *ngIf="noEventos">
+        <h1>No hay eventos disponibles</h1>
     </div>
-</div>
+    <div>
 
-</div>
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="space-around center">
+            <div class="content" fxFlex.xs=100 fxFlex.sm=30 fxFlex.md=28 fxFlex=28 fxFlex.xl=25
+                *ngFor="let evento of eventos |filtrarEvento: filtro_valor">
+                <app-tarjeta-grande [evento]="evento" [miId]="miId" (abriPopUp)="openDialog($event)"
+                    (abriPopUpCancelar)="openDialogCancelar($event)"></app-tarjeta-grande>
+                <br> <br>
+            </div>
+        </div>
 
-<br>
+    </div>
+
+    <br>
 
 </app-toolbar-filtros>
-
-
-
-

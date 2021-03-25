@@ -133,9 +133,9 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   resetearEvento(){
     if(this.vista==2){
       this.evento=null
-      this.vista = 0
       this.eventoService.vistaComentario$.emit({idEvento:null, dentro:false})
     }
+    this.vista = 0
     this.abrirVentana()
   }
 
@@ -183,7 +183,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       console.log(res)
       this.mensajes = res.map(mensaje => {
         return {
-          id: mensaje.id, cuerpo: mensaje.cuerpo, fecha: this.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente
+          pk: mensaje.pk, cuerpo: mensaje.cuerpo, fecha: this.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente
         }
       })
 

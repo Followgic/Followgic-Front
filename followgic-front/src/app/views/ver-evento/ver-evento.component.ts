@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
@@ -9,6 +10,7 @@ import { UtilidadesService } from 'src/app/services/utilidades.service';
 import { CrearEventosComponent } from '../crear-eventos/crear-eventos.component';
 import { AvisoCancelarInscripcionComponent } from '../listar-eventos/aviso-cancelar-inscripcion/aviso-cancelar-inscripcion.component';
 import { AvisoInscripcionComponent } from '../listar-eventos/aviso-inscripcion/aviso-inscripcion.component';
+import { AvisoEliminarEventoComponent } from './aviso-eliminar-evento/aviso-eliminar-evento.component';
 import { AvisoHabilitarMensajesComponent } from './aviso-habilitar-mensajes/aviso-habilitar-mensajes.component';
 import { AvisoSilenciarMensajesComponent } from './aviso-silenciar-mensajes/aviso-silenciar-mensajes.component';
 import { ListaAmigosInvitacionComponent } from './lista-amigos-invitacion/lista-amigos-invitacion.component';
@@ -36,7 +38,7 @@ export class VerEventoComponent implements OnInit {
   amigos: any = []
 
 
-  constructor(private eventoService: EventoService, public dialog: MatDialog, private utilidadesService: UtilidadesService, private modalidadesService: ModalidadesService, private magoService: MagoService) {
+  constructor(private eventoService: EventoService, public dialog: MatDialog, private router: Router,private utilidadesService: UtilidadesService, private modalidadesService: ModalidadesService, private magoService: MagoService) {
     this.magoService.getYo(res => {
       this.idMia = res
       this.cargarPagina()
@@ -100,6 +102,24 @@ export class VerEventoComponent implements OnInit {
         console.log(`Dialog result: ${result}`);
       });
     }
+  }
+
+  openDialogEliminar(idEvento){
+    if (idEvento) {
+      const dialogRef = this.dialog.open(AvisoEliminarEventoComponent, {
+        data: idEvento,
+        autoFocus: false,
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != "cancelar") {
+          this.router.navigate(["/listar-eventos"])
+        }
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+
   }
 
 
@@ -218,8 +238,9 @@ export class VerEventoComponent implements OnInit {
 
   getEventoId(idEvento) {
     let fechaEvento
-
+   
     this.eventoService.getEventoPorId(idEvento).subscribe(res => {
+      try{
       this.evento = res
       this.copiaFechaEvento = new Date(this.evento.fecha_evento)
       if (this.evento.usuarios_activos.includes(this.idMia)) {
@@ -233,9 +254,13 @@ export class VerEventoComponent implements OnInit {
       if (this.idMia == this.evento.creador) {
         this.usuariosParaInvitar()
       }
+    }catch (error) {
+      this.router.navigate(["/listar-eventos"])
 
+    }
 
     })
+  
 
   }
 
