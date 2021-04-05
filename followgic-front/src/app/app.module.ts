@@ -67,7 +67,9 @@ import { DatapickerEspService } from './services/datapicker-esp.service';
 import * as moment from 'moment';
 // moment.es.ts created previously
 import './services/moment.es.service';
-import { AvisoEliminarEventoComponent } from './views/ver-evento/aviso-eliminar-evento/aviso-eliminar-evento.component'; 
+import { AvisoEliminarEventoComponent } from './views/ver-evento/aviso-eliminar-evento/aviso-eliminar-evento.component';
+import { MapaComponent } from './components/mapa/mapa.component';
+import { MostrarMagosLocalizacionComponent } from './views/mostrar-magos-localizacion/mostrar-magos-localizacion.component'; 
 moment.locale('es');
 
 
@@ -160,6 +162,8 @@ export class AppDateAdapter extends NativeDateAdapter {
     ListaEventosInscritosComponent,
     CalendarioComponent,
     AvisoEliminarEventoComponent,
+    MapaComponent,
+    MostrarMagosLocalizacionComponent,
   
   
   

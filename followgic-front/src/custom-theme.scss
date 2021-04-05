@@ -126,7 +126,8 @@ $followgic-front-primary: mat-palette($md-principal);
 $followgic-front-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$followgic-front-warn: mat-palette($md-negro);
+$followgic-front-warn: mat-palette($mat-red);
+$followgic-front-secondary: mat-palette($md-negro);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -135,6 +136,7 @@ $followgic-front-theme: mat-light-theme((
     primary: $followgic-front-primary,
     accent: $followgic-front-accent,
     warn: $followgic-front-warn,
+    secondary:$followgic-front-secondary,
   )
 ));
 @include angular-material-theme($followgic-front-theme);

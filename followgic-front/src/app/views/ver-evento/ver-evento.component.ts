@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EventoService } from 'src/app/services/evento.service';
@@ -19,8 +19,8 @@ import { ListarAsistentesComponent } from './listar-asistentes/listar-asistentes
 @Component({
   selector: 'app-ver-evento',
   templateUrl: './ver-evento.component.html',
-  styleUrls: ['./ver-evento.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./ver-evento.component.css']
+ 
 })
 export class VerEventoComponent implements OnInit {
   evento: any

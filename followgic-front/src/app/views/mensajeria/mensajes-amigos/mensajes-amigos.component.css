@@ -2,12 +2,12 @@
     margin-top:10px
 }
 
-.mat-icon-button ::ng-deep .mat-button-focus-overlay {
+.mat-icon-button  ::ng-deep .mat-button-focus-overlay {
     display: none;
 }
 
 
-.tabSecundario ::ng-deep.mat-tab-label{
+.tabSecundario  ::ng-deep.mat-tab-label{
     min-width: 0!important;
     padding-left: 10!important;
     padding-right: 10!important;
@@ -17,7 +17,7 @@
 
    }
 
-   ::ng-deep.mat-tab-link {
+    ::ng-deep.mat-tab-link {
   opacity:0 !important; /* obvious color for demo */
 }
 

@@ -1,4 +1,4 @@
-import { Input, ViewEncapsulation } from '@angular/core';
+import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { EventoService } from 'src/app/services/evento.service';
@@ -85,14 +85,10 @@ export class CalendarioComponent implements OnInit {
   }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Only highligh dates inside the month view.
   
     if (view === 'month') {
       const date = cellDate.getDate();
       const month = cellDate.getMonth();
-
-      // Highlight the 1st and 20th day of each month.
-  
 
       return ( (month ===0 && this.listaFecha.enero.includes(date)) ||  (month ===1 && this.listaFecha.febrero.includes(date)) 
       ||  (month ===2 && this.listaFecha.marzo.includes(date)) || (month ===3 && this.listaFecha.abril.includes(date)) 
@@ -100,7 +96,7 @@ export class CalendarioComponent implements OnInit {
       ||  (month ===6 && this.listaFecha.julio.includes(date)) ||  (month ===7 && this.listaFecha.agosto.includes(date)) 
       ||  (month ===8 && this.listaFecha.septiembre.includes(date)) ||  (month ===9 && this.listaFecha.octubre.includes(date)) 
       ||  (month ===10 && this.listaFecha.noviembre.includes(date))
-      ||  (month ===11 && this.listaFecha.diciembre.includes(date))) ? 'example-custom-date-class' : '';
+      ||  (month ===11 && this.listaFecha.diciembre.includes(date))) ? 'date-class' : '';
     }
 
     return '';

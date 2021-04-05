@@ -1,9 +1,9 @@
 @import "~@angular/material/theming";
 @import '../../../custom-theme.scss';
 
-::ng-deep .calendarioMostrar .example-custom-date-class .mat-calendar-body-cell-content{
+:host ::ng-deep .calendarioMostrar .date-class .mat-calendar-body-cell-content{
 
-    background-color: mat-color($followgic-front-warn)!important;
+    background-color: mat-color($followgic-front-secondary)!important;
     color:white;
    
   }

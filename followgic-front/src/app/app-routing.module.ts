@@ -11,6 +11,7 @@ import { ListarEventosComponent } from './views/listar-eventos/listar-eventos.co
 import { ListarMagosComponent } from './views/listar-magos/listar-magos.component';
 import { LoginComponent } from './views/login/login.component';
 import { MensajeriaComponent } from './views/mensajeria/mensajeria.component';
+import { MostrarMagosLocalizacionComponent } from './views/mostrar-magos-localizacion/mostrar-magos-localizacion.component';
 import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
 import { PreguntasComponent } from './views/registro/preguntas/preguntas.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'listar-eventos', component: ListarEventosComponent},
   {path: 'listar-magos', component: ListarMagosComponent},
   {path: 'mensajeria', component: MensajeriaComponent},
+  {path: 'mostrar-magos-localizacion', component: MostrarMagosLocalizacionComponent},
   {path: 'perfil', component: PerfilComponent},
   {path: 'perfil/:id', component: PerfilComponent},
   {path: 'registro', component: RegistroComponent},

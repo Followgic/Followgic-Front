@@ -72,7 +72,7 @@ mat-sidenav {
     
 }
 
-::ng-deep.mat-badge-content {
+:host ::ng-deep.mat-badge-content {
     background: #e0f1f0 !important;
     color: black !important;
 }

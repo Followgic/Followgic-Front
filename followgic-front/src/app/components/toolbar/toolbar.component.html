@@ -35,6 +35,7 @@
       <mat-menu  #menuBuscar="matMenu">
         <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/listar-magos">Magos</button>
         <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/listar-eventos">Eventos</button>
+        <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/mostrar-magos-localizacion">Mapa</button>
       </mat-menu>
     
     

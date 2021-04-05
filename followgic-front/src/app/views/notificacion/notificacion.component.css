@@ -1,10 +1,10 @@
- ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+:host ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
     min-width: 150px !important;
  
    } 
 
 
-::ng-deep.mat-badge-content {
+:host ::ng-deep.mat-badge-content {
       background: #19a7c4 !important;
       color: black !important;
   }
