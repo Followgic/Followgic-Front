@@ -35,6 +35,23 @@
                     <input type="url" matInput placeholder="Página web" formControlName="pagina_web">
                     <mat-error *ngIf="registroForm.controls.pagina_web.invalid">{{getErrorUrl()}}</mat-error>
                 </mat-form-field>
+
+                <form  [formGroup]="direccionForm" class="example-form">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Dirección</mat-label>
+                      <input type="text"
+                             placeholder="Dirección"
+                             matInput
+                             (input)="getDirecciones($event)"
+                             formControlName="direccion"
+                             [matAutocomplete]="auto">
+                      <mat-autocomplete  autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions " [value]="option">
+                          {{option.place_name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </form>
             </div>
 
             <mat-form-field>

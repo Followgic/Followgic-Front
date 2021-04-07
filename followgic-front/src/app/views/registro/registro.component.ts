@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RouteConfigLoadEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/login.service';
+import { MapboxService } from 'src/app/services/mapbox.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { RegistroService } from 'src/app/services/registro.service';
 import { validarQueSeanIguales } from '../../utils/password.validator';
@@ -16,9 +19,13 @@ export class RegistroComponent implements OnInit {
   modalidades: any;
   errores:any =[]
   loginForm:FormGroup;
+  direccionForm:FormGroup;
   aprobado:boolean ;
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<any[]>;
   
-  constructor( private formBuilder:FormBuilder, private loginService: LoginService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
+  constructor( private formBuilder:FormBuilder, private loginService: LoginService,private mapboxService: MapboxService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
     this.aprobado=false;
     this.getModalidades()
     this.loginForm = new FormGroup({
@@ -26,7 +33,12 @@ export class RegistroComponent implements OnInit {
       password: new FormControl('', Validators.required)
    });
 
-
+   this.direccionForm = new FormGroup({
+    direccion: new FormControl('', Validators.required),
+    longitud:new FormControl('', Validators.required),
+    latitud: new FormControl('', Validators.required),
+    
+ });
   }
 
   ngOnInit() {
@@ -119,6 +131,7 @@ export class RegistroComponent implements OnInit {
   }
 
   saveRegistro() {
+    this.saveDireccion()
     this.registroService.registro(this.registroForm.value).subscribe(res => {
      
       this.loginForm.controls.username.setValue(this.registroForm.controls.username.value)
@@ -134,5 +147,26 @@ export class RegistroComponent implements OnInit {
     )
 
   }
+
+  saveDireccion(){
+    let direccionCompleta = this.direccionForm.controls.direccion.value
+    this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
+    this.direccionForm.controls.latitud.setValue(direccionCompleta.center[1])
+    this.direccionForm.controls.direccion.setValue(direccionCompleta.place_name)
+
+    console.log(this.direccionForm.value)
+  }
+
+  displayFn(direccion: any): any {
+    return direccion && direccion.place_name ? direccion.place_name : '';
+  }
+  getDirecciones(direccion){
+    if(direccion.currentTarget.value){
+    this.mapboxService.getCordenadas(direccion.currentTarget.value).subscribe( res => {
+      this.filteredOptions=res.features
+    
+    })
+  }
+}
 
 }

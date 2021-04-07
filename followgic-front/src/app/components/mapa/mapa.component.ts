@@ -20,13 +20,15 @@ export class MapaComponent implements OnInit {
 
     this.mapa = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-3.9597165, 40.4381388], // starting position
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [-3.9597165, 40.4381388], // starting position [longitud,latitud]
       zoom: 5 // starting zoom
     });
 
-
- 
+    mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js');
+    this.mapa.addControl(new MapboxLanguage({
+      defaultLanguage: 'es'
+    }));
     /* Given a query in the form "lng, lat" or "lat, lng"
 * returns the matching geographic coordinate(s)
 * as search results in carmen geojson format,

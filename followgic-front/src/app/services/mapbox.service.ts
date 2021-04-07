@@ -12,8 +12,8 @@ export class MapboxService {
  
   constructor(private http: HttpClient) { }
 
-  getCordenadas(ciudad) {
-    return this.http.get<any>(`${this.URL}${ciudad}.json?access_token=${this.token}`).pipe(map(ciudad => ciudad));
+  getCordenadas(direccion) {
+    return this.http.get<any>(`${this.URL}${direccion}.json?access_token=${this.token}&language=es`).pipe(map(direccion => direccion));
   }
 
   
