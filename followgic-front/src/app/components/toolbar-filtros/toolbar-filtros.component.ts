@@ -1,4 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AfterViewInit } from '@angular/core';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateRange } from '@angular/material/datepicker';
@@ -21,8 +22,8 @@ export class ToolbarFiltrosComponent implements OnInit, OnDestroy {
 
   @Input()
   eventos: any = [];
-
-  copiaEventos: any = []
+  @Input()
+  copiaEventos: any = [];
 
   @Input()
   calendario: boolean = true;
@@ -41,6 +42,9 @@ export class ToolbarFiltrosComponent implements OnInit, OnDestroy {
 
   @Output()
   modalidadesEmitter = new EventEmitter();
+
+  @Output()
+  limpiarFiltro = new EventEmitter();
 
   tipoEventos: any = [{ nombre: 'Conferencia', valor: 0 }, { nombre: 'Quedada', valor: 1 }]
   tipo: any
@@ -69,9 +73,10 @@ export class ToolbarFiltrosComponent implements OnInit, OnDestroy {
     if (this.eventos.length != 0) {
       this.copiaEventos = Object.assign([], this.eventos)
     }
-
-
+ 
   }
+
+
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -156,6 +161,7 @@ export class ToolbarFiltrosComponent implements OnInit, OnDestroy {
     this.buscadorEtiquetas.limpiarBuscador()
     this.eventos = this.copiaEventos
     this.eventoService.eventosFiltrados$.emit(this.eventos)
+    this.limpiarFiltro.emit(true)
   }
 
 

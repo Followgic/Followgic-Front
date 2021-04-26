@@ -9,6 +9,7 @@ import { AvisoPeticionComponent } from './aviso-peticion/aviso-peticion.componen
 import {map, startWith} from 'rxjs/operators';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { LoginService } from 'src/app/services/login.service';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { LoginService } from 'src/app/services/login.service';
 
 export class ListarMagosComponent implements OnInit {
   magos: any = []
+  copiaMagos : any =[]
   amigos:any = []
   peticionesPendientes:any=[]
   pendientes:any=[]
@@ -31,17 +33,28 @@ export class ListarMagosComponent implements OnInit {
   modalidades:any[]=[]
   notifications:any[]=[]
   listarMagos = true
+  localizacion=[]
+  timerStop:any
 
 
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
-  constructor(public dialog: MatDialog,private loginService: LoginService,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
+  constructor(public dialog: MatDialog,private loginService: LoginService,public localizacionService: LocalizacionService,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
     this.peticionService.peticiones$.subscribe(res => {
       this.pendientes = res.map(peticion => peticion.pk)
     })
+ 
 
     this.magoService.recargaAmigos$.subscribe(res => {
+      
       this.amigos = res.map(amigo=> amigo.pk)
     })
+
+      this.localizacionService.localizacionFiltrada$.subscribe(res => {
+        this.filtrarMagos(null,null,true)
+
+        this.magos = this.copiaMagos.filter(mago => mago.localizacion.latitud == res[1]&& mago.localizacion.longitud == res[0])
+      
+      })
     this.getModalidades()
     this.getAllMagos()
     this.getAllAmigos()
@@ -79,6 +92,7 @@ export class ListarMagosComponent implements OnInit {
 
   ngOnInit() {
     this.modalidadesService.modalidadesControl$.subscribe(res =>{
+
       this.filtrarMagos(null,res)
     
     
@@ -113,14 +127,33 @@ export class ListarMagosComponent implements OnInit {
 
   getAllMagos() {
     this.magoService.getAllMagos().subscribe(res => {
-      this.magos = res
+        this.magos = res
       this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: "http://localhost:8000"
-        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades }})
+        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades,localizacion: this.añadirLocalizacion(mago.localizacion) }})
     /*   this.magos.forEach((mago, i) => {
         this.magos[i].foto = "http://localhost:8000" + mago.foto  
       });
  */
+    
+      this.copiaMagos = Object.assign([] , this.magos)
+      var GeoJSON = require('geojson');
+      var geoJson = GeoJSON.parse(this.magos.map(mago => mago.localizacion), {Point: ['latitud', 'longitud']});
+      this.localizacionService.localizacionUsuarios$.emit(geoJson)
     })
+  }
+  añadirLocalizacion(localizacion){
+    localizacion.lat = localizacion.latitud
+    localizacion.long = localizacion.longitud
+    return localizacion
+  }
+
+  cargarMagos(event){
+    if(event == true){
+      this.magos = Object.assign([] , this.copiaMagos)
+      var GeoJSON = require('geojson');
+      var geoJson = GeoJSON.parse(this.magos.map(mago => mago.localizacion), {Point: ['latitud', 'longitud']});
+      this.localizacionService.localizacionUsuarios$.emit(geoJson)
+    }
   }
 
   getAllAmigos(){
@@ -162,15 +195,42 @@ export class ListarMagosComponent implements OnInit {
     )
   }
 
-  filtrarMagos(nombre?:String, modalidadesControl?:any[]){
-  
-    if(nombre!=null)this.filtrarNombre = nombre
-
+  filtrarMagos(nombre?:String, modalidadesControl?:any[], filtro_Valor?){
     if(modalidadesControl) this.filtrarModalidad = modalidadesControl
+    if(nombre!=null){
+      this.filtrarNombre = nombre
+      
+    if(this.timerStop)
+    clearTimeout(this.timerStop)	
+
+  this.timerStop = setTimeout(()=>{
+
+    if(filtro_Valor){
+      this.filtro_valor=null
+    }else{
+      this.filtro_valor=[this.filtrarNombre,this.filtrarModalidad]
+    }
+  }, 500)
+
+    }else{
+      
+
+    if(filtro_Valor){
+      this.filtro_valor=null
+    }else{
+      this.filtro_valor=[this.filtrarNombre,this.filtrarModalidad]
+    }
+
+    }
+
+  
+
+  
 
     
 
-    this.filtro_valor=[this.filtrarNombre,this.filtrarModalidad]
+
+
    
   }
   activarFiltros(){
@@ -180,6 +240,9 @@ export class ListarMagosComponent implements OnInit {
   abrirFiltros(){
     this.ventanaLateral.ventanaLateral()
   }
+
+ 
+
 
 
 

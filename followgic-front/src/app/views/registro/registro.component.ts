@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { RouteConfigLoadEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { LoginService } from 'src/app/services/login.service';
 import { MapboxService } from 'src/app/services/mapbox.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
@@ -25,7 +26,7 @@ export class RegistroComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<any[]>;
   
-  constructor( private formBuilder:FormBuilder, private loginService: LoginService,private mapboxService: MapboxService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
+  constructor( private formBuilder:FormBuilder, private loginService: LoginService,private localizacionService: LocalizacionService,private mapboxService: MapboxService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
     this.aprobado=false;
     this.getModalidades()
     this.loginForm = new FormGroup({
@@ -53,6 +54,7 @@ export class RegistroComponent implements OnInit {
         username:['',[Validators.required, Validators.pattern('[@,.,+,-,_,a-z,A-Z-0-9]*')]],
         password: ["", [Validators.required,Validators.minLength(8)]],
         re_password: ["", Validators.required],
+        localizacion: [""],
       },
       {
         validators: validarQueSeanIguales,
@@ -131,7 +133,7 @@ export class RegistroComponent implements OnInit {
   }
 
   saveRegistro() {
-    this.saveDireccion()
+ 
     this.registroService.registro(this.registroForm.value).subscribe(res => {
      
       this.loginForm.controls.username.setValue(this.registroForm.controls.username.value)
@@ -149,12 +151,20 @@ export class RegistroComponent implements OnInit {
   }
 
   saveDireccion(){
+    if(this.direccionForm.controls.direccion.value){
     let direccionCompleta = this.direccionForm.controls.direccion.value
     this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
     this.direccionForm.controls.latitud.setValue(direccionCompleta.center[1])
     this.direccionForm.controls.direccion.setValue(direccionCompleta.place_name)
 
+    this.localizacionService.crearLocalizacion(this.direccionForm.value).subscribe(res => {
+      this.registroForm.controls.localizacion.setValue(res.pk)
+      this.saveRegistro()
+    })}else{
+      this.saveRegistro()
+    }
     console.log(this.direccionForm.value)
+
   }
 
   displayFn(direccion: any): any {

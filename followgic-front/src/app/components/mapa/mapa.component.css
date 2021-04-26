@@ -1,1 +1,3 @@
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+#map {  width: 90%; height: 350px; margin-left: auto;
+    margin-right: auto;  border-radius: 12px; border: 2px solid black;}
+

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import * as MapboxLanguage from '@mapbox/mapbox-gl-language';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
+import { hostViewClassName } from '@angular/compiler';
 
 @Component({
   selector: 'app-mapa',
@@ -10,29 +12,67 @@ import * as MapboxLanguage from '@mapbox/mapbox-gl-language';
 })
 export class MapaComponent implements OnInit {
   mapa: mapboxgl.Map;
-  coordenadas: any
+  coordenadas: any = []
   coordinatesGeocoder: any
-  constructor() { }
 
-  ngOnInit(): void {
 
+  @Input()
+  localizaciones: any = { geoJson: {} }
+  constructor(public localizacionService: LocalizacionService) {
+this.localizacionService.localizacionEventos$.subscribe(res => {
+  this.localizaciones = res
+  this.cargarMapa()
+})
+
+this.localizacionService.localizacionUsuarios$.subscribe(res => {
+  this.localizaciones = res
+  this.cargarMapa()
+})
+  }
+
+  ngOnInit(){
+ 
+
+
+
+
+  }
+
+  cargarMapa() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiamVzZWxpcm9kIiwiYSI6ImNrbXc5NzJ3ejBiMmozMXBmYjg0cHoyeGMifQ.VvU4iNx2-3NTrFR6PiTvCQ';
 
     this.mapa = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/streets-v10',
       center: [-3.9597165, 40.4381388], // starting position [longitud,latitud]
-      zoom: 5 // starting zoom
-    });
+      zoom: 4 // starting zoom,
 
-    mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js');
+    });
+  
+
+
+
     this.mapa.addControl(new MapboxLanguage({
       defaultLanguage: 'es'
     }));
+
+    this.mapa.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        localGeocoder: this.coordinatesGeocoder,
+        zoom: 5,
+        placeholder: 'Buscar por ciudad',
+        mapboxgl: mapboxgl
+      })
+
+    );
+
+
+    
     /* Given a query in the form "lng, lat" or "lat, lng"
-* returns the matching geographic coordinate(s)
-* as search results in carmen geojson format,
-* https://github.com/mapbox/carmen/blob/master/carmen-geojson.md */
+  * returns the matching geographic coordinate(s)
+  * as search results in carmen geojson format,
+  * https://github.com/mapbox/carmen/blob/master/carmen-geojson.md */
     this.coordinatesGeocoder = function (query) {
       // Match anything which looks like
       // decimal degrees coordinate pair.
@@ -82,21 +122,15 @@ export class MapaComponent implements OnInit {
       return geocodes;
     };
 
-    // Add the control to the map.
-    this.mapa.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        localGeocoder: this.coordinatesGeocoder,
-        zoom: 4,
-        placeholder: 'Buscar por ciudad',
-        mapboxgl: mapboxgl
-      })
 
-    );
-    mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
+
+    // Add the control to the map.
+   
     this.mapa.addControl(new MapboxLanguage({
       defaultLanguage: 'es'
     }));
+
+    this.mapa.addControl(new mapboxgl.NavigationControl());
 
     //Cluster
 
@@ -109,7 +143,9 @@ export class MapaComponent implements OnInit {
         type: 'geojson',
         // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
         // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-        data: 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',
+        data: this.localizaciones,
+        //'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
+        // this.localizaciones,
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
@@ -196,29 +232,19 @@ export class MapaComponent implements OnInit {
       // the location of the feature, with
       // description HTML from its properties.
       this.mapa.on('click', 'unclustered-point', e => {
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var mag = e.features[0].properties.mag;
-        var tsunami;
-
-        if (e.features[0].properties.tsunami === 1) {
-          tsunami = 'yes';
-        } else {
-          tsunami = 'no';
-        }
+        this.coordenadas = []
+        this.coordenadas.push(e.features[0].properties.long);
+        this.coordenadas.push(e.features[0].properties.lat);
+        console.log(this.coordenadas)
+        this.localizacionService.localizacionFiltrada$.emit(this.coordenadas)
 
         // Ensure that if the this.mapa is zoomed out such that
         // multiple copies of the feature are visible, the
         // popup appears over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        while (Math.abs(e.lngLat.lng - this.coordenadas[0]) > 180) {
+          this.coordenadas[0] += e.lngLat.lng > this.coordenadas[0] ? 360 : -360;
         }
 
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(
-            'magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami
-          )
-          .addTo(this.mapa);
       });
 
       this.mapa.on('mouseenter', 'clusters', () => {
@@ -228,8 +254,14 @@ export class MapaComponent implements OnInit {
         this.mapa.getCanvas().style.cursor = '';
       });
     });
+
+
+    
+  
+
   }
 
 
 
 }
+

@@ -13,6 +13,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VerEventoComponent } from '../ver-evento/ver-evento.component';
+import { LocalizacionService } from 'src/app/services/localizacion.service';
+import { MapboxService } from 'src/app/services/mapbox.service';
 
 export interface Modalidad {
   pk: number;
@@ -45,19 +47,26 @@ export class CrearEventosComponent implements OnInit {
   removable = true;
   esPrivado= false;
   datosEvento: any;
+  direccionForm:FormGroup;
+  filteredOptions: any[]
 
   isLinear = false;
   @ViewChild('modalidadInput') modalidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor( private formBuilder:FormBuilder, private router: Router,private eventoService: EventoService, private utilidadesService:UtilidadesService, private modalidadesService:ModalidadesService
+  constructor( private formBuilder:FormBuilder, private router: Router,private mapboxService: MapboxService,private localizacionService: LocalizacionService,private eventoService: EventoService, private utilidadesService:UtilidadesService, private modalidadesService:ModalidadesService
     , @Optional() @Inject(MAT_DIALOG_DATA) public data:{ idEvento:any;}, public dialog: MatDialog) {
     this.getModalidades( ()=>{
     this.filtroModalidad()})
     this.tipoEventos = [{ valor: 0, nombre: 'Conferencia' }, { valor: 1, nombre: 'Quedada' }]
     this.valorEvento = 0
     
-
+    this.direccionForm = new FormGroup({
+      direccion: new FormControl('', Validators.required),
+      longitud:new FormControl('', Validators.required),
+      latitud: new FormControl('', Validators.required),
+      
+   });
    
     
 
@@ -78,7 +87,8 @@ export class CrearEventosComponent implements OnInit {
         foto: [""],
         modalidades:[""],
         comentario:[""],
-        privacidad:[""]
+        privacidad:[""],
+        localizacion:[""]
       },
       {
         validators: fechaInferiorActual,
@@ -177,6 +187,25 @@ export class CrearEventosComponent implements OnInit {
       }
     })
   }
+
+
+
+  editLocalizacion(){
+    if(this.direccionForm.controls.direccion.value){
+    let direccionCompleta = this.direccionForm.controls.direccion.value
+    this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
+    this.direccionForm.controls.latitud.setValue(direccionCompleta.center[1])
+    this.direccionForm.controls.direccion.setValue(direccionCompleta.place_name)
+  
+    this.localizacionService.editLocalizacion(this.direccionForm.value, this.datosEvento.localizacion.pk).subscribe(res => {
+      this.editarEvento()
+    })}else{
+      this.editarEvento()
+    }
+    console.log(this.direccionForm.value)
+  
+  }
+  
 
 
 
@@ -337,9 +366,17 @@ add(event: MatChipInputEvent): void {
         modalidades: this.datosEvento.modalidades,
         foto: this.datosEvento.foto,
         comentario: this.datosEvento.comentarios,
-        privacidad: this.datosEvento.privacidad
+        privacidad: this.datosEvento.privacidad,
+        localizacion: this.datosEvento.localizacion
        
       })
+      if(this.datosEvento.localizacion){
+        this.direccionForm.controls.direccion.setValue({place_name: this.datosEvento.localizacion.direccion , center:[this.datosEvento.localizacion.longitud,this.datosEvento.localizacion.latitud], pk: this.datosEvento.localizacion.pk})
+        this.direccionForm.controls.latitud.setValue(this.datosEvento.localizacion.latitud)
+        this.direccionForm.controls.longitud.setValue(this.datosEvento.localizacion.longitud)
+
+     
+      }
       if(this.datosEvento.privacidad==0){
         this.esPrivado=false
       }else{
@@ -354,8 +391,38 @@ add(event: MatChipInputEvent): void {
     })
   }
 
+ //select de direccion
  
+ saveDireccion(){
+  if(this.direccionForm.controls.direccion.value){
+  let direccionCompleta = this.direccionForm.controls.direccion.value
+  this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
+  this.direccionForm.controls.latitud.setValue(direccionCompleta.center[1])
+  this.direccionForm.controls.direccion.setValue(direccionCompleta.place_name)
+
+  this.localizacionService.crearLocalizacion(this.direccionForm.value).subscribe(res => {
+    this.eventosForm.controls.localizacion.setValue(res.pk)
+    this.save()
+  })}else{
+    this.save()
+  }
+  console.log(this.direccionForm.value)
+
+}
+
+displayFn(direccion: any): any {
+
+  return direccion && direccion.place_name ? direccion.place_name : '';
+}
+getDirecciones(direccion){
+  if(direccion.currentTarget.value){
+  this.mapboxService.getCordenadas(direccion.currentTarget.value).subscribe( res => {
+    this.filteredOptions=res.features
   
+  })
+}
+}
+
 
 
 }

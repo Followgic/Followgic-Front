@@ -54,6 +54,19 @@
                 <mat-label>Link de sala</mat-label>
                 <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
               </mat-form-field>
+
+              <form [formGroup]="direccionForm" class="example-form" fxLayout=row>
+                <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
+                  <mat-label>Dirección</mat-label>
+                  <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
+                    formControlName="direccion" [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions " [value]="option">
+                      {{option.place_name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
             </mat-card>
             <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
 
@@ -65,7 +78,7 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Descripción</mat-label>
-                <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion" rows=14>
+                <textarea type="text" matInput placeholder="Descripci&oacute;n" formControlName="descripcion" rows=19>
       </textarea>
                 <mat-error *ngIf="eventosForm.controls.descripcion.invalid">{{getErrorDescripcion()}}</mat-error>
               </mat-form-field>
@@ -167,7 +180,8 @@
           <div>
             <br>
             <div fxLayout="row" fxLayoutAlign="center">
-              <button mat-raised-button class="mat-primary" type="submit" (click)="save()">Crear Evento</button>
+              <button mat-raised-button class="mat-primary" type="submit" (click)="saveDireccion()">Crear
+                Evento</button>
             </div>
             <br>
             <button mat-button matStepperPrevious>Volver</button>
@@ -185,7 +199,7 @@
     <br>
     <form [formGroup]="eventosForm">
       <div fxLayout="column">
-        
+
 
         <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column">
           <mat-card fxFlex.lg=22 fxFlex.xl=22 fxLayout="column">
@@ -226,6 +240,19 @@
               <mat-label>Link de sala</mat-label>
               <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
             </mat-form-field>
+
+             <form [formGroup]="direccionForm" class="example-form" fxLayout=row>
+                <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
+                  <mat-label>Dirección</mat-label>
+                  <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
+                    formControlName="direccion" [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions " [value]="option">
+                      {{option.place_name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
           </mat-card>
           <mat-card fxFlex.lg=45 fxFlex.xl=45 fxLayout="column">
 
@@ -263,11 +290,11 @@
         <br>
         <div *ngIf="data" fxLayout="row" fxLayoutAlign="space-evenly center">
           <button mat-raised-button target="_blank" [mat-dialog-close]="'cancelar'" type="button">Cancelar</button>
-          <button mat-raised-button class="mat-primary" type="submit" (click)="editarEvento()">Editar Evento</button>
+          <button mat-raised-button class="mat-primary" type="submit" (click)="editLocalizacion()">Editar Evento</button>
         </div>
         <div *ngIf="!data" fxLayout="row" fxLayoutAlign="center" fxLayoutAlign.xs="end">
           <div fxLayout="row" fxFlex.xl=74 fxFlex.lg=86 fxLayoutAlign="end">
-            <button mat-button matStepperNext>Siguiente</button>
+            <button mat-button matStepperNext >Siguiente</button>
 
           </div>
         </div>
@@ -275,5 +302,5 @@
 
     </form>
 
-<br>
+    <br>
   </mat-dialog-content>

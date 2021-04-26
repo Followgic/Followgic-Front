@@ -1,11 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { LocalizacionService } from '../services/localizacion.service';
 
 
 @Pipe({
   name: 'filtrarString'
 })
 export class FiltrarStringPipe implements PipeTransform {
-
+  magos:any=[]
+  copiaMagos;any=[]
+ constructor(private localizacionService: LocalizacionService){}
   transform(lista: any[], filtro: any[]): any[] {
     let listaFiltrada
     listaFiltrada = Array.from(lista)
@@ -14,11 +17,18 @@ export class FiltrarStringPipe implements PipeTransform {
     
    
     
-    if (filtro.length == 1 || filtro[1].length==0) {
+    if (filtro.length == 1) {
+      let res = lista.filter(user => user.nombre.toUpperCase().includes(filtro[0].toUpperCase()) ||
+      user.nombre_artistico.toUpperCase().includes(filtro[0].toUpperCase()));
       
-      return lista.filter(user => user.nombre.toUpperCase().includes(filtro[0].toUpperCase()) ||
-        user.nombre_artistico.toUpperCase().includes(filtro[0].toUpperCase()));
-    } else {
+       if(lista.length !=0){
+       var GeoJSON = require('geojson');
+       var geoJson = GeoJSON.parse(res.map(mago => mago.localizacion), {Point: ['latitud', 'longitud']});
+       this.localizacionService.localizacionUsuarios$.emit(geoJson)
+       } 
+      return res
+   
+      } else {
 
       lista.forEach(user => {
         filtro[1].forEach(modalidad => {
@@ -33,9 +43,19 @@ export class FiltrarStringPipe implements PipeTransform {
         });
       })
 
+    
+
       if (filtro[0]) {
-        return listaFiltrada.filter(user => (user.nombre.toUpperCase().includes(filtro[0].toUpperCase()) || user.nombre_artistico.toUpperCase().includes(filtro[0].toUpperCase())));
+        listaFiltrada = listaFiltrada.filter(user => (user.nombre.toUpperCase().includes(filtro[0].toUpperCase()) || user.nombre_artistico.toUpperCase().includes(filtro[0].toUpperCase())));
+         var GeoJSON = require('geojson');
+         var geoJson = GeoJSON.parse(listaFiltrada.map(mago => mago.localizacion), {Point: ['latitud', 'longitud']});
+         this.localizacionService.localizacionUsuarios$.emit(geoJson)
+        return listaFiltrada
       } else {
+ 
+        var GeoJSON = require('geojson');
+        var geoJson = GeoJSON.parse(listaFiltrada.map(mago => mago.localizacion), {Point: ['latitud', 'longitud']});
+        this.localizacionService.localizacionUsuarios$.emit(geoJson)
         return listaFiltrada
       }
 

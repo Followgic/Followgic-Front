@@ -1,7 +1,7 @@
 
 
 
-<app-toolbar-filtros [calendario]="false"  [selectEventos]="false"[rangoCalendario]="false" *ngIf="listarMagos" #ventanaLateral>
+<app-toolbar-filtros [calendario]="false"  [selectEventos]="false"[rangoCalendario]="false" (limpiarFiltro)="cargarMagos($event)" *ngIf="listarMagos" #ventanaLateral>
 <br>
 
 <div fxLayout="row" fxLayoutAlign="center center">
