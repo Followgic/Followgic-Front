@@ -28,5 +28,11 @@ export class LocalizacionService {
     return this.http.get<any>(`${this.URL}/localizacion/obtenerLocalizacionTodosUsuarios/`, { headers: this.httpHeadersToken });
   }
 
+  getLocalizacionUsuarioLogueado(){
+    return this.http.get<any>(`${this.URL}/localizacion/obtenerLocalizacion/`, { headers: this.httpHeadersToken });
+  }
+
+
+  
 
 }

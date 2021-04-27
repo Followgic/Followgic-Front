@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import * as MapboxLanguage from '@mapbox/mapbox-gl-language';
@@ -14,28 +14,37 @@ export class MapaComponent implements OnInit {
   mapa: mapboxgl.Map;
   coordenadas: any = []
   coordinatesGeocoder: any
+  localizacionLogueado: any 
 
 
   @Input()
   localizaciones: any = { geoJson: {} }
-  constructor(public localizacionService: LocalizacionService) {
-this.localizacionService.localizacionEventos$.subscribe(res => {
-  this.localizaciones = res
-  this.cargarMapa()
-})
 
-this.localizacionService.localizacionUsuarios$.subscribe(res => {
-  this.localizaciones = res
-  this.cargarMapa()
-})
+  constructor(public localizacionService: LocalizacionService) {
+    this.obtenerLocalizacionUsuarioLogueado()
+    this.localizacionService.localizacionEventos$.subscribe(res => {
+      this.localizaciones = res
+      this.cargarMapa()
+    })
+
+    this.localizacionService.localizacionUsuarios$.subscribe(res => {
+      this.localizaciones = res
+      this.cargarMapa()
+    })
   }
 
-  ngOnInit(){
- 
+  ngOnInit() {
 
 
 
 
+
+  }
+
+  obtenerLocalizacionUsuarioLogueado(){
+    this.localizacionService.getLocalizacionUsuarioLogueado().subscribe(res=>{
+    this.localizacionLogueado=res
+    })
   }
 
   cargarMapa() {
@@ -48,7 +57,11 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
       zoom: 4 // starting zoom,
 
     });
-  
+
+
+ 
+
+
 
 
 
@@ -68,7 +81,7 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
     );
 
 
-    
+
     /* Given a query in the form "lng, lat" or "lat, lng"
   * returns the matching geographic coordinate(s)
   * as search results in carmen geojson format,
@@ -125,7 +138,7 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
 
 
     // Add the control to the map.
-   
+
     this.mapa.addControl(new MapboxLanguage({
       defaultLanguage: 'es'
     }));
@@ -151,6 +164,30 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
         clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
       });
 
+      // Add a GeoJSON source with 3 points.
+      this.mapa.addSource('points', {
+        'type': 'geojson',
+        'data':this.localizacionLogueado.geoJson
+        
+      });
+
+         // Add a circle layer
+         this.mapa.addLayer({
+          'id': 'circle',
+          'type': 'circle',
+          'source': 'points',
+          'paint': {
+            'circle-color': '#ff0000',
+            'circle-radius': 10,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#ffffff'
+          }
+        });
+  
+
+      
+
+   
       this.mapa.addLayer({
         id: 'clusters',
         type: 'circle',
@@ -174,7 +211,7 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
           'circle-radius': [
             'step',
             ['get', 'point_count'],
-            20,
+            9,
             100,
             30,
             750,
@@ -182,6 +219,10 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
           ]
         }
       });
+
+
+ 
+  
 
       this.mapa.addLayer({
         id: 'cluster-count',
@@ -253,13 +294,21 @@ this.localizacionService.localizacionUsuarios$.subscribe(res => {
       this.mapa.on('mouseleave', 'clusters', () => {
         this.mapa.getCanvas().style.cursor = '';
       });
+
+           
+        // Center the map on the coordinates of any clicked circle from the 'circle' layer.
+        this.mapa.on('click', 'circle', res=> {
+          this.mapa.flyTo({
+            center: res.features[0].geometry.coordinates, essential: true,zoom:9
+          });
+        });
+ 
     });
 
+ 
 
-    
+    }
   
-
-  }
 
 
 
