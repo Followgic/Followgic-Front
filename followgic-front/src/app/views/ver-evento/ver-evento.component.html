@@ -41,10 +41,27 @@
         <br>
         <div fxFlex=68 fxLayout="column">
             <p fxFlex=98>{{evento.descripcion}}</p>
-            <div fxFlex=92 *ngIf="evento.link_conferencia">
+
+           
+            <div fxFlex=92 >
+                <mat-divider></mat-divider>
+                <br>
+                <h4><b>Datos del evento</b></h4>
+            <div  fxLayout="row"  *ngIf="evento.link_conferencia">
+                <mat-icon>computer</mat-icon> &nbsp; 
+        
                 <a href={{evento.link_conferencia}}>{{evento.link_conferencia}}</a>
             </div>
+            <div fxLayout="row">
+                <mat-icon> location_on</mat-icon>
+                <h3> Dirección: {{evento.localizacion.direccion}}</h3>
+            </div>
+
+            
         </div>
+
+        </div>
+      
         <div fxFlex=20 fxLayout="column" fxLayoutAlign="end">
             <div fxLayout=row fxLayoutAlign="space-evenly">
                 <button *ngIf="idMia== evento.creador" mat-raised-button (click)="openDialog(evento.id)"
