@@ -92,6 +92,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   cargarNotificaciones() {
     this.notificacion.getPeticionesRecibidas()
     this.mensajeService.varita$.emit({idUsuario:null,dentro:false})
+    this.mensajeService.cerrarVistaChat$.emit(true)
     this.mensajeService.recargarMensaje$.emit([])
     this.snav.toggle()
   }

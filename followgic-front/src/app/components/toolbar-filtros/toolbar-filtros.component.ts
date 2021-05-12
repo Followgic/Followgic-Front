@@ -40,6 +40,8 @@ export class ToolbarFiltrosComponent implements OnInit, OnDestroy {
   @Input()
   titulo: boolean = true;
 
+
+
   @Output()
   modalidadesEmitter = new EventEmitter();
 

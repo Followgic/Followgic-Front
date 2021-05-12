@@ -19,7 +19,7 @@ export class MensajeService {
     'Authorization': 'Token '+ localStorage.getItem('auth_token'),
     'Content-Type': 'application/json'
   });
-
+  cerrarVistaChat$ = new EventEmitter()
   mensaje$ = new EventEmitter()
   recargarMensaje$ = new EventEmitter()
   recargarConversaciones$ = new EventEmitter()

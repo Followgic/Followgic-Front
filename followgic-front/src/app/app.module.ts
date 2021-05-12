@@ -69,7 +69,9 @@ import * as moment from 'moment';
 import './services/moment.es.service';
 import { AvisoEliminarEventoComponent } from './views/ver-evento/aviso-eliminar-evento/aviso-eliminar-evento.component';
 import { MapaComponent } from './components/mapa/mapa.component';
-import { MostrarMagosLocalizacionComponent } from './views/mostrar-magos-localizacion/mostrar-magos-localizacion.component'; 
+import { MostrarMagosLocalizacionComponent } from './views/mostrar-magos-localizacion/mostrar-magos-localizacion.component';
+import { FiltrarEventosMensajesPipe } from './pipes/filtrar-eventos-mensajes.pipe';
+import { FiltrarMagosMensajesPipe } from './pipes/filtrar-magos-mensajes.pipe'; 
 moment.locale('es');
 
 
@@ -164,6 +166,8 @@ export class AppDateAdapter extends NativeDateAdapter {
     AvisoEliminarEventoComponent,
     MapaComponent,
     MostrarMagosLocalizacionComponent,
+    FiltrarEventosMensajesPipe,
+    FiltrarMagosMensajesPipe,
   
   
   

@@ -62,7 +62,7 @@ export class AmigosComponent implements OnInit {
 
       this.amigosId=this.amigos.map(amigo => amigo.pk)
       this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
-      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico , localizacion:amigo.localizacion}})
     /*   this.amigos.forEach((amigo, i) => {
         this.amigos[i].foto = "http://localhost:8000" + amigo.foto  
       }); */

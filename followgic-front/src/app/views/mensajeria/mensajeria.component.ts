@@ -35,7 +35,9 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
   constructor(private magoService: MagoService, private mensajeService: MensajeService, private peticionService: PeticionService, private eventoService: EventoService) {
     this.mensajes = []
     this.magoService.getYo(res => this.miId = res)
-
+    this.mensajeService.cerrarVistaChat$.subscribe(res => {
+      if(res) this.vista=0
+    })
     this.mensajeService.varita$.subscribe(res => {
       this.abrirConversacion = res
       this.abrirConversacionEvento = res

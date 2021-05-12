@@ -20,12 +20,14 @@ export class MapaComponent implements OnInit {
   @Input()
   localizaciones: any = { geoJson: {} }
 
+
   constructor(public localizacionService: LocalizacionService) {
     this.obtenerLocalizacionUsuarioLogueado()
-    this.localizacionService.localizacionEventos$.subscribe(res => {
+
+  /*   this.localizacionService.localizacionEventos$.subscribe(res => {
       this.localizaciones = res
       this.cargarMapa()
-    })
+    }) */
 
     this.localizacionService.localizacionUsuarios$.subscribe(res => {
       this.localizaciones = res
@@ -232,7 +234,7 @@ export class MapaComponent implements OnInit {
         layout: {
           'text-field': '{point_count_abbreviated}',
           'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-          'text-size': 12
+          'text-size': 10
         }
       });
 

@@ -38,17 +38,17 @@ export class ListarEventosComponent implements OnInit {
       this.eventos = res
     })
 
-    this.localizacionService.localizacionFiltrada$.subscribe(res => {
+/*     this.localizacionService.localizacionFiltrada$.subscribe(res => {
 
 
       this.eventos = this.copiaEventos.filter(evento => evento.localizacion.latitud == res[1] && evento.localizacion.longitud == res[0])
 
-    })
+    }) */
 
 
     this.localizacionService.localizacionFiltrada$.subscribe(res => {
       this.filtrarEventos(null, null, true)
-      this.eventos = this.copiaEventos.filter(mago => mago.localizacion.latitud == res[1] && mago.localizacion.longitud == res[0])
+      this.eventos = this.copiaEventos.filter(evento => evento.localizacion.latitud == res[1] && evento.localizacion.longitud == res[0])
 
     })
 
@@ -130,7 +130,7 @@ export class ListarEventosComponent implements OnInit {
       this.copiaEventos = Object.assign([], this.eventos)
       var GeoJSON = require('geojson');
       var geoJson = GeoJSON.parse(this.eventos.map(evento => evento.localizacion), { Point: ['latitud', 'longitud'] });
-      this.localizacionService.localizacionEventos$.emit(geoJson)
+      this.localizacionService.localizacionUsuarios$.emit(geoJson)
     })
   }
 

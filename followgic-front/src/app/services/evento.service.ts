@@ -55,6 +55,9 @@ export class EventoService {
   getMisEventos(){
     return this.http.get<any>(`${this.URL}/eventos/listarEventosCreadosPorMi/`, { headers: this.httpHeadersToken });
   }
+  getEventosPorIdMago(idMago){
+    return this.http.get<any>(`${this.URL}/eventos/eventosPorUsuario/${idMago}/`, { headers: this.httpHeadersToken });
+  }
   getEventoPorId(idEvento){
     return this.http.get<any>(`${this.URL}/eventos/verEvento/${idEvento}/`, { headers: this.httpHeadersToken });
   }

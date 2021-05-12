@@ -107,6 +107,7 @@ export class PerfilComponent implements OnInit {
     if (this.route.snapshot.params.id) {
 
       this.idAmigo = this.route.snapshot.params.id
+      this.getEventosPorIdAmigo(this.idAmigo)
 
       this.magoService.getAllAmigos().subscribe( res =>{
         res=res.map(amigo=>amigo.pk)
@@ -120,6 +121,7 @@ export class PerfilComponent implements OnInit {
     }else {
       this.errorAmigo=false
       this.getMago()
+      this.getMisEventos()
      
     }
 
@@ -223,6 +225,11 @@ export class PerfilComponent implements OnInit {
   //Metodos para mis eventos
   getMisEventos(){
     this.eventoService.getMisEventos().subscribe( res => {
+      this.misEventos = res
+    })
+  }
+  getEventosPorIdAmigo(idAmigo){
+    this.eventoService.getEventosPorIdMago(idAmigo).subscribe( res => {
       this.misEventos = res
     })
   }

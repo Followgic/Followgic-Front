@@ -35,7 +35,7 @@
             </div>
 
 
-            <div *ngFor="let amigo of amigos |filtrarString: filtro_valor ">
+            <div *ngFor="let amigo of amigos |filtrarMagosMensajes: filtro_valor ">
 
 
                 <app-tarjeta-peticion (click)='cargarConversacion(amigo)' [mago]="amigo"></app-tarjeta-peticion>
@@ -65,7 +65,7 @@
 
 
 
-            <div style="width: 325px;" *ngFor="let evento of eventos|filtrarEvento: filtro_valor  ">
+            <div style="width: 325px;" *ngFor="let evento of eventos|filtrarEventosMensajes: filtro_valor  ">
 
                 <app-tarjeta-chica (click)='transformarEvento(evento)'
                     (eventoSilenciado)="mostrarMensajeEventoSilenciado($event)" [evento]="evento" [mensajeria]="true">
