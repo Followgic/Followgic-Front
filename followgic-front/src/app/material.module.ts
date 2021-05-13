@@ -25,6 +25,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -56,7 +57,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatBadgeModule,
     MatStepperModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule
     
     
   ],
@@ -85,7 +87,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatBadgeModule,
     MatStepperModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule
    
   ],
   providers: []

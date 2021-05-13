@@ -14,6 +14,7 @@ import { MensajeriaComponent } from './views/mensajeria/mensajeria.component';
 import { MostrarMagosLocalizacionComponent } from './views/mostrar-magos-localizacion/mostrar-magos-localizacion.component';
 import { NoAmigoComponent } from './views/paginas-errores/no-amigo/no-amigo.component';
 import { PerfilComponent } from './views/perfil/perfil.component';
+import { PoliticaPrivacidadComponent } from './views/politica-privacidad/politica-privacidad.component';
 import { PreguntasComponent } from './views/registro/preguntas/preguntas.component';
 import { RegistroComponent } from './views/registro/registro.component';
 import { VerEventoComponent } from './views/ver-evento/ver-evento.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'mostrar-magos-localizacion', component: MostrarMagosLocalizacionComponent},
   {path: 'perfil', component: PerfilComponent},
   {path: 'perfil/:id', component: PerfilComponent},
+  {path: 'politica-privacidad', component: PoliticaPrivacidadComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'preguntas', component: PreguntasComponent},
   {path: 'ver-evento', component:  VerEventoComponent},

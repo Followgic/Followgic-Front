@@ -50,7 +50,7 @@
                                 <mat-icon>email</mat-icon>
                                 <h3> &nbsp; Email: {{datosUsuario.email}}</h3>
                             </div>
-                          <div fxLayout="row">
+                          <div fxLayout="row" *ngIf="datosUsuario.localizacion">
                                 <mat-icon> location_on</mat-icon>
                                 <h3>&nbsp;Dirección: {{datosUsuario.localizacion.direccion}}</h3>
                             </div>

@@ -46,7 +46,7 @@ export class PerfilComponent implements OnInit {
     this.getModalidades()
     this.obtenerIdUrl()
     this.getAllAmigos()
-    this.getMisEventos()
+
 
 
     this.perfilForm = new FormGroup({

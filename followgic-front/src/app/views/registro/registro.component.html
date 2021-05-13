@@ -68,6 +68,11 @@
                 <input type="password" matInput placeholder="Repetir Contraseña *" formControlName="re_password">
                 <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error>
             </mat-form-field>
+            <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="terminos">Terminos y condiciones </mat-checkbox>
+              </section>
+          
+
             <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error>
             <p class="errores" *ngFor="let error of errores.password">Contraseña: {{error}}</p>
             <p class="errores" *ngFor="let error of errores.username">Username: {{error}}</p>

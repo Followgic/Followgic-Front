@@ -25,6 +25,7 @@ export class RegistroComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<any[]>;
+  terminos:boolean = false
   
   constructor( private formBuilder:FormBuilder, private loginService: LoginService,private localizacionService: LocalizacionService,private mapboxService: MapboxService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
     this.aprobado=false;

@@ -39,6 +39,9 @@ export class ToolbarFiltrosComponent implements OnInit, OnDestroy {
 
   @Input()
   titulo: boolean = true;
+  
+  @Input()
+  mapa: boolean = true;
 
 
 

@@ -71,7 +71,8 @@ import { AvisoEliminarEventoComponent } from './views/ver-evento/aviso-eliminar-
 import { MapaComponent } from './components/mapa/mapa.component';
 import { MostrarMagosLocalizacionComponent } from './views/mostrar-magos-localizacion/mostrar-magos-localizacion.component';
 import { FiltrarEventosMensajesPipe } from './pipes/filtrar-eventos-mensajes.pipe';
-import { FiltrarMagosMensajesPipe } from './pipes/filtrar-magos-mensajes.pipe'; 
+import { FiltrarMagosMensajesPipe } from './pipes/filtrar-magos-mensajes.pipe';
+import { PoliticaPrivacidadComponent } from './views/politica-privacidad/politica-privacidad.component'; 
 moment.locale('es');
 
 
@@ -168,6 +169,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     MostrarMagosLocalizacionComponent,
     FiltrarEventosMensajesPipe,
     FiltrarMagosMensajesPipe,
+    PoliticaPrivacidadComponent,
   
   
   
