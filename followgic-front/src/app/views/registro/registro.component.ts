@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { RouteConfigLoadEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -9,6 +10,7 @@ import { MapboxService } from 'src/app/services/mapbox.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { RegistroService } from 'src/app/services/registro.service';
 import { validarQueSeanIguales } from '../../utils/password.validator';
+import { PoliticaPrivacidadComponent } from '../politica-privacidad/politica-privacidad.component';
 
 @Component({
   selector: 'app-registro',
@@ -26,8 +28,9 @@ export class RegistroComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<any[]>;
   terminos:boolean = false
+  errorTerminos:boolean = false
   
-  constructor( private formBuilder:FormBuilder, private loginService: LoginService,private localizacionService: LocalizacionService,private mapboxService: MapboxService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
+  constructor( public dialog: MatDialog,private formBuilder:FormBuilder, private loginService: LoginService,private localizacionService: LocalizacionService,private mapboxService: MapboxService,private registroService: RegistroService, private modalidadesService: ModalidadesService, private router: Router) {
     this.aprobado=false;
     this.getModalidades()
     this.loginForm = new FormGroup({
@@ -36,11 +39,29 @@ export class RegistroComponent implements OnInit {
    });
 
    this.direccionForm = new FormGroup({
-    direccion: new FormControl('', Validators.required),
-    longitud:new FormControl('', Validators.required),
-    latitud: new FormControl('', Validators.required),
+    direccion: new FormControl('', ),
+    longitud:new FormControl('',),
+    latitud: new FormControl('',),
     
  });
+  }
+
+  openDialog() {
+    
+      const dialogRef = this.dialog.open(PoliticaPrivacidadComponent, {
+
+        width: '1500px',
+        minWidth: '400px',
+        autoFocus: false,
+        data: true,
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+    
+        console.log(`Dialog result: ${result}`);
+      });
+    
   }
 
   ngOnInit() {
@@ -134,7 +155,7 @@ export class RegistroComponent implements OnInit {
   }
 
   saveRegistro() {
- 
+    
     this.registroService.registro(this.registroForm.value).subscribe(res => {
      
       this.loginForm.controls.username.setValue(this.registroForm.controls.username.value)
@@ -152,6 +173,8 @@ export class RegistroComponent implements OnInit {
   }
 
   saveDireccion(){
+    if(this.terminos){
+      this.errorTerminos=false
     if(this.direccionForm.controls.direccion.value){
     let direccionCompleta = this.direccionForm.controls.direccion.value
     this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
@@ -161,10 +184,14 @@ export class RegistroComponent implements OnInit {
     this.localizacionService.crearLocalizacion(this.direccionForm.value).subscribe(res => {
       this.registroForm.controls.localizacion.setValue(res.pk)
       this.saveRegistro()
-    })}else{
+    })
+  }else{
       this.saveRegistro()
     }
     console.log(this.direccionForm.value)
+  }else{
+    this.errorTerminos=true
+  }
 
   }
 
@@ -178,6 +205,10 @@ export class RegistroComponent implements OnInit {
     
     })
   }
+}
+
+imprimirTerminos(){
+  console.log(this.terminos)
 }
 
 }

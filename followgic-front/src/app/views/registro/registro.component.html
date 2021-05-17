@@ -68,8 +68,9 @@
                 <input type="password" matInput placeholder="Repetir Contraseña *" formControlName="re_password">
                 <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error>
             </mat-form-field>
-            <section class="example-section">
-                <mat-checkbox class="example-margin" [(ngModel)]="terminos">Terminos y condiciones </mat-checkbox>
+            <section class="example-section" fxLayout="row" fxLayoutAlign="start">
+                <mat-checkbox style="margin-left:10px" color="primary" class="example-margin" (click)="imprimirTerminos()"  [(ngModel)]="terminos" [ngModelOptions]="{standalone: true}">
+                    <a (click)="openDialog()"> Terminos y condiciones</a> </mat-checkbox>
               </section>
           
 
@@ -80,8 +81,9 @@
             <p class="errores" *ngFor="let error of errores.nombre_artistico">Nombre Artistico: {{error}}</p>
             <p class="errores" *ngFor="let error of errores.email">Email: {{error}}</p>
             <p class="errores" *ngFor="let error of errores.pagina_web">Pagina Web: {{error}}</p>
+            <p class="errores" *ngIf="errorTerminos">Tienes que aceptar los terminos</p>
             <br>
-            <button mat-raised-button class="mat-primary" [disabled]="!registroForm.valid" type="button"
+            <button mat-raised-button class="mat-primary" [disabled]="!(registroForm.valid && terminos)" type="button"
             (click)="saveDireccion()">Registrar</button>
         </form>
 

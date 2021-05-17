@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-politica-privacidad',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PoliticaPrivacidadComponent implements OnInit {
 
-  constructor() { }
+  constructor( public dialog: MatDialog, @Optional() @Inject(MAT_DIALOG_DATA) public data:{esDialog:boolean}) { }
 
   ngOnInit(): void {
   }
+
+
 
 }

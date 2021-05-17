@@ -14,6 +14,7 @@ export class PreguntasComponent implements OnInit {
   respuestasCorrectas: any
   numeroPregunta: any;
   error:any;
+  
   @Output()
   aprobado = new EventEmitter();
   @ViewChild('respuesta', { static: false }) respuesta;

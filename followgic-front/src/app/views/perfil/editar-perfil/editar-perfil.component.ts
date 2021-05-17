@@ -160,19 +160,31 @@ export class EditarPerfilComponent implements OnInit {
     this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
     this.direccionForm.controls.latitud.setValue(direccionCompleta.center[1])
     this.direccionForm.controls.direccion.setValue(direccionCompleta.place_name)
-  
-    this.localizacionService.editLocalizacion(this.direccionForm.value, this.datosUsuario.localizacion.pk).subscribe(res => {
+    if(this.datosUsuario.localizacion){
+      this.localizacionService.editLocalizacion(this.direccionForm.value, this.datosUsuario.localizacion.pk).subscribe(res => {
+      
+      })
+      console.log(this.direccionForm.value)
+    
+    }else{
+      this.localizacionService.crearLocalizacion(this.direccionForm.value).subscribe(res => {
+        this.perfilForm.controls.localizacion.setValue(res.pk)
+        this.save()
+    
       
     })
-    console.log(this.direccionForm.value)
-  
+  }
+    
   }
 
 
   save() {
     const formData = new FormData();
     delete this.perfilForm.value.foto
-    delete this.perfilForm.value.localizacion
+    if(!( typeof this.perfilForm.controls.localizacion.value  === 'number')){
+      delete this.perfilForm.value.localizacion
+    }
+
     this.magoService.editUsuario(this.perfilForm.value).subscribe(res => {
       if (this.imagen) {
         this.saveImangen()

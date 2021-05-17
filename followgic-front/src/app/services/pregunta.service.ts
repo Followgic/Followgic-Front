@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class PreguntaService {
     'Content-Type': 'application/json'
   });
   constructor(private http: HttpClient) { }
-
+ 
   getPreguntas(){
     return this.http.get<any>(`${this.URL}/preguntas/`, { headers: this.httpHeaders });
   }
