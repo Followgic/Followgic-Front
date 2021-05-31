@@ -2,13 +2,14 @@ import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from '@a
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private URL = "http://localhost:8000"
+  private URL = environment.url
  
   token:any;
 

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalizacionService {
-  private URL = "http://localhost:8000"
+  private URL = environment.url
   private httpHeadersToken = new HttpHeaders({
     'Authorization': 'Token '+ localStorage.getItem('auth_token'),
     'Content-Type': 'application/json'

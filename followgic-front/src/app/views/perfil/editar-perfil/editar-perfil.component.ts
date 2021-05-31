@@ -33,9 +33,9 @@ export class EditarPerfilComponent implements OnInit {
     this.getModalidades()
     
     this.direccionForm = new FormGroup({
-      direccion: new FormControl('', Validators.required),
-      longitud:new FormControl('', Validators.required),
-      latitud: new FormControl('', Validators.required),
+      direccion: new FormControl(''),
+      longitud:new FormControl(''),
+      latitud: new FormControl(''),
       
    });
    
@@ -138,7 +138,7 @@ export class EditarPerfilComponent implements OnInit {
 
      
       }
-      this.preImagen = 'http://localhost:8000' + this.perfilForm.value.foto
+      this.preImagen =  this.perfilForm.value.foto
 
 
     

@@ -7,6 +7,7 @@ import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { UtilidadesService } from 'src/app/services/utilidades.service';
+import { environment } from 'src/environments/environment';
 import { CrearEventosComponent } from '../crear-eventos/crear-eventos.component';
 import { AvisoCancelarInscripcionComponent } from '../listar-eventos/aviso-cancelar-inscripcion/aviso-cancelar-inscripcion.component';
 import { AvisoInscripcionComponent } from '../listar-eventos/aviso-inscripcion/aviso-inscripcion.component';
@@ -267,12 +268,7 @@ export class VerEventoComponent implements OnInit {
   getMagosInscritosPorEventoId(idEvento) {
     this.eventoService.getMagosInscritosEventoId(idEvento).subscribe(res => {
       this.magosInscritos = res
-      this.magosInscritos = this.magosInscritos.map(mago => {
-        return {
-          pk: mago.pk, foto: "http://localhost:8000"
-            + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades
-        }
-      })
+   
 
     })
   }
@@ -296,7 +292,7 @@ export class VerEventoComponent implements OnInit {
     this.maxDate = new Date(this.evento.fecha_evento);
     this.evento = {
       localizacion:this.evento.localizacion,aforo: this.evento.aforo, id: this.evento.id, asistentes: this.evento.asistentes, comentarios: this.evento.comentarios, creador: this.evento.creador, descripcion: this.evento.descripcion,
-      fecha_creacion: new Date(this.evento.fecha_creacion), fecha_evento: new Date(this.evento.fecha_evento), foto: "http://localhost:8000" + this.evento.foto, hora_evento: this.utilidadesService.quitarSegundos(this.evento.hora_evento),
+      fecha_creacion: new Date(this.evento.fecha_creacion), fecha_evento: new Date(this.evento.fecha_evento), foto:  this.evento.foto, hora_evento: this.utilidadesService.quitarSegundos(this.evento.hora_evento),
       link_conferencia: this.evento.link_conferencia, modalidades: this.modalidades, privacidad: this.evento.privacidad, tipo: this.evento.tipo, titulo: this.evento.titulo, token: this.evento.token, usuarios_activos: this.evento.usuarios_activos
     }
     this.cargadasModalidades = true
@@ -339,12 +335,6 @@ export class VerEventoComponent implements OnInit {
   usuariosParaInvitar() {
     this.eventoService.usuariosParaInvitar(this.idEvento).subscribe(res => {
       this.amigos = res
-      this.amigos = this.amigos.map(amigo => {
-        return {
-          pk: amigo.pk, foto: "http://localhost:8000"
-            + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico
-        }
-      })
     })
   }
 

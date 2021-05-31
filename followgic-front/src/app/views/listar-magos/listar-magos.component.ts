@@ -10,6 +10,7 @@ import {map, startWith} from 'rxjs/operators';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { LoginService } from 'src/app/services/login.service';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -128,10 +129,9 @@ export class ListarMagosComponent implements OnInit {
   getAllMagos() {
     this.magoService.getAllMagos().subscribe(res => {
         this.magos = res
-      this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: "http://localhost:8000"
-        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades,localizacion: this.añadirLocalizacion(mago.localizacion) }})
+      this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades,localizacion: this.añadirLocalizacion(mago.localizacion) }})
     /*   this.magos.forEach((mago, i) => {
-        this.magos[i].foto = "http://localhost:8000" + mago.foto  
+        this.magos[i].foto = environment.url + mago.foto  
       });
  */
     
@@ -186,9 +186,6 @@ export class ListarMagosComponent implements OnInit {
     this.buscarMagos= {nombre:this.magoForm.controls.nombre.value, modalidades:[]}
     this.magoService.getMagosPorNombreYModalidad(this.buscarMagos).subscribe( res=>{
       this.magos = res
-      
-      this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: "http://localhost:8000"
-        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico }})
 
       }
       

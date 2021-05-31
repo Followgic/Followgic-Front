@@ -4,6 +4,7 @@ import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { PeticionService } from 'src/app/services/peticion.service';
 import { AvisoEliminarAsistenteComponent } from 'src/app/views/ver-evento/listar-asistentes/aviso-eliminar-asistente/aviso-eliminar-asistente.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tarjeta-peticion',
@@ -65,7 +66,6 @@ esCreador:boolean =false
     this.magoService.getPerfilAmigo(this.peticion.remitente).subscribe(res =>{
       this.mago=res
 
-     this.mago.foto= 'http://localhost:8000' + this.mago.foto     
      
     
     })

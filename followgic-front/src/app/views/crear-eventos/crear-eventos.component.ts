@@ -382,7 +382,7 @@ add(event: MatChipInputEvent): void {
       }else{
         this.esPrivado=true
       }
-      this.preImagen = 'http://localhost:8000' + this.eventosForm.value.foto
+      this.preImagen =  this.eventosForm.value.foto
 
 
 

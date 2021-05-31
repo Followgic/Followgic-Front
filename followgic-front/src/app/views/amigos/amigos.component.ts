@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CartaComponent } from 'src/app/components/carta/carta.component';
 import { MagoService } from 'src/app/services/mago.service';
+import { environment } from 'src/environments/environment';
 import { ConfirmarEliminacionComponent } from './confirmar-eliminacion/confirmar-eliminacion.component';
 
 @Component({
@@ -25,8 +26,7 @@ export class AmigosComponent implements OnInit {
     this.hayAmigos =true
   }
     this.amigosId=this.amigos.map(amigo => amigo.pk)
-      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
-      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
   })
   
   }
@@ -61,10 +61,9 @@ export class AmigosComponent implements OnInit {
       }
 
       this.amigosId=this.amigos.map(amigo => amigo.pk)
-      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: "http://localhost:8000"
-      + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico , localizacion:amigo.localizacion}})
+  
     /*   this.amigos.forEach((amigo, i) => {
-        this.amigos[i].foto = "http://localhost:8000" + amigo.foto  
+        this.amigos[i].foto = environment.url + amigo.foto  
       }); */
    
     })

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 import { WebsocketService } from './websocket.service';
 
@@ -9,7 +10,7 @@ import { WebsocketService } from './websocket.service';
   providedIn: 'root'
 })
 export class MensajeService {
-  private URL = "http://localhost:8000"
+  private URL = environment.url
   public messages
   
   private httpHeaders = new HttpHeaders({

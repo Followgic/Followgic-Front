@@ -167,12 +167,14 @@ export class MapaComponent implements OnInit {
       });
 
       // Add a GeoJSON source with 3 points.
+      if(this.localizacionLogueado){
       this.mapa.addSource('points', {
         'type': 'geojson',
         'data':this.localizacionLogueado.geoJson
         
       });
-
+  
+      if (!this.mapa.getLayer('clusters')) {
          // Add a circle layer
          this.mapa.addLayer({
           'id': 'circle',
@@ -185,11 +187,12 @@ export class MapaComponent implements OnInit {
             'circle-stroke-color': '#ffffff'
           }
         });
+      }
   
-
+      }
       
 
-   
+      if (!this.mapa.getLayer('clusters')) {
       this.mapa.addLayer({
         id: 'clusters',
         type: 'circle',
@@ -222,10 +225,10 @@ export class MapaComponent implements OnInit {
         }
       });
 
-
+    }
  
   
-
+    if (!this.mapa.getLayer('cluster-count')) {
       this.mapa.addLayer({
         id: 'cluster-count',
         type: 'symbol',
@@ -237,7 +240,8 @@ export class MapaComponent implements OnInit {
           'text-size': 10
         }
       });
-
+    }
+    if (!this.mapa.getLayer('unclustered-point')) {
       this.mapa.addLayer({
         id: 'unclustered-point',
         type: 'circle',
@@ -250,6 +254,7 @@ export class MapaComponent implements OnInit {
           'circle-stroke-color': '#fff'
         }
       });
+    }
 
       // inspect a cluster on click
       this.mapa.on('click', 'clusters', e => {

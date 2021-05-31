@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MagoService } from 'src/app/services/mago.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tarjeta-mensaje',
@@ -17,6 +18,7 @@ export class TarjetaMensajeComponent implements OnInit {
   nombre:any
   mensajesNoleidos:any=[];
   invisible:boolean=false
+  
   
   constructor(private magoService: MagoService,private mensajeService: MensajeService) { 
 
@@ -65,7 +67,7 @@ export class TarjetaMensajeComponent implements OnInit {
     this.magoService.getPerfilAmigo(pkAmigo).subscribe(res =>{
       this.mago=res
 
-     this.mago.foto= 'http://localhost:8000' + this.mago.foto 
+   
      this.nombre = this.mago.nombre.split(" ")[0]     
      
     

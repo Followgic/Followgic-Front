@@ -87,7 +87,7 @@ comentariosNoLeidos=0
       this.eventoService.recargarInvitaciones$.emit(res.length)
       this.invitacionesEventos = res.map(invitacion => {
         return {
-          pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto:'http://localhost:8000'+ invitacion.evento.foto
+          pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto: invitacion.evento.foto
         }
       })
       console.log(this.invitacionesEventos)

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreguntaService {
-  private URL = "http://localhost:8000"
+  private URL = environment.url
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });

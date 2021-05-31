@@ -3,6 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { delay } from 'rxjs/operators';
 })
 export class MagoService implements HttpInterceptor {
 
-  private URL = "http://localhost:8000"
+  private URL = environment.url
 
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'

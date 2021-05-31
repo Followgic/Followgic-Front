@@ -3,6 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { LoginComponent } from '../views/login/login.component';
 import { LoginService } from './login.service';
 import { WebsocketService } from './websocket.service';
@@ -11,7 +12,8 @@ import { WebsocketService } from './websocket.service';
   providedIn: 'root'
 })
 export class PeticionService {
-  private URL = "http://localhost:8000"
+  private URL = environment.url
+  private URL_REAL_TIME = environment.url_real_time
  
 
   public messages: any;
@@ -74,7 +76,7 @@ export class PeticionService {
 
   abrirCanal(){
     if (this.loginService.logueado()) {
-      this.messages = <Subject<any>>this.wsService.connect('ws://localhost:8000/ws/notificacion/canal_' + this.loginService.getUsername() + '/').pipe(
+      this.messages = <Subject<any>>this.wsService.connect('ws://'+this.URL_REAL_TIME+'/ws/notificacion/canal_' + this.loginService.getUsername() + '/').pipe(
         map((response: MessageEvent): any => {
           let data = JSON.parse(response.data);
           return data

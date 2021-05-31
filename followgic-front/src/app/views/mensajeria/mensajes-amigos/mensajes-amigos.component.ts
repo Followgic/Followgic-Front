@@ -4,6 +4,7 @@ import { EventoService } from 'src/app/services/evento.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { UtilidadesService } from 'src/app/services/utilidades.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mensajes-amigos',
@@ -39,12 +40,6 @@ export class MensajesAmigosComponent implements OnInit {
     this.getMensajesNoLeidos()
     this.magoService.recargaAmigos$.subscribe(res => {
       this.amigos = res
-      this.amigos = this.amigos.map(amigo => {
-        return {
-          pk: amigo.pk, foto: "http://localhost:8000"
-            + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico
-        }
-      })
     })
 
     this.eventoService.recargarUltimoComentarioEvento$.subscribe(res => {
@@ -134,12 +129,7 @@ export class MensajesAmigosComponent implements OnInit {
     this.magoService.getAllAmigos().subscribe(res => {
 
       this.amigos = res
-      this.amigos = this.amigos.map(amigo => {
-        return {
-          pk: amigo.pk, foto: "http://localhost:8000"
-            + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico
-        }
-      })
+   
       if (cb) {
         cb()
       }
@@ -165,8 +155,7 @@ export class MensajesAmigosComponent implements OnInit {
     this.magoService.getPerfilAmigo(pkAmigo).subscribe(res => {
       let amigo = res
       amigo = {
-        pk: pkAmigo, foto: "http://localhost:8000"
-          + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico
+        pk: pkAmigo, foto: amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico
       }
       this.cargarConversacion(amigo)
     })
@@ -265,7 +254,7 @@ export class MensajesAmigosComponent implements OnInit {
   transformarEvento(evento) {
     this.evento = {
       aforo: evento.aforo, id: evento.id, asistentes: evento.asistentes, comentarios: evento.comentarios, creador: evento.creador, descripcion: evento.descripcion,
-      fecha_creacion: new Date(evento.fecha_creacion), fecha_evento: this.utilidadesService.getFechaStr(new Date(evento.fecha_evento)), foto: "http://localhost:8000" + evento.foto, hora_evento: this.utilidadesService.quitarSegundos(evento.hora_evento),
+      fecha_creacion: new Date(evento.fecha_creacion), fecha_evento: this.utilidadesService.getFechaStr(new Date(evento.fecha_evento)), foto: evento.foto, hora_evento: this.utilidadesService.quitarSegundos(evento.hora_evento),
       link_conferencia: evento.link_conferencia, privacidad: evento.privacidad, tipo: evento.tipo, titulo: evento.titulo, token: evento.token, usuarios_activos: evento.usuarios_activos
     }
     if (this.evento.titulo.length > 35) {

@@ -5,6 +5,7 @@ import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { UtilidadesService } from 'src/app/services/utilidades.service';
+import { environment } from 'src/environments/environment';
 import { AvisoCancelarInscripcionComponent } from './aviso-cancelar-inscripcion/aviso-cancelar-inscripcion.component';
 import { AvisoInscripcionComponent } from './aviso-inscripcion/aviso-inscripcion.component';
 
@@ -121,7 +122,7 @@ export class ListarEventosComponent implements OnInit {
       this.eventos.map(evento => {
         return {
           aforo: evento.aforo, id: evento.id, asistentes: evento.asistentes, comentarios: evento.comentarios, creador: evento.creador,
-          fecha_creacion: new Date(evento.fecha_creacion), fecha_evento: this.utilidadesService.getFechaStr(new Date(evento.fecha_evento)), foto: "http://localhost:8000" + evento.foto, hora_evento: evento.hora_evento,
+          fecha_creacion: new Date(evento.fecha_creacion), fecha_evento: this.utilidadesService.getFechaStr(new Date(evento.fecha_evento)), foto:evento.foto, hora_evento: evento.hora_evento,
           link_conferencia: evento.link_conferencia, modalidades: evento.modalidades, privacidad: evento.privacidad, tipo: evento.tipo, titulo: evento.titulo, token: evento.token, usuarios_activos: evento.usuarios_activos, localizacion: this.añadirLocalizacion(evento.localizacion),
           descripcion: evento.descripcion
         }
