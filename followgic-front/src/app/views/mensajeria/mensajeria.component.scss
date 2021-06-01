@@ -1,10 +1,12 @@
 .principal{
     width: 100%;
     height:calc(100vh - 197px)!important;
+    min-height:380px;
     border-top-left-radius: 0px; 
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
     border-bottom-right-radius: 0px;
+    overflow-y: hidden;
    
 }
 .mat-card.scrollable-content {
@@ -22,20 +24,35 @@
 
     @media only screen and (max-width : 600px) {
         .container{
-            height: calc(100vh - 197px) !important;
+           min-height:380px;
         }
+         
         .principal{
-            height:calc(100vh - 197px) !important;
+            min-height:380px;
+            overflow-y: hidden;
            
            
         }
-    
+        .cardPerfil{
+            min-height:80px;
+           
+
+        }
+        .conversacion{
+            min-height: 200px;
+        }
+
+        .cardEnviar{
+            min-height:80px;
+
+        }
         
     }
 
 
 .container{
     height: calc(100vh - 197px) !important;
+    min-height:380px;
 }
 .boton{
     margin-left:10px;
@@ -98,6 +115,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 260px 100px;
+    min-height: 200px;
     
     
  
@@ -110,6 +128,7 @@
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
     border-bottom-right-radius: 0px;
+    min-height:80px;
 
 }
 
@@ -118,6 +137,7 @@
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
     border-bottom-right-radius: 0px;
+    min-height:80px;
     
 
 }
