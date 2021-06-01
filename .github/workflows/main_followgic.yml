@@ -25,7 +25,7 @@ jobs:
       run: |
         cd followgic-front
         npm install
-        npm run build 
+        npm run build --prod
         
 
     - name: Upload artifact for deployment job
