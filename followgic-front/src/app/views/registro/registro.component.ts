@@ -188,7 +188,7 @@ export class RegistroComponent implements OnInit {
   }else{
       this.saveRegistro()
     }
-    console.log(this.direccionForm.value)
+
   }else{
     this.errorTerminos=true
   }
@@ -210,5 +210,6 @@ export class RegistroComponent implements OnInit {
 imprimirTerminos(){
   console.log(this.terminos)
 }
+
 
 }

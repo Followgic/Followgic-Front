@@ -13,12 +13,10 @@ export class AvisoEliminarAsistenteComponent implements OnInit {
   constructor(private eventoService: EventoService, public dialogRef: MatDialogRef<ListarAsistentesComponent>, @Inject(MAT_DIALOG_DATA) public data: {idEvento: number, mago:any}) { }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   elimnarUsuarioEvento(idMago){
     this.eventoService.eliminarAsistenteEvento(this.data.idEvento, idMago).subscribe(res => {
-      console.log(res)
       this.eventoService.recargarEventos$.emit(idMago)
       this.cerrarDialog()
    

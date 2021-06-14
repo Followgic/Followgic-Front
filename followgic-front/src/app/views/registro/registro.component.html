@@ -36,8 +36,8 @@
                     <mat-error *ngIf="registroForm.controls.pagina_web.invalid">{{getErrorUrl()}}</mat-error>
                 </mat-form-field>
 
-                <form  [formGroup]="direccionForm" class="example-form">
-                    <mat-form-field class="example-full-width">
+                <form fxFlex.xs="100" fxLayout="row" [formGroup]="direccionForm" class="example-form">
+                    <mat-form-field fxFlex.xs="100" class="example-full-width">
                       <mat-label>Dirección</mat-label>
                       <input type="text"
                              placeholder="Dirección"

@@ -90,7 +90,6 @@ esCreador:boolean =false
 
   elimnarUsuarioEvento(idMago){
    this.eventoService.eliminarAsistenteEvento(this.idEvento, idMago).subscribe(res => {
-     console.log(res)
      this.recargar.emit(this.idEvento)
    })
   }
@@ -98,7 +97,6 @@ esCreador:boolean =false
   
   enviarInvitacion(idInvitado){
     this.eventoService.generarInvitacion(this.idEvento,idInvitado).subscribe(res => {
-      console.log(res)
       this.recargar.emit(this.idEvento)
     })
   }

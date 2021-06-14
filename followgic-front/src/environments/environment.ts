@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  /* url:"http://localhost:8000",
-  url_real_time:"localhost:8000" */
-  url:"http://followgic-backend.herokuapp.com",
-  url_real_time:"followgic-backend.herokuapp.com"
+  url:"http://localhost:8000",
+  url_real_time:"localhost:8000"
+/*   url:"http://followgic-backend.herokuapp.com",
+  url_real_time:"followgic-backend.herokuapp.com" */
 
 };
 

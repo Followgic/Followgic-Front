@@ -40,7 +40,6 @@ export class TarjetaMensajeComponent implements OnInit {
 
   getMensajePorMago(idMago){
     this.mensajeService.getMensajesNoLeidosPorMago(idMago).subscribe(res => {
-      console.log(res)
       this.mensajesNoleidos= res
       if(this.mensajesNoleidos.length==0){
         this.invisible=true

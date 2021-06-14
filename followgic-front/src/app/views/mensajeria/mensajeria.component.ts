@@ -50,6 +50,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       destinatario: new FormControl(""),
 
     });
+  
 
     this.mensajeService.recargarMensaje$.subscribe(res => {
       this.mensajes = res
@@ -182,7 +183,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   recargarMensajesEventos(eliminar?) {
     this.eventoService.verComentariosEvento(this.evento.id).subscribe(res => {
-      console.log(res)
+
       this.mensajes = res.map(mensaje => {
         return {
           pk: mensaje.pk, cuerpo: mensaje.cuerpo, fecha: this.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente
@@ -227,7 +228,6 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   eliminarMensajeEvento(idMensaje) {
     this.eventoService.eliminarComentario(idMensaje).subscribe(res => {
-      console.log(res)
       let eliminar = true
       this.recargarMensajesEventos(eliminar)
     })

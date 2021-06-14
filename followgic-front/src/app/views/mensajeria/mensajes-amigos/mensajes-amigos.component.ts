@@ -231,7 +231,6 @@ export class MensajesAmigosComponent implements OnInit {
 
   verComentariosEvento(cb?) {
     this.eventoService.verComentariosEvento(this.evento.id).subscribe(res => {
-      console.log(res)
       try {
         this.mensajesEvento = res.map(mensaje => {
           return {
