@@ -27,6 +27,7 @@ export class EditarPerfilComponent implements OnInit {
   errores: any=[];
   direccionForm:any;
   filteredOptions: any[]
+  errorFormatoImagen:boolean = false
   constructor( private formBuilder:FormBuilder,private magoService: MagoService,private localizacionService: LocalizacionService ,private mapboxService: MapboxService, private modalidadesService: ModalidadesService, public dialog: MatDialog) {
 
     this.getMago()
@@ -221,6 +222,8 @@ export class EditarPerfilComponent implements OnInit {
 
   onChangeImagen(files: FileList) {
     let fichero = files.item(0)
+    if(fichero.type=="image/jpeg" ||  fichero.type=="image/png" || fichero.type=="image/jpg"){
+      this.errorFormatoImagen = false
     let fileReader = new FileReader();
 
     fileReader.onload = (e) => {
@@ -229,6 +232,10 @@ export class EditarPerfilComponent implements OnInit {
     }
     fileReader.readAsDataURL(fichero)
     this.imagen = fichero;
+  }else{
+    this.errorFormatoImagen = true
+    this.preImagen=""
+  }
 
 
 

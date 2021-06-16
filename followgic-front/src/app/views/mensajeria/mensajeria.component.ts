@@ -155,7 +155,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       this.vista=1
       this.mensajes = res.map(mensaje => {
         return {
-          pk: mensaje.pk, cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
+          pk: mensaje.id, cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
           destinatario: mensaje.destinatario, remitente: mensaje.remitente
         }
       })

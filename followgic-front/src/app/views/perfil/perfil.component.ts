@@ -158,6 +158,7 @@ export class PerfilComponent implements OnInit {
       )
     } else {
       this.magoService.getPerfilAmigo(id).subscribe(res => {
+        console.log("hola")
         this.datosUsuario = res;
 
         if(this.copiaModalidades.length == 0 ||JSON.stringify(this.copiaModalidades) !== JSON.stringify(this.datosUsuario.modalidades)){

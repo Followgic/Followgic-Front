@@ -55,7 +55,7 @@
                 <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
               </mat-form-field>
 
-             <!--  <form [formGroup]="direccionForm" class="example-form" fxLayout=row> -->
+           
                 <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
                   <mat-label>Dirección</mat-label>
                   <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
@@ -67,7 +67,7 @@
                   </mat-autocomplete>
                   <mat-error *ngIf="eventosForm.controls.direccion.invalid">{{getErrorDireccion()}}</mat-error>
                 </mat-form-field>
-            <!--   </form> -->
+        
             </mat-card>
             <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
 
@@ -242,7 +242,7 @@
               <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
             </mat-form-field>
 
-            <!--    <form [formGroup]="direccionForm" class="example-form" fxLayout=row> -->
+            
             <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
               <mat-label>Dirección</mat-label>
               <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
@@ -254,7 +254,7 @@
               </mat-autocomplete>
               <mat-error *ngIf="eventosForm.controls.direccion.invalid">{{getErrorDireccion()}}</mat-error>
             </mat-form-field>
-            <!--  </form> -->
+         
           </mat-card>
           <mat-card fxFlex.lg=45 fxFlex.xl=45 fxLayout="column">
 
