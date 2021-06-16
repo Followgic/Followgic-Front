@@ -32,6 +32,7 @@ export class MagoService implements HttpInterceptor {
     return next.handle(headers);
   }
   busqueda:any
+  recargarPerfil$ = new EventEmitter()
   busqueda$ = new EventEmitter()
   amigo$ = new EventEmitter()
   recargaAmigos$ = new EventEmitter()

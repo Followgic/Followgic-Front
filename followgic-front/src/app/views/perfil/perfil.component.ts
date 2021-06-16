@@ -47,6 +47,14 @@ export class PerfilComponent implements OnInit {
     this.obtenerIdUrl()
     this.getAllAmigos()
 
+    this.magoService.recargarPerfil$.subscribe(()=>{
+      this.errorAmigo=false
+      this.idAmigo = false
+      this.getMago()
+      this.getMisEventos()
+    }
+    
+    )
 
 
     this.perfilForm = new FormGroup({
@@ -158,7 +166,7 @@ export class PerfilComponent implements OnInit {
       )
     } else {
       this.magoService.getPerfilAmigo(id).subscribe(res => {
-        console.log("hola")
+     
         this.datosUsuario = res;
 
         if(this.copiaModalidades.length == 0 ||JSON.stringify(this.copiaModalidades) !== JSON.stringify(this.datosUsuario.modalidades)){
