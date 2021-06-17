@@ -35,6 +35,7 @@ export class CrearEventosComponent implements OnInit {
   imagen: File;
   tipoEventos: any;
   valorEvento: any;
+  errorFormatoImagen:boolean = false
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   modalidadControl = new FormControl();
@@ -236,8 +237,11 @@ export class CrearEventosComponent implements OnInit {
 
   }
 
+ 
   onChangeImagen(files: FileList) {
     let fichero = files.item(0)
+    if(fichero.type=="image/jpeg" ||  fichero.type=="image/png" || fichero.type=="image/jpg"){
+      this.errorFormatoImagen = false
     let fileReader = new FileReader();
 
     fileReader.onload = (e) => {
@@ -246,6 +250,10 @@ export class CrearEventosComponent implements OnInit {
     }
     fileReader.readAsDataURL(fichero)
     this.imagen = fichero;
+  }else{
+    this.errorFormatoImagen = true
+    this.preImagen=""
+  }
 
 
 
