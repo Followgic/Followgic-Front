@@ -14,11 +14,11 @@
 
         <button *ngIf="!loginService.logueado()"mat-menu-item routerLink="/login">Iniciar Sesión</button>
 
-        <button *ngIf="!loginService.logueado()"mat-menu-item (click)="openDialog()">Registrate</button>
+        <button *ngIf="!loginService.logueado()"mat-menu-item (click)="openDialog()">Regístrate</button>
 
       </mat-menu>
       <button *ngIf="!loginService.logueado()"fxHide.xs mat-button routerLink="/login">Iniciar Sesión</button>
-      <button *ngIf="!loginService.logueado()" fxHide.xs mat-button (click)="openDialog()">Registrarte</button>
+      <button *ngIf="!loginService.logueado()" fxHide.xs mat-button (click)="openDialog()">Regístrarte</button>
      
     
       <button    *ngIf="loginService.logueado()" [matMenuTriggerFor]="menuBuscar" mat-button  ><mat-icon  >search</mat-icon></button>

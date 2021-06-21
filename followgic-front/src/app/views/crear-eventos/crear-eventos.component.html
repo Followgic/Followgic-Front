@@ -92,7 +92,9 @@
                 <img fxFlex=100 #imagen class="imagenPerfil" src={{preImagen}}>
               </div>
               <div class="image-upload" fxFlex=15>
+                <p *ngIf="errorFormatoImagen" class="error">Formato no soportado</p>
                 <label for="file-input">
+                  
                   <a mat-stroked-button color="primary">Añadir Imagen </a>
                 </label>
 
