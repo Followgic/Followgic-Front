@@ -25,7 +25,7 @@ export class UtilidadesService {
 
   getHoraStr(date) {
     if (!date) date = new Date()
-    let hora = date.getHours() - 2
+    let hora = date.getHours() 
     let minutos = date.getMinutes()
     let segundos = date.getSeconds()
     return this.parse0(hora) + ":" + this.parse0(minutos)
