@@ -37,6 +37,8 @@ export class ListarMagosComponent implements OnInit {
   localizacion=[]
   timerStop:any
 
+  urlImagen = environment.url_img
+
 
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   constructor(public dialog: MatDialog,private loginService: LoginService,public localizacionService: LocalizacionService,private magoService: MagoService, private peticionService: PeticionService, private modalidadesService: ModalidadesService) {
@@ -130,10 +132,10 @@ export class ListarMagosComponent implements OnInit {
     this.magoService.getAllMagos().subscribe(res => {
         this.magos = res
       this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico, modalidades: mago.modalidades,localizacion: this.añadirLocalizacion(mago.localizacion) }})
-    /*   this.magos.forEach((mago, i) => {
-        this.magos[i].foto = environment.url + mago.foto  
+       this.magos.forEach((mago, i) => {
+        this.magos[i].foto = this.urlImagen + mago.foto  
       });
- */
+ 
     
       this.copiaMagos = Object.assign([] , this.magos)
       var GeoJSON = require('geojson');
@@ -187,6 +189,8 @@ export class ListarMagosComponent implements OnInit {
     this.magoService.getMagosPorNombreYModalidad(this.buscarMagos).subscribe( res=>{
       this.magos = res
 
+      this.magos =this.magos.map(mago=> {return{ pk: mago.pk , foto: this.urlImagen
+        + mago.foto, nombre: mago.nombre, nombre_artistico: mago.nombre_artistico }})
       }
       
     )

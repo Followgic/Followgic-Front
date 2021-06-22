@@ -18,6 +18,7 @@ export class TarjetaMensajeComponent implements OnInit {
   nombre:any
   mensajesNoleidos:any=[];
   invisible:boolean=false
+  urlImagen= environment.url_img
   
   
   constructor(private magoService: MagoService,private mensajeService: MensajeService) { 
@@ -65,6 +66,8 @@ export class TarjetaMensajeComponent implements OnInit {
 
     this.magoService.getPerfilAmigo(pkAmigo).subscribe(res =>{
       this.mago=res
+
+      this.mago.foto =this.urlImagen + this.mago.foto
 
    
      this.nombre = this.mago.nombre.split(" ")[0]     

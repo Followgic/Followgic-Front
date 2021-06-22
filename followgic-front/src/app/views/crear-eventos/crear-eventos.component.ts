@@ -16,6 +16,7 @@ import { VerEventoComponent } from '../ver-evento/ver-evento.component';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { MapboxService } from 'src/app/services/mapbox.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
+import { environment } from 'src/environments/environment';
 
 export interface Modalidad {
   pk: number;
@@ -36,6 +37,8 @@ export class CrearEventosComponent implements OnInit {
   tipoEventos: any;
   valorEvento: any;
   errorFormatoImagen:boolean = false
+
+  urlImagen = environment.url_img
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   modalidadControl = new FormControl();
@@ -402,7 +405,7 @@ add(event: MatChipInputEvent): void {
       }else{
         this.esPrivado=true
       }
-      this.preImagen =  this.eventosForm.value.foto
+      this.preImagen =  this.urlImagen + this.eventosForm.value.foto
 
 
 

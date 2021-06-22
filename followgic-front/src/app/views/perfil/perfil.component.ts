@@ -10,6 +10,7 @@ import { MagoService } from 'src/app/services/mago.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { EditarModalidadesComponent } from './editar-modalidades/editar-modalidades.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
+import { environment } from 'src/environments/environment';
 
 export interface Modalidad {
   pk: number;
@@ -33,6 +34,7 @@ export class PerfilComponent implements OnInit {
   numeroAmigos:any;
   misEventos:any = []
 
+  urlImagen = environment.url_img
 
 
   constructor( private eventoService: EventoService,private route: ActivatedRoute, private magoService: MagoService, private modalidadesService: ModalidadesService, private router: Router, public dialog: MatDialog,
@@ -153,7 +155,7 @@ export class PerfilComponent implements OnInit {
           nombre_artistico: this.datosUsuario.nombre_artistico,
           telefono: this.datosUsuario.telefono,
           email: this.datosUsuario.email,
-          foto: this.datosUsuario.foto,
+          foto: this.urlImagen + this.datosUsuario.foto,
           pagina_web: this.datosUsuario.pagina_web,
           descripcion: this.datosUsuario.descripcion,
           username: this.datosUsuario.username,
@@ -179,7 +181,7 @@ export class PerfilComponent implements OnInit {
           nombre_artistico: this.datosUsuario.nombre_artistico,
           telefono: this.datosUsuario.telefono,
           email: this.datosUsuario.email,
-          foto:  this.datosUsuario.foto,
+          foto: this.urlImagen+ this.datosUsuario.foto,
           pagina_web: this.datosUsuario.pagina_web,
           descripcion: this.datosUsuario.descripcion,
           modalidades: this.datosUsuario.modalidades,

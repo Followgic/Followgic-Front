@@ -32,6 +32,8 @@ idEvento:any
 
 @Input()
 esCreador:boolean =false
+
+urlImagen= environment.url_img
   
   constructor(private magoService: MagoService,public dialog: MatDialog, private peticionService: PeticionService, private eventoService: EventoService) { 
  
@@ -65,6 +67,8 @@ esCreador:boolean =false
   getMago(){
     this.magoService.getPerfilAmigo(this.peticion.remitente).subscribe(res =>{
       this.mago=res
+
+      this.mago.foto = this.urlImagen+this.mago.foto
 
      
     

@@ -25,6 +25,9 @@ export class ListarEventosComponent implements OnInit {
   eventosCargados: boolean = false
   noEventos: boolean = false
   copiaEventos: any = []
+
+  urlImagen=environment.url_img
+
   @ViewChild('ventanaLateral', { static: false }) ventanaLateral;
   timerStop: any;
   constructor(public dialog: MatDialog, private modalidadesService: ModalidadesService, public utilidadesService: UtilidadesService, public localizacionService: LocalizacionService, private eventoService: EventoService, private magoService: MagoService) {
@@ -122,7 +125,7 @@ export class ListarEventosComponent implements OnInit {
       this.eventos.map(evento => {
         return {
           aforo: evento.aforo, id: evento.id, asistentes: evento.asistentes, comentarios: evento.comentarios, creador: evento.creador,
-          fecha_creacion: new Date(evento.fecha_creacion), fecha_evento: this.utilidadesService.getFechaStr(new Date(evento.fecha_evento)), foto:evento.foto, hora_evento: evento.hora_evento,
+          fecha_creacion: new Date(evento.fecha_creacion), fecha_evento: this.utilidadesService.getFechaStr(new Date(evento.fecha_evento)), foto: this.urlImagen + evento.foto, hora_evento: evento.hora_evento,
           link_conferencia: evento.link_conferencia, modalidades: evento.modalidades, privacidad: evento.privacidad, tipo: evento.tipo, titulo: evento.titulo, token: evento.token, usuarios_activos: evento.usuarios_activos, localizacion: this.añadirLocalizacion(evento.localizacion),
           descripcion: evento.descripcion
         }
