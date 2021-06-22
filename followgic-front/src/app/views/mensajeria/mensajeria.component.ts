@@ -244,6 +244,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       fecha = this.getFechaStr(fecha)
     } else {
       fecha = this.getHoraStr(fecha)
+
     }
     return fecha
 
@@ -258,7 +259,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   getHoraStr(date) {
     if (!date) date = new Date()
-    let hora = date.getHours() - 1
+    let hora = date.getHours() -2
     let minutos = date.getMinutes()
     let segundos = date.getSeconds()
     return this.parse0(hora) + ":" + this.parse0(minutos)
