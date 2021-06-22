@@ -15,7 +15,7 @@
             </mat-card-subtitle>
 
             <button *ngIf="!loginService.logueado()" class="boton" mat-raised-button color="primary"
-                (click)="toolbarComponent.openDialog()">Registrate</button>
+                (click)="toolbarComponent.openDialog()">Regístrate</button>
               
                 <app-buscador  [titulo]='"Buscar magos"' (search)="redirigir(null,$event)" *ngIf="loginService.logueado()"></app-buscador>
               <button *ngIf="loginService.logueado()"  mat-raised-button color="primary"

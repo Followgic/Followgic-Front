@@ -28,13 +28,11 @@ export class LoginService {
 
 
   login(mago){
-   console.log(mago)
     return this.http.post<any>(this.URL + '/user/token/login', mago, {headers: this.httpHeaders});
   }
 
   
   logout(mago){
-    console.log(this.httpHeadersToken)
      return this.http.post<any>(this.URL + '/user/token/logout/', mago, {headers: this.httpHeadersToken});
    }
  

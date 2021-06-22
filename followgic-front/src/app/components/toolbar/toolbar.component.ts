@@ -8,6 +8,7 @@ import { AvisoPreguntasComponent } from 'src/app/views/registro/aviso-preguntas/
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { PeticionService } from 'src/app/services/peticion.service';
 import { EventoService } from 'src/app/services/evento.service';
+import { MagoService } from 'src/app/services/mago.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -30,9 +31,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   abrirNotificaciones = new EventEmitter();
   constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-     public loginService: LoginService, public peticionService: PeticionService, public mensajeService: MensajeService, private eventoService: EventoService, private router: Router) {
+     public loginService: LoginService, public magoService: MagoService,public peticionService: PeticionService, public mensajeService: MensajeService, private eventoService: EventoService, private router: Router) {
+    if(this.loginService.logueado()){
     this.getPeticionesRecibidas()
     this.getConversancion()
+  }
     this.mobileQuery = media.matchMedia('(max-width: 100px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -77,10 +80,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     let mago
     this.snav.close()
     mago = localStorage.getItem('mago');
+   
     this.loginService.logout(mago).subscribe(res => {
 
       localStorage.clear()
       this.router.navigate(['/login'])
+    },error =>{
+      localStorage.clear()
     })
 
 
@@ -127,6 +133,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.peticionesRecibidas = res.length
 
     })
+  }
+
+  cargarPerfil(){
+    this.router.navigate(['/perfil'])
+    this.magoService.recargarPerfil$.emit()
   }
 
 

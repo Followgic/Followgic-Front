@@ -55,7 +55,7 @@
                 <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
               </mat-form-field>
 
-              <form [formGroup]="direccionForm" class="example-form" fxLayout=row>
+           
                 <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
                   <mat-label>Dirección</mat-label>
                   <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
@@ -65,8 +65,9 @@
                       {{option.place_name}}
                     </mat-option>
                   </mat-autocomplete>
+                  <mat-error *ngIf="eventosForm.controls.direccion.invalid">{{getErrorDireccion()}}</mat-error>
                 </mat-form-field>
-              </form>
+        
             </mat-card>
             <mat-card fxFlex.lg=45 fxFlex.xl=40 fxLayout="column">
 
@@ -91,7 +92,9 @@
                 <img fxFlex=100 #imagen class="imagenPerfil" src={{preImagen}}>
               </div>
               <div class="image-upload" fxFlex=15>
+                <p *ngIf="errorFormatoImagen" class="error">Formato no soportado</p>
                 <label for="file-input">
+                  
                   <a mat-stroked-button color="primary">Añadir Imagen </a>
                 </label>
 
@@ -241,18 +244,19 @@
               <input type="url" matInput placeholder="Link de sala" formControlName="link_conferencia">
             </mat-form-field>
 
-             <form [formGroup]="direccionForm" class="example-form" fxLayout=row>
-                <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
-                  <mat-label>Dirección</mat-label>
-                  <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
-                    formControlName="direccion" [matAutocomplete]="auto">
-                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-                    <mat-option *ngFor="let option of filteredOptions " [value]="option">
-                      {{option.place_name}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </form>
+            
+            <mat-form-field fxFlex=100 class="example-full-width" appearance="outline">
+              <mat-label>Dirección</mat-label>
+              <input type="text" placeholder="Dirección" matInput (input)="getDirecciones($event)"
+                formControlName="direccion" [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions " [value]="option">
+                  {{option.place_name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="eventosForm.controls.direccion.invalid">{{getErrorDireccion()}}</mat-error>
+            </mat-form-field>
+         
           </mat-card>
           <mat-card fxFlex.lg=45 fxFlex.xl=45 fxLayout="column">
 
@@ -277,6 +281,7 @@
               <img fxFlex=100 #imagen class="imagenPerfil" src={{preImagen}}>
             </div>
             <div class="image-upload" fxFlex=15>
+              <p *ngIf="errorFormatoImagen" class="error">Formato no soportado</p>
               <label for="file-input">
                 <a mat-stroked-button color="primary">Añadir Imagen </a>
               </label>
@@ -290,11 +295,12 @@
         <br>
         <div *ngIf="data" fxLayout="row" fxLayoutAlign="space-evenly center">
           <button mat-raised-button target="_blank" [mat-dialog-close]="'cancelar'" type="button">Cancelar</button>
-          <button mat-raised-button class="mat-primary" type="submit" (click)="editLocalizacion()">Editar Evento</button>
+          <button mat-raised-button class="mat-primary" type="submit" (click)="editLocalizacion()">Editar
+            Evento</button>
         </div>
         <div *ngIf="!data" fxLayout="row" fxLayoutAlign="center" fxLayoutAlign.xs="end">
           <div fxLayout="row" fxFlex.xl=74 fxFlex.lg=86 fxLayoutAlign="end">
-            <button mat-button matStepperNext >Siguiente</button>
+            <button mat-button matStepperNext>Siguiente</button>
 
           </div>
         </div>

@@ -15,6 +15,8 @@ export class AmigosComponent implements OnInit {
   amigos:any =[]
   hayAmigos:boolean = true
 
+  urlImagen = environment.url_img
+
   @ViewChild(CartaComponent) carta:CartaComponent;	
   constructor(public dialog: MatDialog,private magoService: MagoService) {
   this.getAllAmigos()
@@ -26,7 +28,7 @@ export class AmigosComponent implements OnInit {
     this.hayAmigos =true
   }
     this.amigosId=this.amigos.map(amigo => amigo.pk)
-      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
+      this.amigos =this.amigos.map(amigo=> {return{ pk: amigo.pk , foto: this.urlImagen + amigo.foto, nombre: amigo.nombre, nombre_artistico: amigo.nombre_artistico }})
   })
   
   }
@@ -62,9 +64,9 @@ export class AmigosComponent implements OnInit {
 
       this.amigosId=this.amigos.map(amigo => amigo.pk)
   
-    /*   this.amigos.forEach((amigo, i) => {
-        this.amigos[i].foto = environment.url + amigo.foto  
-      }); */
+       this.amigos.forEach((amigo, i) => {
+        this.amigos[i].foto = this.urlImagen + amigo.foto  
+      }); 
    
     })
   }

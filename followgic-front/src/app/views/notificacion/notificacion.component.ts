@@ -3,7 +3,7 @@ import { EventoService } from 'src/app/services/evento.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { PeticionService } from 'src/app/services/peticion.service';
 import { UtilidadesService } from 'src/app/services/utilidades.service';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-notificacion',
   templateUrl: './notificacion.component.html',
@@ -17,6 +17,8 @@ mensajesNoLeidos:any =[];
 mensajes:any=[]
 invitacionesEventos:any=[]
 comentariosNoLeidos=0
+
+urlImagen = environment.url_img
   constructor(private peticionService: PeticionService,private eventoService: EventoService,private mensajeService: MensajeService, private utilidadesService:UtilidadesService) {
    this.getPeticionesRecibidas() 
    this.getInvitacionesEventos()
@@ -87,7 +89,7 @@ comentariosNoLeidos=0
       this.eventoService.recargarInvitaciones$.emit(res.length)
       this.invitacionesEventos = res.map(invitacion => {
         return {
-          pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto: invitacion.evento.foto
+          pk: invitacion.pk, evento: invitacion.evento, fecha: this.utilidadesService.formatearDatos(new Date(invitacion.fecha)), destinatario: invitacion.destinatario, foto: this.urlImagen+invitacion.evento.foto
         }
       })
       console.log(this.invitacionesEventos)

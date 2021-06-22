@@ -50,6 +50,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       destinatario: new FormControl(""),
 
     });
+  
 
     this.mensajeService.recargarMensaje$.subscribe(res => {
       this.mensajes = res
@@ -154,7 +155,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       this.vista=1
       this.mensajes = res.map(mensaje => {
         return {
-          pk: mensaje.pk, cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
+          pk: mensaje.id, cuerpo: mensaje.cuerpo, estado: mensaje.estado, fecha: this.formatearDatos(new Date(mensaje.fecha)),
           destinatario: mensaje.destinatario, remitente: mensaje.remitente
         }
       })
@@ -182,7 +183,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   recargarMensajesEventos(eliminar?) {
     this.eventoService.verComentariosEvento(this.evento.id).subscribe(res => {
-      console.log(res)
+
       this.mensajes = res.map(mensaje => {
         return {
           pk: mensaje.pk, cuerpo: mensaje.cuerpo, fecha: this.formatearDatos(new Date(mensaje.fecha)), remitente: mensaje.remitente
@@ -227,7 +228,6 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   eliminarMensajeEvento(idMensaje) {
     this.eventoService.eliminarComentario(idMensaje).subscribe(res => {
-      console.log(res)
       let eliminar = true
       this.recargarMensajesEventos(eliminar)
     })
@@ -244,6 +244,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
       fecha = this.getFechaStr(fecha)
     } else {
       fecha = this.getHoraStr(fecha)
+
     }
     return fecha
 
@@ -258,7 +259,7 @@ export class MensajeriaComponent implements OnInit, AfterViewChecked {
 
   getHoraStr(date) {
     if (!date) date = new Date()
-    let hora = date.getHours() - 1
+    let hora = date.getHours() -2
     let minutos = date.getMinutes()
     let segundos = date.getSeconds()
     return this.parse0(hora) + ":" + this.parse0(minutos)

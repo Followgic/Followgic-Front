@@ -15,6 +15,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { VerEventoComponent } from '../ver-evento/ver-evento.component';
 import { LocalizacionService } from 'src/app/services/localizacion.service';
 import { MapboxService } from 'src/app/services/mapbox.service';
+import { MensajeService } from 'src/app/services/mensaje.service';
+import { environment } from 'src/environments/environment';
 
 export interface Modalidad {
   pk: number;
@@ -34,6 +36,9 @@ export class CrearEventosComponent implements OnInit {
   imagen: File;
   tipoEventos: any;
   valorEvento: any;
+  errorFormatoImagen:boolean = false
+
+  urlImagen = environment.url_img
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   modalidadControl = new FormControl();
@@ -54,7 +59,7 @@ export class CrearEventosComponent implements OnInit {
   @ViewChild('modalidadInput') modalidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor( private formBuilder:FormBuilder, private router: Router,private mapboxService: MapboxService,private localizacionService: LocalizacionService,private eventoService: EventoService, private utilidadesService:UtilidadesService, private modalidadesService:ModalidadesService
+  constructor( private formBuilder:FormBuilder, private router: Router,private mapboxService: MapboxService,private mensajeService: MensajeService,private localizacionService: LocalizacionService,private eventoService: EventoService, private utilidadesService:UtilidadesService, private modalidadesService:ModalidadesService
     , @Optional() @Inject(MAT_DIALOG_DATA) public data:{ idEvento:any;}, public dialog: MatDialog) {
     this.getModalidades( ()=>{
     this.filtroModalidad()})
@@ -88,7 +93,8 @@ export class CrearEventosComponent implements OnInit {
         modalidades:[""],
         comentario:[""],
         privacidad:[""],
-        localizacion:[""]
+        localizacion:[""],
+        direccion: ["",[Validators.required]],
       },
       {
         validators: fechaInferiorActual,
@@ -136,6 +142,12 @@ export class CrearEventosComponent implements OnInit {
     return 'Tiene que ser igual o superior a 2'
   }
 
+  getErrorDireccion() {
+    if (this.eventosForm.controls.direccion.hasError('required')) {
+      return 'Tienes que introducir una dirección'
+    }
+  }
+
 
   save() {
     if(!this.eventosForm.invalid){
@@ -147,11 +159,16 @@ export class CrearEventosComponent implements OnInit {
       this.eventosForm.controls.privacidad.setValue(0)
 
     }
+    let evento = this.eventosForm.value
 
-    this.eventoService.crearEvento(this.eventosForm.value).subscribe(res => {
+    delete evento.direccion
+    console.log(evento)
+
+    this.eventoService.crearEvento(evento).subscribe(res => {
       this.eventosForm.reset()
       this.nombreMisModalidades=[]
       this.esPrivado=false
+      this.eventoService.recargarUltimoComentarioEvento$.emit()
      
       if (this.imagen) {
         this.saveImangen(res.pk)
@@ -177,7 +194,7 @@ export class CrearEventosComponent implements OnInit {
     this.eventosForm.controls.fecha_evento.setValue(this.utilidadesService.getFechaStrBD(this.eventosForm.value.fecha_evento))
     }
     this.eventoService.editarEvento(this.datosEvento.id,this.eventosForm.value).subscribe(res=>{
-      console.log(res)
+     
       
       if (this.imagen) {
         this.saveImangen(res.pk)
@@ -191,8 +208,8 @@ export class CrearEventosComponent implements OnInit {
 
 
   editLocalizacion(){
-    if(this.direccionForm.controls.direccion.value){
-    let direccionCompleta = this.direccionForm.controls.direccion.value
+    if(this.eventosForm.controls.direccion.value){
+    let direccionCompleta = this.eventosForm.controls.direccion.value
     this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
     this.direccionForm.controls.latitud.setValue(direccionCompleta.center[1])
     this.direccionForm.controls.direccion.setValue(direccionCompleta.place_name)
@@ -202,7 +219,7 @@ export class CrearEventosComponent implements OnInit {
     })}else{
       this.editarEvento()
     }
-    console.log(this.direccionForm.value)
+
   
   }
   
@@ -223,8 +240,11 @@ export class CrearEventosComponent implements OnInit {
 
   }
 
+ 
   onChangeImagen(files: FileList) {
     let fichero = files.item(0)
+    if(fichero.type=="image/jpeg" ||  fichero.type=="image/png" || fichero.type=="image/jpg"){
+      this.errorFormatoImagen = false
     let fileReader = new FileReader();
 
     fileReader.onload = (e) => {
@@ -233,6 +253,10 @@ export class CrearEventosComponent implements OnInit {
     }
     fileReader.readAsDataURL(fichero)
     this.imagen = fichero;
+  }else{
+    this.errorFormatoImagen = true
+    this.preImagen=""
+  }
 
 
 
@@ -247,10 +271,7 @@ export class CrearEventosComponent implements OnInit {
     }
   }
 
-  pintarVariables() {
-    console.log(this.eventosForm.value)
 
-  }
 
  //Metodos para modalidades
 
@@ -347,13 +368,13 @@ add(event: MatChipInputEvent): void {
 
   misModalidadesId(){
     this.idMisModalidades = this.modalidades.filter(modalidad=> this.nombreMisModalidades.includes(modalidad.nombre)).map(modalidad => modalidad.pk)
-    console.log(this.idMisModalidades)
+
   }
 
   getEventoPorId(idEvento){
     this.eventoService.getEventoPorId(idEvento).subscribe(res => {
       this.datosEvento = res
-      console.log(this.datosEvento)
+   
       this.eventosForm.setValue({
         titulo: this.datosEvento.titulo,
         tipo: this.datosEvento.tipo,
@@ -367,7 +388,9 @@ add(event: MatChipInputEvent): void {
         foto: this.datosEvento.foto,
         comentario: this.datosEvento.comentarios,
         privacidad: this.datosEvento.privacidad,
-        localizacion: this.datosEvento.localizacion
+        localizacion: this.datosEvento.localizacion,
+        direccion:{place_name: this.datosEvento.localizacion.direccion , center:[this.datosEvento.localizacion.longitud,this.datosEvento.localizacion.latitud], pk: this.datosEvento.localizacion.pk}
+       
        
       })
       if(this.datosEvento.localizacion){
@@ -382,7 +405,7 @@ add(event: MatChipInputEvent): void {
       }else{
         this.esPrivado=true
       }
-      this.preImagen =  this.eventosForm.value.foto
+      this.preImagen =  this.urlImagen + this.eventosForm.value.foto
 
 
 
@@ -394,6 +417,9 @@ add(event: MatChipInputEvent): void {
  //select de direccion
  
  saveDireccion(){
+  if(this.eventosForm.controls.direccion.value){
+    this.direccionForm.controls.direccion.setValue(this.eventosForm.controls.direccion.value)
+  }
   if(this.direccionForm.controls.direccion.value){
   let direccionCompleta = this.direccionForm.controls.direccion.value
   this.direccionForm.controls.longitud.setValue(direccionCompleta.center[0])
@@ -406,7 +432,7 @@ add(event: MatChipInputEvent): void {
   })}else{
     this.save()
   }
-  console.log(this.direccionForm.value)
+
 
 }
 

@@ -55,7 +55,7 @@ recargarTiempoReal() {
           this.mensajeService.recargarConversaciones$.emit(res)
         })
 
-        console.log(this.notificationPeticion)
+       
       } else if (mensaje[0] == "Mensaje" && mensaje[1] == "remitente" && this.varita.dentro==true && this.varita.idUsuario==mensaje[2]) {
         this.mensajeService.getConversacionPorMago(mensaje[2]).subscribe(res => {
           this.mensajeService.recargarMensaje$.emit(res)

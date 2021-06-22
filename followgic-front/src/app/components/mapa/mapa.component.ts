@@ -132,7 +132,7 @@ export class MapaComponent implements OnInit {
         geocodes.push(coordinateFeature(coord1, coord2));
         geocodes.push(coordinateFeature(coord2, coord1));
       }
-      console.log(geocodes)
+     
 
       return geocodes;
     };
@@ -283,7 +283,6 @@ export class MapaComponent implements OnInit {
         this.coordenadas = []
         this.coordenadas.push(e.features[0].properties.long);
         this.coordenadas.push(e.features[0].properties.lat);
-        console.log(this.coordenadas)
         this.localizacionService.localizacionFiltrada$.emit(this.coordenadas)
 
         // Ensure that if the this.mapa is zoomed out such that

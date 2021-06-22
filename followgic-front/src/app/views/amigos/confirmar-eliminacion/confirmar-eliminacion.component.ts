@@ -21,7 +21,6 @@ export class ConfirmarEliminacionComponent implements OnInit {
 
   eliminarAmigo(){
     this.magoService.eliminarAmigo(this.data.id).subscribe(res=>{
-      console.log(res)
       this.dialogRef.close();
       })
   }

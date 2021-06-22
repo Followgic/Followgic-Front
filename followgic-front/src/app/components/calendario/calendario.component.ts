@@ -29,7 +29,7 @@ export class CalendarioComponent implements OnInit {
       fechas.forEach(fecha => {
         fecha =fecha.split("-")
         dia= fecha[2]
-        console.log(dia.substr(0,1))
+     
         if(dia.substr(0,1)=='0'){
           dia = Number(dia.slice(1))
         }else{
@@ -68,7 +68,7 @@ export class CalendarioComponent implements OnInit {
         
       });
 
-      console.log(this.listaFecha)
+     
       
       this.pintado = true
       
@@ -103,7 +103,7 @@ export class CalendarioComponent implements OnInit {
   
 }
 onSelect(event){
-  console.log(event);
+
   this.selectedDate = event;
   this.eventos = this.copiaEventos.filter(evento => evento.fecha_evento==this.utilidadesService.getFechaStrBD(event))
   this.eventoService.eventosFiltrados$.emit(this.eventos)

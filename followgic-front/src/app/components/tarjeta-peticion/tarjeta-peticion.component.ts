@@ -32,6 +32,8 @@ idEvento:any
 
 @Input()
 esCreador:boolean =false
+
+urlImagen= environment.url_img
   
   constructor(private magoService: MagoService,public dialog: MatDialog, private peticionService: PeticionService, private eventoService: EventoService) { 
  
@@ -66,6 +68,8 @@ esCreador:boolean =false
     this.magoService.getPerfilAmigo(this.peticion.remitente).subscribe(res =>{
       this.mago=res
 
+      this.mago.foto = this.urlImagen+this.mago.foto
+
      
     
     })
@@ -90,7 +94,6 @@ esCreador:boolean =false
 
   elimnarUsuarioEvento(idMago){
    this.eventoService.eliminarAsistenteEvento(this.idEvento, idMago).subscribe(res => {
-     console.log(res)
      this.recargar.emit(this.idEvento)
    })
   }
@@ -98,7 +101,6 @@ esCreador:boolean =false
   
   enviarInvitacion(idInvitado){
     this.eventoService.generarInvitacion(this.idEvento,idInvitado).subscribe(res => {
-      console.log(res)
       this.recargar.emit(this.idEvento)
     })
   }

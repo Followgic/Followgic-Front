@@ -6,6 +6,7 @@ import { MagoService } from 'src/app/services/mago.service';
 import { MapboxService } from 'src/app/services/mapbox.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { validarQueSeanIguales } from '../../../utils/password.validator';
+import { environment } from 'src/environments/environment';
 
 export interface Modalidad {
   pk: number;
@@ -27,6 +28,8 @@ export class EditarPerfilComponent implements OnInit {
   errores: any=[];
   direccionForm:any;
   filteredOptions: any[]
+  errorFormatoImagen:boolean = false
+  urlImagen = environment.url_img
   constructor( private formBuilder:FormBuilder,private magoService: MagoService,private localizacionService: LocalizacionService ,private mapboxService: MapboxService, private modalidadesService: ModalidadesService, public dialog: MatDialog) {
 
     this.getMago()
@@ -138,7 +141,7 @@ export class EditarPerfilComponent implements OnInit {
 
      
       }
-      this.preImagen =  this.perfilForm.value.foto
+      this.preImagen = this.urlImagen + this.perfilForm.value.foto
 
 
     
@@ -221,6 +224,8 @@ export class EditarPerfilComponent implements OnInit {
 
   onChangeImagen(files: FileList) {
     let fichero = files.item(0)
+    if(fichero.type=="image/jpeg" ||  fichero.type=="image/png" || fichero.type=="image/jpg"){
+      this.errorFormatoImagen = false
     let fileReader = new FileReader();
 
     fileReader.onload = (e) => {
@@ -229,6 +234,10 @@ export class EditarPerfilComponent implements OnInit {
     }
     fileReader.readAsDataURL(fichero)
     this.imagen = fichero;
+  }else{
+    this.errorFormatoImagen = true
+    this.preImagen=""
+  }
 
 
 

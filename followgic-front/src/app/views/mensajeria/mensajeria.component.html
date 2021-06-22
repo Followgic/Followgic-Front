@@ -56,7 +56,7 @@
 
                             </mat-card>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item (click)="eliminarMensaje(mensaje.id, mago.pk)">Eliminar
+                                <button mat-menu-item (click)="eliminarMensaje(mensaje.pk, mago.pk)">Eliminar
                                     Mensaje</button>
                             </mat-menu>
 
@@ -85,7 +85,7 @@
 
     <div *ngIf="vista==2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
         <mat-card class="principal" fxLayout="column" fxLayoutAlign="start">
-            <mat-card class="cardPerfil" fxFlex=13 fxFlex.xs=15 fxLayout="row">
+            <mat-card class="cardPerfil" fxFlex=13  fxLayout="row">
                 <div>
                     <button mat-icon-button (click)="resetearEvento()">
                         <mat-icon>keyboard_arrow_right</mat-icon>
@@ -98,7 +98,7 @@
 
             </mat-card>
             
-            <mat-card class="conversacion" fxFlex=71  fxFlex.xs=65 >
+            <mat-card class="conversacion" fxFlex=71   >
                 <mat-card-content #scrollMe (scroll)="onScroll()" fxFlex=100 class="mensajes">
                     
                     <div *ngFor=" let mensaje of mensajes">
@@ -140,7 +140,7 @@
                 </mat-card-content>
             </mat-card>
             
-            <mat-card class="cardEnviar" fxFlex=16 fxFlex.xs=20 fxFlex.xl=14>
+            <mat-card class="cardEnviar" fxFlex=16  fxFlex.xl=14>
                 <form [formGroup]="mensajeForm" fxLayout="row">
                     <mat-form-field class="escribir" appearance="outline">
                         <mat-label>Escribir mensaje</mat-label>

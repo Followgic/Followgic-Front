@@ -14,18 +14,18 @@
 
         <button *ngIf="!loginService.logueado()"mat-menu-item routerLink="/login">Iniciar Sesión</button>
 
-        <button *ngIf="!loginService.logueado()"mat-menu-item (click)="openDialog()">Registrate</button>
+        <button *ngIf="!loginService.logueado()"mat-menu-item (click)="openDialog()">Regístrate</button>
 
       </mat-menu>
       <button *ngIf="!loginService.logueado()"fxHide.xs mat-button routerLink="/login">Iniciar Sesión</button>
-      <button *ngIf="!loginService.logueado()" fxHide.xs mat-button (click)="openDialog()">Registrarte</button>
+      <button *ngIf="!loginService.logueado()" fxHide.xs mat-button (click)="openDialog()">Regístrarte</button>
      
     
       <button    *ngIf="loginService.logueado()" [matMenuTriggerFor]="menuBuscar" mat-button  ><mat-icon  >search</mat-icon></button>
       <button  class="buscarPerfil"  *ngIf="loginService.logueado()" mat-icon-button [matMenuTriggerFor]="menuPrincipal"><mat-icon class="perfil" >account_circle</mat-icon></button>
     
       <mat-menu  #menuPrincipal="matMenu">
-        <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/perfil">Perfil</button>
+        <button  *ngIf="loginService.logueado()"mat-menu-item (click)="cargarPerfil()">Perfil</button>
         <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/amigos">Mis amigos</button>
         <button  *ngIf="loginService.logueado()"mat-menu-item routerLink="/lista-eventos-inscritos">Eventos Inscritos</button>
         

@@ -1,6 +1,7 @@
 .header{
     background-color:#e0f1f0;  
-    height: calc((100vh - 180px)/2) !important;
+    min-height: calc((100vh - 180px)/2) !important;
+  
     border-top-left-radius: 0px; 
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 
@@ -41,7 +42,8 @@
 
 //#f7941e
 .segunda{
-    height: calc((100vh - 247px)/2) !important;
+   min-height: calc((100vh - 247px)/2) !important;
+   
     border-top-left-radius: 0px; 
     border-top-right-radius: 0px; 
     border-bottom-left-radius: 0px; 

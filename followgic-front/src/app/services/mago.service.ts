@@ -32,6 +32,7 @@ export class MagoService implements HttpInterceptor {
     return next.handle(headers);
   }
   busqueda:any
+  recargarPerfil$ = new EventEmitter()
   busqueda$ = new EventEmitter()
   amigo$ = new EventEmitter()
   recargaAmigos$ = new EventEmitter()
@@ -69,7 +70,7 @@ export class MagoService implements HttpInterceptor {
 
   getPerfilAmigo(id) {
 
-    return this.http.get<any>(`${this.URL}/user/verPerfil/${id}`, { headers: this.httpHeaders });
+    return this.http.get<any>(`${this.URL}/user/verPerfil/${id}/`, { headers: this.httpHeaders });
   }
 
   getMagosPorNombreYModalidad(peticion){
